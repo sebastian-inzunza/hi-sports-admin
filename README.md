@@ -1,29 +1,23 @@
-# Next.js + Jest
+# KaliConnect - ADMIN PANEL
 
-This example shows how to configure Jest to work with Next.js.
+This is the admin panel for KaliConnect. It is a web application that allows you to manage your KaliConnect server.
 
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript.
+## Installation
 
-## How to Use
+Run `yarn install`
 
-Quickly get started using [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app#readme)!
+### Requirements
 
-In your terminal, run the following command:
+- Next.js
+- Yarn
+- Node.js
 
-```bash
-npx create-next-app --example with-jest with-jest-app
-```
+## Development Setup
 
-```bash
-yarn create next-app --example with-jest with-jest-app
-```
+Run `yarn dev` to start the development server.
 
-```bash
-pnpm create next-app --example with-jest with-jest-app
-```
+## Testing
 
-## Run Jest Tests
+Please add tests for any new features you add.
 
-```bash
-npm test
-```
+Run `yarn test` to run the tests.
