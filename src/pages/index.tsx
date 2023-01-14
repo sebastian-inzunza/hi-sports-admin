@@ -1,7 +1,5 @@
-export default function Home() {
-  return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+import AdminLayout from '@/components/layout/admin'
+
+export default function Dashboard() {
+  return <AdminLayout />
 }
