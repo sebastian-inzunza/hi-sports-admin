@@ -8,12 +8,17 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "autoprefixer": "^10.4.13",
+    "classnames": "^2.3.2",
+    "framer-motion": "^8.4.3",
     "next": "latest",
     "postcss": "^8.4.21",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "tailwindcss": "^3.2.4"
+    "react-hook-form": "^7.42.0",
+    "tailwindcss": "^3.2.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.16.4",
