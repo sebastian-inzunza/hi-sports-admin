@@ -5,73 +5,33 @@ export const Routes = {
   register: '/register',
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',
-  adminMyShops: '/my-shops',
   profile: '/profile',
-  verifyCoupons: '/coupons/verify',
   settings: '/settings',
-  storeSettings: '/vendor/settings',
-  storeKeepers: '/vendor/store_keepers',
   profileUpdate: '/profile-update',
   checkout: '/orders/checkout',
   user: {
     ...routesFactory('/users'),
   },
-  type: {
-    ...routesFactory('/groups'),
+  operators: {
+    ...routesFactory('/operators'),
+  },
+  blog: {
+    ...routesFactory('/blog'),
+  },
+  tracker: {
+    ...routesFactory('/tracker'),
   },
   category: {
     ...routesFactory('/categories'),
   },
-  attribute: {
-    ...routesFactory('/attributes'),
+  dataRecord: {
+    ...routesFactory('/data_records'),
   },
-  attributeValue: {
-    ...routesFactory('/attribute-values'),
-  },
-  tag: {
-    ...routesFactory('/tags'),
+  alerts: {
+    ...routesFactory('/alerts'),
   },
   reviews: {
     ...routesFactory('/reviews'),
-  },
-  abuseReviews: {
-    ...routesFactory('/abusive_reports'),
-  },
-  abuseReviewsReport: {
-    ...routesFactory('/abusive_reports/reject'),
-  },
-  author: {
-    ...routesFactory('/authors'),
-  },
-  coupon: {
-    ...routesFactory('/coupons'),
-  },
-  manufacturer: {
-    ...routesFactory('/manufacturers'),
-  },
-  order: {
-    ...routesFactory('/orders'),
-  },
-  orderStatus: {
-    ...routesFactory('/order-status'),
-  },
-  orderCreate: {
-    ...routesFactory('/orders/create'),
-  },
-  product: {
-    ...routesFactory('/products'),
-  },
-  shop: {
-    ...routesFactory('/shops'),
-  },
-  tax: {
-    ...routesFactory('/taxes'),
-  },
-  shipping: {
-    ...routesFactory('/shippings'),
-  },
-  withdraw: {
-    ...routesFactory('/withdraws'),
   },
   staff: {
     ...routesFactory('/staffs'),

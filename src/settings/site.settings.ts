@@ -36,34 +36,9 @@ export const siteSettings = {
         icon: 'DashboardIcon',
       },
       {
-        href: Routes.shop.list,
-        label: 'Proveedores',
+        href: Routes.operators.list,
+        label: 'Operadores',
         icon: 'ShopIcon',
-      },
-      {
-        href: Routes.adminMyShops,
-        label: 'Proyectos',
-        icon: 'MyShopIcon',
-      },
-      {
-        href: Routes.product.list,
-        label: 'Productos',
-        icon: 'ProductsIcon',
-      },
-      {
-        href: Routes.attribute.list,
-        label: 'Atributos',
-        icon: 'AttributeIcon',
-      },
-      {
-        href: Routes.tag.list,
-        label: 'Tags',
-        icon: 'TagIcon',
-      },
-      {
-        href: Routes.order.list,
-        label: 'Alertas',
-        icon: 'OrdersIcon',
       },
       {
         href: Routes.user.list,
@@ -71,14 +46,24 @@ export const siteSettings = {
         icon: 'UsersIcon',
       },
       {
-        href: Routes.withdraw.list,
-        label: 'Withdraws',
-        icon: 'WithdrawIcon',
+        href: Routes.blog.list,
+        label: 'Blog',
+        icon: 'ProductsIcon',
       },
       {
-        href: Routes.question.list,
-        label: 'Chat',
-        icon: 'QuestionIcon',
+        href: Routes.dataRecord.list,
+        label: 'Date Record',
+        icon: 'AttributeIcon',
+      },
+      {
+        href: Routes.tracker.list,
+        label: 'Tracker',
+        icon: 'TagIcon',
+      },
+      {
+        href: Routes.alerts.list,
+        label: 'Alertas',
+        icon: 'OrdersIcon',
       },
       {
         href: Routes.reviews.list,
