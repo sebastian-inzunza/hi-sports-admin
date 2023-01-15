@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const Logo: React.FC = () => {
+type Props = {
+  className?: string
+}
+const Logo = (props: Props) => {
   return (
     <Link href="/">
       <Image
@@ -10,6 +13,7 @@ const Logo: React.FC = () => {
         width={110}
         height={110}
         loading="eager"
+        {...props}
       />
     </Link>
   )

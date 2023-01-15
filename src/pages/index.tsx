@@ -1,5 +1,8 @@
-import AdminLayout from '@/components/layout/admin'
+import AppLayout from '@/components/layout/app'
+import AdminDashboard from '@/components/dashboard/admin'
 
 export default function Dashboard() {
-  return <AdminLayout />
+  return <AdminDashboard />
 }
+
+Dashboard.Layout = AppLayout
