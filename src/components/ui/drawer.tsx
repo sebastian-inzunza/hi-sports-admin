@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react'
 import Portal from '@reach/portal'
-import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   disableBodyScroll,
@@ -29,8 +28,6 @@ const Drawer: React.FunctionComponent<SidebarProps> = ({
   useBlurBackdrop,
   onClose,
 }) => {
-  const { locale } = useRouter()
-  const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
   const ref = useRef() as DivElementRef
   useEffect(() => {
     if (ref.current) {
@@ -57,7 +54,6 @@ const Drawer: React.FunctionComponent<SidebarProps> = ({
             exit="from"
             variants={variant === 'right' ? fadeInRight() : fadeInLeft()}
             className="fixed inset-0 z-50 h-full overflow-hidden"
-            dir={dir}
           >
             <div className="absolute inset-0 overflow-hidden">
               <motion.div

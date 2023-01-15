@@ -1512,6 +1512,23 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tailwindcss/forms@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.5.3.tgz#e4d7989686cbcaf416c53f1523df5225332a86e7"
+  integrity sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q==
+  dependencies:
+    mini-svg-data-uri "^1.2.3"
+
+"@tailwindcss/typography@^0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/typography/-/typography-0.5.9.tgz#027e4b0674929daaf7c921c900beee80dbad93e8"
+  integrity sha512-t8Sg3DyynFysV9f4JDOVISGsjazNb48AeIYQwcL+Bsq5uf4RYL75C1giZ43KISjeDGBaTN3Kxh7Xj/vRSMJUUg==
+  dependencies:
+    lodash.castarray "^4.4.0"
+    lodash.isplainobject "^4.0.6"
+    lodash.merge "^4.6.2"
+    postcss-selector-parser "6.0.10"
+
 "@testing-library/dom@^8.5.0":
   version "8.19.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.19.1.tgz#0e2dafd281dedb930bb235eac1045470b4129d0e"
@@ -4414,10 +4431,20 @@ lodash-es@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
+lodash.castarray@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.castarray/-/lodash.castarray-4.4.0.tgz#c02513515e309daddd4c24c60cfddcf5976d9115"
+  integrity sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==
+
 lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+  integrity sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==
 
 lodash.merge@^4.6.2:
   version "4.6.2"
@@ -4535,6 +4562,11 @@ min-indent@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
+
+mini-svg-data-uri@^1.2.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
+  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   version "3.1.2"
@@ -4935,6 +4967,14 @@ postcss-nested@6.0.0:
   integrity sha512-0DkamqrPcmkBDsLn+vQDIrtkSbNkv5AD/M322ySo9kqFkCIYklym2xEmWkwo+Y3/qZo34tzEPNUw4y7yMCdv5w==
   dependencies:
     postcss-selector-parser "^6.0.10"
+
+postcss-selector-parser@6.0.10:
+  version "6.0.10"
+  resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.10.tgz#79b61e2c0d1bfc2602d549e11d0876256f8df88d"
+  integrity sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==
+  dependencies:
+    cssesc "^3.0.0"
+    util-deprecate "^1.0.2"
 
 postcss-selector-parser@^6.0.10:
   version "6.0.11"
@@ -5655,6 +5695,11 @@ symbol-tree@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
+
+tailwindcss-rtl@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/tailwindcss-rtl/-/tailwindcss-rtl-0.9.0.tgz#270da04492081620478ebf73819fc285fe724a54"
+  integrity sha512-y7yC8QXjluDBEFMSX33tV6xMYrf0B3sa+tOB5JSQb6/G6laBU313a+Z+qxu55M1Qyn8tDMttjomsA8IsJD+k+w==
 
 tailwindcss@^3.2.4:
   version "3.2.4"
