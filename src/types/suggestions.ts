@@ -1,5 +1,6 @@
 export interface SuggestionsResponse {
   id: number
+  slug: string
   content: string
   userId: number
   createdAt: Date

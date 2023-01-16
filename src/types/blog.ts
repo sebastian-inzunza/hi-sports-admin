@@ -15,13 +15,16 @@ export interface Note {
   updatedAt: Date
   createdBy: number
   is_approved: boolean
+  slug: string
 }
 
 export interface CreateNote {
+  noteId?: number
   image: string
   title: string
   content: string
   createdBy: number
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
+  slug: string
 }

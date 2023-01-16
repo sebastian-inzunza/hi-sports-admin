@@ -61,11 +61,12 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
       dataIndex: 'id',
       key: 'id',
       align: 'center' as AlignType,
-      render: (id: string) => (
+      render: (id: string, { is_active }: any) => (
         <ActionButtons
           id={id}
           userStatus={true}
-          isUserActive={true}
+          isUserActive={is_active}
+          showAddWalletPoints={true}
           showMakeAdminButton={true}
         />
       ),
@@ -74,7 +75,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-        <Table columns={columns} data={users} />
+        <Table columns={columns} data={users} rowKey={'id'} />
       </div>
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">

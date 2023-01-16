@@ -16,6 +16,12 @@ export interface QueryOptions {
   search?: string
 }
 
+export interface Attachment {
+  thumbnail: string
+  original: string
+  id?: string
+}
+
 export interface UserQueryOptions extends QueryOptions {
   search: string
 }

@@ -3,7 +3,6 @@ import { BanUser } from '@/components/icons/ban-user'
 import { EditIcon } from '@/components/icons/edit'
 import { TrashIcon } from '@/components/icons/trash'
 import { Eye } from '@/components/icons/eye-icon'
-import { WalletPointsIcon } from '@/components/icons/wallet-point'
 import { CheckMarkCircle } from '@/components/icons/checkmark-circle'
 import { useModalAction } from '@/components/ui/modal/modal.context'
 import { CloseFillIcon } from '@/components/icons/close-fill'
@@ -37,8 +36,6 @@ const ActionButtons = ({
   isUserActive = false,
   isShopActive,
   approveButton = false,
-  showAddWalletPoints = false,
-  changeRefundStatus = false,
   showMakeAdminButton = false,
   showReplyQuestion = false,
   customLocale,
@@ -57,16 +54,8 @@ const ActionButtons = ({
     openModal('BAN_CUSTOMER', { id, type })
   }
 
-  function handleAddWalletPoints() {
-    openModal('ADD_WALLET_POINTS', id)
-  }
-
   function handleMakeAdmin() {
     openModal('MAKE_ADMIN', id)
-  }
-
-  function handleUpdateRefundStatus() {
-    openModal('UPDATE_REFUND', id)
   }
 
   function handleShopStatus(status: boolean) {
@@ -98,25 +87,6 @@ const ActionButtons = ({
           title={'Make Admin'}
         >
           <AdminIcon width={18} />
-        </button>
-      )}
-      {showAddWalletPoints && (
-        <button
-          onClick={handleAddWalletPoints}
-          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-          title={'Puntos de wallet'}
-        >
-          <WalletPointsIcon width={22} />
-        </button>
-      )}
-
-      {changeRefundStatus && (
-        <button
-          onClick={handleUpdateRefundStatus}
-          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-          title={'ESTATUS'}
-        >
-          <CheckMarkCircle width={20} />
         </button>
       )}
       {deleteModalView && (

@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AlignType, Table } from '@/components/ui/table'
+import { Routes } from '@/config/routes'
 import { Note } from '@/types/blog'
 import { MappedPaginatorInfo } from '@/types/index'
 import { Switch } from '@headlessui/react'
 import Image from 'next/image'
-import ActionButtons from '../ui/action-buttons'
+import LanguageSwitcher from '../ui/lang-action/action'
 import Pagination from '../ui/pagination'
 import TitleWithSort from '../ui/title-with-sort'
 
@@ -82,11 +83,13 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       key: 'id',
       align: 'center' as AlignType,
       width: 64,
-      render: (id: number) => (
-        <ActionButtons
-          id={id.toString()}
-          editModalView={true}
-          deleteModalView={true}
+      render: (id: string, record: any) => (
+        <LanguageSwitcher
+          id={id}
+          slug={record.slug}
+          record={record}
+          routes={Routes.blog}
+          deleteModalView="DELETE_NOTE"
         />
       ),
     },

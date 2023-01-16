@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from 'next/image'
 import { Table } from '@/components/ui/table'
 
 import { siteSettings } from '@/settings/site.settings'
 import { SuggestionsResponse, User } from '@/types/suggestions'
 import TitleWithSort from '../ui/title-with-sort'
-import ActionButtons from '../ui/action-buttons'
+import LanguageSwitcher from '../ui/lang-action/action'
+import { Routes } from '@/config/routes'
 
 type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
@@ -93,9 +95,16 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
       dataIndex: 'id',
       key: 'id',
       width: 100,
-      render: (id: string) => {
+      render: (id: string, record: any) => {
+        console.log('record', record)
         return (
-          <ActionButtons id={id} deleteModalView={true} approveButton={true} />
+          <LanguageSwitcher
+            id={id}
+            slug={record.slug}
+            record={record}
+            routes={Routes.suggestions}
+            deleteModalView="DELETE_SUGGESTION"
+          />
         )
       },
     },

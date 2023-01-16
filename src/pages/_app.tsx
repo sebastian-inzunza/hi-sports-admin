@@ -12,6 +12,7 @@ import { UIProvider } from '@/contexts/ui.context'
 import type { NextPageWithLayout } from '@/types/index'
 import DefaultSeo from '@/components/ui/default-seo'
 import { ModalProvider } from '@/components/ui/modal/modal.context'
+import ManagedModal from '@/components/ui/modal/managed-modal'
 
 type NoopProps = {
   children: React.ReactNode
@@ -36,6 +37,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               <Component {...pageProps} />
             </Layout>
             <ToastContainer autoClose={2000} theme="colored" />
+            <ManagedModal />
           </ModalProvider>
         </UIProvider>
       </Hydrate>
