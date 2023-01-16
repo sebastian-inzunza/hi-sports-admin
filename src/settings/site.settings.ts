@@ -4,7 +4,7 @@ export const siteSettings = {
   name: 'Kali Connect',
   description: 'Kali Connect Admin Panel',
   logo: {
-    url: '/logo.svg',
+    url: '/images/logo.png',
     alt: 'KaliConnect',
     href: '/',
     width: 128,

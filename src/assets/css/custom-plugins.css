@@ -1,0 +1,323 @@
+/* RC Table */
+.rc-table {
+  @apply border-separate;
+  border-spacing: 0;
+}
+
+.rc-table .rc-table-content,
+.rc-table .rc-table-body,
+.rc-table .rc-table-header {
+  @apply border-0;
+}
+
+.rc-table tr th,
+.rc-table tr td {
+  @apply border-0 border-b border-border-200;
+}
+
+.rc-table thead.rc-table-thead th {
+  @apply whitespace-nowrap border-border-200 px-3 py-3 text-sm font-semibold text-heading first:ps-4 last:pe-4;
+  background-color: #f7f8f9;
+}
+
+.rc-table tr.rc-table-row:hover {
+  background-color: inherit;
+}
+
+.rc-table tr.rc-table-row td {
+  @apply cursor-default px-3 py-4 text-sm font-normal text-body first:ps-4 last:pe-4;
+}
+.rc-table tr.rc-table-row td.rc-table-cell-row-hover {
+  @apply bg-gray-100;
+}
+
+.rc-table tr.rc-table-row-level-1 td,
+.rc-table tr.rc-table-row-level-1 td {
+  @apply bg-gray-100;
+}
+
+.rc-table tr.rc-table-row:last-child td {
+  @apply border-b-0;
+}
+
+.rc-table tr.rc-table-expanded-row > td {
+  @apply whitespace-normal border border-gray-50 bg-gray-200 p-0;
+}
+
+.rc-table tr.rc-table-expanded-row tr.rc-table-row {
+  cursor: default;
+}
+
+.rc-table .rc-table-row-expand-icon {
+  @apply inline-flex items-center justify-center;
+}
+
+.rc-table .rc-table-expanded-row-fixed::after {
+  border-width: 0;
+}
+
+/* React toastify */
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  @apply !bg-accent;
+}
+
+.Toastify__toast-theme--colored..Toastify__toast--error {
+  @apply !bg-red-500;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  @apply !bg-blue-500;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  @apply !bg-yellow-500;
+}
+
+/*
+Overlay Scrollbar - os-theme-thin-dark
+*/
+.os-theme-thin-dark > .os-scrollbar-horizontal {
+  right: 14px;
+  height: 14px;
+  padding: 0px 6px;
+}
+.os-theme-thin-dark > .os-scrollbar-vertical {
+  bottom: 14px;
+  width: 14px;
+  padding: 6px 0px;
+}
+.os-theme-thin-dark.os-host-rtl > .os-scrollbar-horizontal {
+  left: 14px;
+  right: 0;
+}
+.os-theme-thin-dark > .os-scrollbar-corner {
+  height: 14px;
+  width: 14px;
+  background-color: transparent;
+}
+.os-theme-thin-dark > .os-scrollbar > .os-scrollbar-track {
+  background: transparent;
+}
+.os-theme-thin-dark > .os-scrollbar-horizontal > .os-scrollbar-track:before,
+.os-theme-thin-dark > .os-scrollbar-vertical > .os-scrollbar-track:before {
+  content: '';
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.15);
+}
+.os-theme-thin-dark > .os-scrollbar-horizontal > .os-scrollbar-track:before,
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:before {
+  left: 0;
+  right: 0;
+  height: 2px;
+  top: 50%;
+  margin-top: -1px;
+}
+.os-theme-thin-dark > .os-scrollbar-vertical > .os-scrollbar-track:before,
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:before {
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  left: 50%;
+  margin-left: -1px;
+}
+.os-theme-thin-dark
+  > .os-scrollbar
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:before {
+  content: '';
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:hover:before,
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle.active:before {
+  height: 4px;
+  margin-top: -2px;
+}
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:hover:before,
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle.active:before {
+  width: 4px;
+  margin-left: -2px;
+}
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:hover:before,
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:hover:before {
+  background: rgba(0, 0, 0, 0.7);
+}
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle.active:before,
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle.active:before {
+  background: #000;
+}
+.os-theme-thin-dark
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle {
+  height: 100%;
+  min-width: 30px;
+}
+.os-theme-thin-dark
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle {
+  width: 100%;
+  min-height: 30px;
+}
+.os-theme-thin-dark.os-host-transition
+  > .os-scrollbar-horizontal
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:before {
+  transition: height 0.3s, margin-top 0.3s, background 0.2s;
+}
+.os-theme-thin-dark.os-host-transition
+  > .os-scrollbar-vertical
+  > .os-scrollbar-track
+  > .os-scrollbar-handle:before {
+  transition: width 0.3s, margin-left 0.3s, background 0.2s;
+}
+
+/* Check Box */
+.pb-checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+.pb-checkbox + label {
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pb-checkbox + label:before {
+  content: '';
+  margin-right: 10px;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  border: 1px solid rgb(var(--color-gray-300));
+}
+
+[dir='rtl'] .pb-checkbox + label:before {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.pb-checkbox:focus + label:before {
+  border-color: rgb(var(--color-accent));
+}
+
+.pb-checkbox:checked + label:before {
+  background-color: rgb(var(--color-accent));
+  border-color: rgb(var(--color-accent));
+}
+
+.pb-checkbox:disabled + label {
+  color: rgb(var(--text-base));
+  cursor: auto;
+}
+
+.pb-checkbox:disabled + label:before {
+  box-shadow: none;
+  background: rgb(var(--color-gray-300));
+  border-color: rgb(var(--color-gray-400));
+  cursor: not-allowed;
+}
+
+.pb-checkbox:checked + label:after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  /* top: 9px; */
+  top: 50%;
+  margin-top: -1px;
+  background: #ffffff;
+  width: 2px;
+  height: 2px;
+  box-shadow: 2px 0 0 #ffffff, 4px 0 0 #ffffff, 4px -2px 0 #ffffff,
+    4px -4px 0 #ffffff, 4px -6px 0 #ffffff, 4px -8px 0 #ffffff;
+  transform: rotate(45deg);
+}
+
+[dir='rtl'] .pb-checkbox:checked + label:after {
+  left: auto;
+  right: 12px;
+}
+
+/* react-phone-input-2 */
+.react-tel-input .selected-flag:focus:before,
+.react-tel-input .selected-flag.open:before {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+[dir='rtl'] .react-tel-input .selected-flag {
+  padding-right: 11px !important;
+}
+
+[dir='rtl'] .react-tel-input .selected-flag .arrow {
+  right: 29px;
+}
+
+[dir='rtl'] .react-tel-input .country-list .country {
+  display: flex;
+  padding: 12px 46px 13px 9px;
+}
+
+[dir='rtl'] .react-tel-input .country-list .country-name {
+  margin-right: 0px;
+  margin-left: 6px;
+}
+
+[dir='rtl'] .react-tel-input .country-list .flag {
+  margin-left: 7px;
+  margin-right: 0;
+  right: 13px;
+}
+input[type='number'].number-disable {
+  -moz-appearance: textfield;
+}
+input[type='number'].number-disable::-webkit-outer-spin-button,
+input[type='number'].number-disable::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.single-address:not(:last-child)::after {
+  content: ',';
+  display: inline-block;
+  padding: 0 1px;
+}

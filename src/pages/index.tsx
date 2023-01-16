@@ -1,5 +1,6 @@
+import dynamic from 'next/dynamic'
 import AppLayout from '@/components/layout/app'
-import AdminDashboard from '@/components/dashboard/admin'
+const AdminDashboard = dynamic(() => import('@/components/dashboard/admin'))
 
 export default function Dashboard() {
   return <AdminDashboard />

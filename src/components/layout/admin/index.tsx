@@ -4,11 +4,15 @@ import { siteSettings } from '@/settings/site.settings'
 import MobileNavigation from '../navigation/mobile-navigation'
 import SidebarItem from '../navigation/sidebar-item'
 import Navbar from '../navigation/top-navbar'
+import { useRouter } from 'next/router'
 
 type AdminLayoutProps = {
   children?: React.ReactNode
 }
 const AdminLayout = ({ children }: AdminLayoutProps) => {
+  const { locale } = useRouter()
+  const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
+
   const SidebarItemMap = () => (
     <Fragment>
       {siteSettings.sidebarLinks.admin.map(({ href, label, icon }) => (
@@ -18,7 +22,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   )
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-100 transition-colors duration-150">
+    <div
+      className="flex min-h-screen flex-col bg-gray-100 transition-colors duration-150"
+      dir={dir}
+    >
       <Navbar />
       <MobileNavigation>
         <SidebarItemMap />
