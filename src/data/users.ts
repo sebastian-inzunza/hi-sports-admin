@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserPagination, UsersResponse } from '@/types/users'
 import { mapPaginatorData } from '@/utils/data-mappers'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { toast } from 'react-toastify'
 import { QueryOptionsType } from '../types'
 import { API_ENDPOINTS } from './client/api-endpoints'
 import { userClient } from './client/user'
@@ -21,4 +22,17 @@ export const useUsersQuery = (params: Partial<QueryOptionsType>) => {
     paginatorInfo: mapPaginatorData(data as any),
     error,
   }
+}
+
+export const useRegisterMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.register, {
+    onSuccess() {
+      toast.success('User created successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.REGISTER)
+    },
+  })
 }

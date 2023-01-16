@@ -13,7 +13,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   forgotPageLink?: string
   shadow?: boolean
   variant?: 'normal' | 'solid' | 'outline'
-  error: string | undefined
+  error?: string | undefined
 }
 
 const classes = {

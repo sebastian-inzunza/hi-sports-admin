@@ -24,3 +24,12 @@ export type UserPagination = {
   hasNextPage: boolean
   hasPreviousPage: boolean
 }
+
+export type UserRegistration = {
+  email: string
+  username: string
+  password: string
+  firstName: string
+  middleName?: string | null
+  lastName: string
+}
