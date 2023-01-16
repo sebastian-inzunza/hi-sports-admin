@@ -49,8 +49,7 @@ export const updatedIcons = socialIcon.map((item: any) => {
 export default function SettingsForm() {
   const logoInformation = (
     <span>
-      {'Logo'} <br />
-      {'1024x1024'} &nbsp;
+      {'Tamaño recomendado'} &nbsp;
       <span className="font-bold">
         {siteSettings.logo.width}x{siteSettings.logo.height} {'px'}
       </span>

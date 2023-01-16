@@ -9,11 +9,11 @@ export enum SortOrder {
 }
 
 export interface QueryOptions {
-  language: string
   limit?: number
   page?: number
   orderBy?: string
   sortedBy?: SortOrder
+  search?: string
 }
 
 export interface UserQueryOptions extends QueryOptions {

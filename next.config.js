@@ -11,5 +11,8 @@ const withPWA = require('next-pwa')({
 
 const nextConfig = withPWA({
   // next config
+  images: {
+    domains: ['loremflickr.com'],
+  },
 })
 module.exports = nextConfig
