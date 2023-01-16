@@ -10,7 +10,6 @@ type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
 }
 const SuggestionList = ({ suggestions }: SuggestionListProps) => {
-  console.log('SUggestions', suggestions)
   const columns = [
     {
       title: 'Avatar',

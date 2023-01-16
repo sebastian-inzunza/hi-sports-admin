@@ -33,6 +33,9 @@ export const Routes = {
   reviews: {
     ...routesFactory('/reviews'),
   },
+  suggestions: {
+    ...routesFactory('/suggestions'),
+  },
   staff: {
     ...routesFactory('/staffs'),
   },

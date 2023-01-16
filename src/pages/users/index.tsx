@@ -1,21 +1,31 @@
+import { useState } from 'react'
 import Layout from '@/components/layout/admin'
-
-import { useSuggestionsQuery } from '@/data/suggestions'
-
 import Card from '@/components/common/card'
 import Search from '@/components/common/search'
 import LinkButton from '@/components/ui/link-button'
 import UserList from '@/components/user/user-list'
+import { useUsersQuery } from '@/data/users'
 
 export default function Users() {
-  const { suggestions, loading, error } = useSuggestionsQuery()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [page, setPage] = useState(1)
+  const { users, loading, error, paginatorInfo } = useUsersQuery({
+    limit: 5,
+    page,
+    search: searchTerm,
+  })
 
-  console.log('Sugesstions', suggestions)
-  console.log('Loading', loading)
-  console.log('Error', error)
+  if (loading) return <div>Loading...</div>
+
+  if (error) return <div>Error: </div>
 
   function handleSearch({ searchText }: { searchText: string }) {
-    console.log(searchText)
+    setSearchTerm(searchText)
+    setPage(1)
+  }
+
+  function handlePagination(current: number) {
+    setPage(current)
   }
 
   return (
@@ -27,13 +37,19 @@ export default function Users() {
 
         <div className="ms-auto flex w-full items-center md:w-3/4">
           <Search onSearch={handleSearch} />
-          <LinkButton href={`#`} className="ms-4 md:ms-6 h-12">
+          <LinkButton href={`/users/create`} className="ms-4 md:ms-6 h-12">
             <span>+ Crear usuario</span>
           </LinkButton>
         </div>
       </Card>
 
-      <UserList />
+      {loading ? null : (
+        <UserList
+          users={users ?? []}
+          paginatorInfo={paginatorInfo}
+          onPagination={handlePagination}
+        />
+      )}
     </>
   )
 }

@@ -66,7 +66,7 @@ export const siteSettings = {
         icon: 'OrdersIcon',
       },
       {
-        href: Routes.reviews.list,
+        href: Routes.suggestions.list,
         label: 'Sugerencias',
         icon: 'ReviewIcon',
       },

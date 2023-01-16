@@ -87,7 +87,7 @@ export class HttpClient {
     return Object.entries(params)
       .filter(([, value]) => Boolean(value))
       .map(([k, v]) =>
-        ['type', 'categories', 'tags', 'author', 'manufacturer'].includes(k)
+        ['type', 'categories', 'tags', 'author', 'search'].includes(k)
           ? `${k}.slug:${v}`
           : ['is_approved'].includes(k)
           ? formatBooleanSearchParam(k, v as boolean)
