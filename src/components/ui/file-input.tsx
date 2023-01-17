@@ -5,7 +5,6 @@ import { Controller } from 'react-hook-form'
 interface FileInputProps {
   control: any
   name: string
-  multiple?: boolean
   acceptFile?: boolean
   helperText?: string
   defaultValue?: any
@@ -14,7 +13,6 @@ interface FileInputProps {
 const FileInput = ({
   control,
   name,
-  multiple = true,
   acceptFile = false,
   helperText,
   defaultValue = [],
@@ -25,12 +23,7 @@ const FileInput = ({
       name={name}
       defaultValue={defaultValue}
       render={({ field: { ...rest } }) => (
-        <Uploader
-          {...rest}
-          multiple={multiple}
-          acceptFile={acceptFile}
-          helperText={helperText}
-        />
+        <Uploader {...rest} acceptFile={acceptFile} helperText={helperText} />
       )}
     />
   )

@@ -12,7 +12,7 @@ const withPWA = require('next-pwa')({
 const nextConfig = withPWA({
   // next config
   images: {
-    domains: ['loremflickr.com'],
+    domains: ['loremflickr.com', 'localhost'],
   },
 })
 module.exports = nextConfig

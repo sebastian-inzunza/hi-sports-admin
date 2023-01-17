@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { API_ENDPOINTS } from '@/data/client/api-endpoints'
 import { HttpClient } from '@/data/client/http-client'
 import { BlogResponse, CreateNote, Note } from '@/types/blog'
@@ -11,5 +12,13 @@ export const blogClient = {
       ...params,
       search,
     })
+  },
+  create: async (data: CreateNote) => {
+    const options = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    return HttpClient.post<Note>(API_ENDPOINTS.BLOG, data, options)
   },
 }

@@ -6,6 +6,7 @@ import '@/assets/css/main.css'
 import { ToastContainer } from 'react-toastify'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Hydrate } from 'react-query/hydration'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { UIProvider } from '@/contexts/ui.context'
 
@@ -40,6 +41,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <ManagedModal />
           </ModalProvider>
         </UIProvider>
+        <ReactQueryDevtools />
       </Hydrate>
     </QueryClientProvider>
   )

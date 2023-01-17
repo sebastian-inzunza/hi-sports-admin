@@ -16,7 +16,7 @@ const ManagedModal = () => {
   const { closeModal } = useModalAction()
 
   function renderModal(view: MODAL_VIEWS | undefined, data: any) {
-    console.log('renderModal', data)
+    console.log('view', data)
     switch (view) {
       case 'DELETE_NOTE':
         return <NoteDeleteView />

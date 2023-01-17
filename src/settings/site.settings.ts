@@ -20,11 +20,11 @@ export const siteSettings = {
   authorizedLinks: [
     {
       href: Routes.profileUpdate,
-      labelTransKey: 'authorized-nav-item-profile',
+      labelTransKey: 'Perfil',
     },
     {
       href: Routes.logout,
-      labelTransKey: 'authorized-nav-item-logout',
+      labelTransKey: 'Salir',
     },
   ],
   currencyCode: 'USD',

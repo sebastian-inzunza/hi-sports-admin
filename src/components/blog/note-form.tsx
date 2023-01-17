@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useUpdateNoteMutation } from '@/data/blog'
+import { useCreateNoteMutation, useUpdateNoteMutation } from '@/data/blog'
 import { Note } from '@/types/blog'
 import { getErrorMessage } from '@/utils/form-error'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -48,23 +48,30 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   })
 
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
+  const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
 
   const onSubmit = async (values: FormValues) => {
-    const { title, content, image, slug, createdBy } = values
+    const { title, content, slug, image } = values
     const input = {
       title,
       content,
-      image,
       slug,
-      createdBy: initialValues?.createdBy ?? createdBy,
-      id: initialValues?.id ?? 0,
+      image: image ?? initialValues!.image,
+      createdBy: initialValues?.createdBy ?? 0, // Add userID admin here
     }
-
     try {
-      updateNote({
-        ...input,
-        id: initialValues?.id ?? 0,
-      })
+      if (!initialValues) {
+        createNote({
+          ...input,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        })
+      } else {
+        updateNote({
+          id: initialValues?.id ?? 0,
+          ...input,
+        })
+      }
     } catch (error) {
       const serverErrors = getErrorMessage(error)
       Object.keys(serverErrors?.validation).forEach((field: any) => {
@@ -93,7 +100,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="image" control={control} multiple={false} />
+          <FileInput name="image" control={control} />
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -139,7 +146,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             Atrás
           </Button>
         )}
-        <Button loading={updating}>
+        <Button loading={updating || creating}>
           {initialValues ? 'Actualizar' : 'Crear'}
         </Button>
       </div>

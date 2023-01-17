@@ -57,9 +57,8 @@ interface SearchParamOptions {
   code: string
   type: string
   name: string
-  shop_id: string
   is_approved: boolean
-  tracking_number: string
+  slug: string
 }
 
 export class HttpClient {
@@ -73,8 +72,8 @@ export class HttpClient {
     return response.data
   }
 
-  static async put<T>(url: string, data: unknown) {
-    const response = await Axios.put<T>(url, data)
+  static async put<T>(url: string, data: unknown, options?: any) {
+    const response = await Axios.put<T>(url, data, options)
     return response.data
   }
 

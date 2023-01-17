@@ -7,6 +7,18 @@ import { QueryOptionsType } from '../types'
 import { API_ENDPOINTS } from './client/api-endpoints'
 import { blogClient } from './client/blog'
 
+export const useCreateNoteMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation(blogClient.create, {
+    onSuccess: () => {
+      toast.success('Note created successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.BLOG)
+    },
+  })
+}
+
 export const useNotesQuery = (options: Partial<QueryOptionsType>) => {
   const { data, isLoading, error } = useQuery<BlogResponse, Error>(
     [API_ENDPOINTS.BLOG, options],
