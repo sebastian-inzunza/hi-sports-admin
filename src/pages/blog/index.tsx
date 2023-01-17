@@ -6,6 +6,8 @@ import LinkButton from '@/components/ui/link-button'
 import { Routes } from '@/config/routes'
 import { useNotesQuery } from '@/data/blog'
 import NotesList from '@/components/blog/notes-list'
+import Loader from '@/components/ui/loader'
+import ErrorMessage from '@/components/ui/error-message'
 
 export default function Notes() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -18,11 +20,11 @@ export default function Notes() {
   })
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Loader text="Cargando..." />
   }
 
   if (error) {
-    return <div>Error</div>
+    return <ErrorMessage message={error.message} />
   }
 
   function handleSearch({ searchText }: { searchText: string }) {

@@ -53,3 +53,15 @@ export const useUpdateNoteMutation = () => {
     },
   })
 }
+
+export const useDeleteNoteMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation(blogClient.delete, {
+    onSuccess: () => {
+      toast.success('Note deleted successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.BLOG)
+    },
+  })
+}

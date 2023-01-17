@@ -3,20 +3,24 @@ import {
   useModalAction,
   useModalState,
 } from '@/components/ui/modal/modal.context'
+import { useDeleteNoteMutation } from '@/data/blog'
 
 const NoteDeleteView = () => {
   const { data: modalData } = useModalState()
   const { closeModal } = useModalAction()
+  const { mutate: deleteNoteByID, isLoading: loading } = useDeleteNoteMutation()
 
   function handleDelete() {
-    console.log('delete', modalData)
+    deleteNoteByID({
+      id: modalData,
+    })
     closeModal()
   }
 
   return (
     <ConfirmationCard
       onCancel={closeModal}
-      deleteBtnLoading={false}
+      deleteBtnLoading={loading}
       deleteBtnText="Delete"
       onDelete={handleDelete}
     />
