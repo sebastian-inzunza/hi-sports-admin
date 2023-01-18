@@ -50,26 +50,34 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
       align: 'center' as AlignType,
     },
     {
-      title: 'Rol',
-      dataIndex: 'role',
-      key: 'role',
+      title: 'Estatus',
+      dataIndex: 'banned',
+      key: 'banned',
       align: 'center' as AlignType,
-      render: (role: string) => <Badge text={role} color={StatusColor(role)} />,
+      render: (banned: true) => (
+        <Badge
+          text={banned ? 'Inactivo' : 'Activo'}
+          color={StatusColor(banned)}
+        />
+      ),
     },
     {
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
       align: 'center' as AlignType,
-      render: (id: string, { is_active }: any) => (
-        <ActionButtons
-          id={id}
-          userStatus={true}
-          isUserActive={is_active}
-          showAddWalletPoints={true}
-          showMakeAdminButton={true}
-        />
-      ),
+      render: (id: string, { banned, role }: any) => {
+        // console.log('is_active', is_active)
+        return (
+          <ActionButtons
+            id={id}
+            userStatus={true}
+            isUserActive={!banned}
+            showMakeAdminButton={true}
+            role={role}
+          />
+        )
+      },
     },
   ]
   return (

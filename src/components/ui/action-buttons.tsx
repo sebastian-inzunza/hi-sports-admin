@@ -8,6 +8,7 @@ import { useModalAction } from '@/components/ui/modal/modal.context'
 import { CloseFillIcon } from '@/components/icons/close-fill'
 import { AdminIcon } from '@/components/icons/admin-icon'
 import Link from 'next/link'
+import { Role } from '@/types/users'
 
 type Props = {
   id: string
@@ -24,6 +25,7 @@ type Props = {
   showMakeAdminButton?: boolean
   showReplyQuestion?: boolean
   customLocale?: string
+  role?: Role
 }
 
 const ActionButtons = ({
@@ -39,6 +41,7 @@ const ActionButtons = ({
   showMakeAdminButton = false,
   showReplyQuestion = false,
   customLocale,
+  role,
 }: Props) => {
   const { openModal } = useModalAction()
 
@@ -50,12 +53,12 @@ const ActionButtons = ({
     openModal(editModalView, id)
   }
 
-  function handleUserStatus(type: string) {
-    openModal('BAN_CUSTOMER', { id, type })
+  function handleUserStatus(banned: boolean) {
+    openModal('BAN_CUSTOMER', { id, banned })
   }
 
   function handleMakeAdmin() {
-    openModal('MAKE_ADMIN', id)
+    openModal('MAKE_ADMIN', { id, role })
   }
 
   function handleShopStatus(status: boolean) {
@@ -84,7 +87,7 @@ const ActionButtons = ({
         <button
           onClick={handleMakeAdmin}
           className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-          title={'Make Admin'}
+          title={'Cambiar a operador'}
         >
           <AdminIcon width={18} />
         </button>
@@ -129,7 +132,7 @@ const ActionButtons = ({
         <>
           {isUserActive ? (
             <button
-              onClick={() => handleUserStatus('ban')}
+              onClick={() => handleUserStatus(false)}
               className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
               title={'Bloquear'}
             >
@@ -137,7 +140,7 @@ const ActionButtons = ({
             </button>
           ) : (
             <button
-              onClick={() => handleUserStatus('active')}
+              onClick={() => handleUserStatus(true)}
               className="text-accent transition duration-200 hover:text-accent focus:outline-none"
               title={'Activar'}
             >

@@ -15,6 +15,8 @@ export interface UsersResponse {
 
 export enum Role {
   User = 'USER',
+  Admin = 'ADMIN',
+  Operator = 'OPERATOR',
 }
 
 export type UserPagination = {

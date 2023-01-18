@@ -1,11 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 import type { NextPage } from 'next'
-import { UsersResponse as User } from './users'
+import { Role, UsersResponse as User } from './users'
 
 export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc',
+}
+
+export interface MakeRoleInput {
+  id: number
+  role: Role
+}
+export interface BlockUserInput {
+  id: number
+  banned: boolean
 }
 
 export interface QueryOptions {

@@ -36,3 +36,42 @@ export const useRegisterMutation = () => {
     },
   })
 }
+
+export const useUnblockUserMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.unblock, {
+    onSuccess() {
+      toast.success('User unblocked successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}
+
+export const useBlockUserMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.block, {
+    onSuccess() {
+      toast.success('User blocked successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}
+
+export const useModifyRoleMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.modifyRole, {
+    onSuccess() {
+      toast.success('Role modified successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}

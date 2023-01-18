@@ -1,7 +1,7 @@
-const StatusColor = (status: string) => {
+const StatusColor = (banned: boolean) => {
   let bg_class = ''
 
-  if (status?.toLowerCase() === 'ADMIN') {
+  if (banned) {
     bg_class = 'bg-[#9CA3AF]'
   } else {
     bg_class = 'bg-[#10B981]'
