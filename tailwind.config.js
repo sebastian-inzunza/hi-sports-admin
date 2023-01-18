@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 //read from env for specific product
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
@@ -9,12 +10,17 @@ function withOpacity(variableName) {
   }
 }
 
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       screens: {
         '3xl': '1900px',
+      },
+      fontFamily: {
+        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         light: withOpacity('--color-light'),
