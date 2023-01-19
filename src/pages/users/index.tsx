@@ -5,6 +5,8 @@ import Search from '@/components/common/search'
 import LinkButton from '@/components/ui/link-button'
 import UserList from '@/components/user/user-list'
 import { useUsersQuery } from '@/data/users'
+import Loader from '@/components/ui/loader'
+import ErrorMessage from '@/components/ui/error-message'
 
 export default function Users() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -15,9 +17,9 @@ export default function Users() {
     search: searchTerm,
   })
 
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loader text="Cargando usuarios..." />
 
-  if (error) return <div>Error: </div>
+  if (error) return <ErrorMessage message={error.message} />
 
   function handleSearch({ searchText }: { searchText: string }) {
     setSearchTerm(searchText)
