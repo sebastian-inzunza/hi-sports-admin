@@ -31,8 +31,8 @@ const AlertList = ({
         {alerts?.map((alert) => (
           <div
             key={alert.id}
-            className="bg-white rounded-lg shadow-lg p-4 mt-2 pointer"
-            onClick={() => selectAlert(alert)}
+            className="bg-white rounded-lg shadow-lg p-4 mt-2"
+            // onClick={() => selectAlert(alert)}
           >
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-heading">{alert.id}</h2>
@@ -68,16 +68,11 @@ const AlertList = ({
                 <p className="text-sm text-body">23 Enero</p>
 
                 {/* Button to see more information */}
-                <button className="text-sm text-body underline">Ver más</button>
-
-                {/* Button to edit alert */}
-                <button className="text-sm text-body underline ml-2">
-                  Editar
-                </button>
-
-                {/* Button to delete alert */}
-                <button className="text-sm text-body underline ml-2">
-                  Eliminar
+                <button
+                  className="text-sm text-body underline"
+                  onClick={() => selectAlert(alert)}
+                >
+                  Ver más
                 </button>
 
                 {/* Button to change status of alert */}

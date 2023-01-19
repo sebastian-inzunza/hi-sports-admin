@@ -14,6 +14,7 @@ import Badge from '@/components/ui/badge'
 import Link from 'next/link'
 import colorBadge from '@/utils/colorBadge'
 import textAlertBadge from '@/utils/textAlertBadge'
+import AlertAnimation from '@/components/alert/alert-animation'
 
 export default function Alerts() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -49,7 +50,8 @@ export default function Alerts() {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      {/* Create a mobile first style */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="col-span-1">
           <div className="flex justify-between">
             <Search onSearch={handleSearch} />
@@ -101,7 +103,25 @@ export default function Alerts() {
             </div>
           )}
           {/* Alert Component */}
-          <AlertMap lat={alert?.latitude} lng={alert?.longitude} />
+
+          {/* If the admin isnot select an alert, show AlertAnimation component in the same column */}
+          {!alert && (
+            <>
+              <div className="p-4 mt-2 mb-3 flex flex-col items-center justify-center">
+                {/* Helper text "Selecciona una alerta para ver el detalle y geolocalización" */}
+                <div className="bg-white rounded-lg shadow-lg p-4 mt-2 mb-3">
+                  <p className="text-sm text-gray-500 mt-2">
+                    Selecciona una alerta para ver el detalle y geolocalización
+                  </p>
+                </div>
+                <AlertAnimation />
+              </div>
+            </>
+          )}
+          {
+            // If the admin select an alert, show AlertMap component
+            alert && <AlertMap lat={alert?.latitude} lng={alert?.longitude} />
+          }
         </div>
       </div>
     </>
