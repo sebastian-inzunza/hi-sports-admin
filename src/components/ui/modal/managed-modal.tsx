@@ -14,11 +14,10 @@ const NoteDeleteView = dynamic(
 )
 
 const ManagedModal = () => {
-  const { isOpen, view, data } = useModalState()
+  const { isOpen, view } = useModalState()
   const { closeModal } = useModalAction()
 
-  function renderModal(view: MODAL_VIEWS | undefined, data: any) {
-    console.log('information -->', data)
+  function renderModal(view: MODAL_VIEWS | undefined) {
     switch (view) {
       case 'DELETE_NOTE':
         return <NoteDeleteView />
@@ -31,7 +30,7 @@ const ManagedModal = () => {
 
   return (
     <Modal open={isOpen} onClose={closeModal}>
-      {renderModal(view, data)}
+      {renderModal(view)}
     </Modal>
   )
 }
