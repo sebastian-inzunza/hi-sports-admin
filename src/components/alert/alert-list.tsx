@@ -1,9 +1,11 @@
 import Image from 'next/image'
 
-import { Alert, AlertStatus } from '@/types/alerts'
+import { Alert } from '@/types/alerts'
 import { MappedPaginatorInfo } from '@/types/index'
 import Badge from '../ui/badge'
 import Pagination from '../ui/pagination'
+import colorBadge from '@/utils/colorBadge'
+import textAlertBadge from '@/utils/textAlertBadge'
 
 type AlertListProps = {
   alerts: Alert[] | null | undefined
@@ -22,26 +24,6 @@ const AlertList = ({
     seletedAlert(alert)
   }
 
-  function colorBadge(status: AlertStatus) {
-    switch (status) {
-      case 'CREATED':
-        return 'bg-yellow-400 text-yellow-800'
-      case AlertStatus.UnderReview:
-        return 'bg-red-400 text-red-800'
-      // Rejected Alarm
-      case AlertStatus.Rejected:
-        return 'bg-blue-400 text-blue-800'
-      // False Alarm
-      case AlertStatus.FalseAlarm:
-        return 'bg-purple-400 text-purple-800'
-      // Solved
-      case AlertStatus.Solved:
-        return 'bg-green-400 text-green-800'
-      default:
-        return 'bg-gray-400 text-gray-800'
-    }
-  }
-
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
@@ -54,7 +36,10 @@ const AlertList = ({
           >
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold text-heading">{alert.id}</h2>
-              <Badge text={alert.status} color={colorBadge(alert.status)} />
+              <Badge
+                text={textAlertBadge(alert.status)}
+                color={colorBadge(alert.status)}
+              />
             </div>
             {/* Detail of alert (date and address) */}
             <div className="flex items-center mt-2 space-x-2">

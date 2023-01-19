@@ -12,6 +12,8 @@ import AlertMap from '@/components/alert/alert-map'
 import { Alert } from '@/types/alerts'
 import Badge from '@/components/ui/badge'
 import Link from 'next/link'
+import colorBadge from '@/utils/colorBadge'
+import textAlertBadge from '@/utils/textAlertBadge'
 
 export default function Alerts() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -45,26 +47,6 @@ export default function Alerts() {
     setAlert(alert)
   }
 
-  function colorBadge(status: string) {
-    switch (status) {
-      case 'CREATED':
-        return 'bg-yellow-400 text-yellow-800'
-      case 'UNDER_REVIEW':
-        return 'bg-red-400 text-red-800'
-      // Rejected Alarm
-      case 'REJECTED':
-        return 'bg-blue-400 text-blue-800'
-      // False Alarm
-      case 'FALSE_ALARM':
-        return 'bg-purple-400 text-purple-800'
-      // Solved
-      case 'SOLVED':
-        return 'bg-green-400 text-green-800'
-      default:
-        return 'bg-gray-400 text-gray-800'
-    }
-  }
-
   return (
     <>
       <div className="grid grid-cols-2 gap-4">
@@ -91,7 +73,10 @@ export default function Alerts() {
                 <h2 className="text-lg font-semibold text-heading">
                   {alert.id}
                 </h2>
-                <Badge text={alert.status} color={colorBadge(alert.status)} />
+                <Badge
+                  text={textAlertBadge(alert.status)}
+                  color={colorBadge(alert.status)}
+                />
               </div>
               <p className="text-sm text-gray-500">{alert.content}</p>
               <div className="flex items-center justify-between mt-2">
