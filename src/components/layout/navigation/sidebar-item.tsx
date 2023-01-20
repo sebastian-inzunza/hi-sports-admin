@@ -4,12 +4,17 @@ import { getIcon } from '@/utils/get-icon'
 import * as sidebarIcons from '@/components/icons/sidebar'
 import { useUI } from '@/contexts/ui.context'
 
-const SidebarItem = ({ href, icon, label }: any) => {
+const SidebarItem = ({ href, icon, label, active }: any) => {
   const { closeSidebar } = useUI()
   return (
     <Link
       href={href}
-      className="text-start flex w-full items-center text-base text-body-dark focus:text-accent"
+      // Add proprty to check if the link is active or not
+      className={`flex items-center py-3 px-4 rounded-md text-sm font-medium ${
+        active
+          ? 'bg-gray-100 text-gray-900'
+          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+      }`}
     >
       {getIcon({
         iconList: sidebarIcons,

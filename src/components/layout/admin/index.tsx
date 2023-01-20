@@ -10,13 +10,24 @@ type AdminLayoutProps = {
   children?: React.ReactNode
 }
 const AdminLayout = ({ children }: AdminLayoutProps) => {
-  const { locale } = useRouter()
+  const { locale, pathname } = useRouter()
   const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
+  // if path es active then add active class
+  const isActive = (path: string) => {
+    return pathname === path
+  }
+  // Error: window is not defined!! soluc
 
   const SidebarItemMap = () => (
     <Fragment>
       {siteSettings.sidebarLinks.admin.map(({ href, label, icon }) => (
-        <SidebarItem href={href} label={label} icon={icon} key={href} />
+        <SidebarItem
+          href={href}
+          label={label}
+          icon={icon}
+          key={href}
+          active={isActive(href)}
+        />
       ))}
     </Fragment>
   )

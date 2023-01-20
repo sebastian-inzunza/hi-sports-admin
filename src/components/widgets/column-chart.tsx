@@ -32,7 +32,7 @@ const BarChart = () => {
           },
         },
       },
-      colors: ['#03D3B5'],
+      colors: ['#1285c1'],
       xaxis: {
         labels: {
           show: true,
@@ -85,7 +85,7 @@ const BarChart = () => {
 
             <span className="ms-1 text-sm text-heading">
               <span className="text-green-500">0.00%</span>
-              Alertas Solucionadas
+              En revisión
             </span>
           </div>
         </div>
