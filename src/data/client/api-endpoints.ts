@@ -5,4 +5,5 @@ export const API_ENDPOINTS = {
   REGISTER: '/auth/signup',
   BLOG: '/notes',
   ALERTS: '/alerts',
+  ANALYTICS: '/analytics',
 }
