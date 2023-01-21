@@ -24,8 +24,8 @@ export const Routes = {
   category: {
     ...routesFactory('/categories'),
   },
-  dataRecord: {
-    ...routesFactory('/data_records'),
+  reports: {
+    ...routesFactory('/reports'),
   },
   alerts: {
     ...routesFactory('/alerts'),

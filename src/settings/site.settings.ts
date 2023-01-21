@@ -51,8 +51,8 @@ export const siteSettings = {
         icon: 'ProductsIcon',
       },
       {
-        href: Routes.dataRecord.list,
-        label: 'Date Record',
+        href: Routes.reports.list,
+        label: 'Reports',
         icon: 'AttributeIcon',
       },
       {

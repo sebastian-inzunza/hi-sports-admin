@@ -121,12 +121,6 @@ export const UIProvider = (props: Props) => {
     state.displaySidebar
       ? dispatch({ type: 'CLOSE_SIDEBAR' })
       : dispatch({ type: 'OPEN_SIDEBAR' })
-  const openCartSidebar = () => dispatch({ type: 'OPEN_CART_SIDEBAR' })
-  const closeCartSidebar = () => dispatch({ type: 'CLOSE_CART_SIDEBAR' })
-  const toggleCartSidebar = () =>
-    state.displayCartSidebar
-      ? dispatch({ type: 'CLOSE_CART_SIDEBAR' })
-      : dispatch({ type: 'OPEN_CART_SIDEBAR' })
   const closeSidebarIfPresent = () =>
     state.displaySidebar && dispatch({ type: 'CLOSE_SIDEBAR' })
 
@@ -144,9 +138,6 @@ export const UIProvider = (props: Props) => {
       openSidebar,
       closeSidebar,
       toggleSidebar,
-      openCartSidebar,
-      closeCartSidebar,
-      toggleCartSidebar,
       closeSidebarIfPresent,
       openModal,
       closeModal,

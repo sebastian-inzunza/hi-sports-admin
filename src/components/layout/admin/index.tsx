@@ -12,7 +12,6 @@ type AdminLayoutProps = {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { locale, pathname } = useRouter()
   const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
-  // if path es active then add active class
   const isActive = (path: string) => {
     return pathname === path
   }
