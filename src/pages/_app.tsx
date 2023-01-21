@@ -17,6 +17,8 @@ import type { NextPageWithLayout } from '@/types/index'
 import DefaultSeo from '@/components/ui/default-seo'
 import { ModalProvider } from '@/components/ui/modal/modal.context'
 import ManagedModal from '@/components/ui/modal/managed-modal'
+import { SessionProvider } from 'next-auth/react'
+import PrivateRoute from '@/utils/private-route'
 
 type NoopProps = {
   children: React.ReactNode
@@ -29,22 +31,34 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const Layout = (Component as any).Layout || Noop
+  const authProps = (Component as any).authenticate
   const [queryClient] = useState(() => new QueryClient())
 
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <UIProvider>
-          <ModalProvider>
-            <DefaultSeo />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer autoClose={2000} theme="colored" />
-            <ManagedModal />
-          </ModalProvider>
-        </UIProvider>
-        <ReactQueryDevtools />
+        <SessionProvider>
+          <UIProvider>
+            <ModalProvider>
+              <DefaultSeo />
+              {authProps ? (
+                <PrivateRoute authProps={authProps}>
+                  <Layout {...pageProps}>
+                    <Component {...pageProps} />
+                  </Layout>
+                </PrivateRoute>
+              ) : (
+                <Layout {...pageProps}>
+                  <Component {...pageProps} />
+                </Layout>
+              )}
+
+              <ToastContainer autoClose={2000} theme="colored" />
+              <ManagedModal />
+            </ModalProvider>
+          </UIProvider>
+          <ReactQueryDevtools />
+        </SessionProvider>
       </Hydrate>
     </QueryClientProvider>
   )
