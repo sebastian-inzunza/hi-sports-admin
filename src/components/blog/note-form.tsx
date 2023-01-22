@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCreateNoteMutation, useUpdateNoteMutation } from '@/data/blog'
+import { useMeQuery } from '@/data/users'
 import { Note } from '@/types/blog'
 import { getErrorMessage } from '@/utils/form-error'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -30,6 +32,7 @@ type IProps = {
 
 export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const router = useRouter()
+  const { data } = useMeQuery()
 
   const {
     register,
@@ -52,12 +55,13 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
 
   const onSubmit = async (values: FormValues) => {
     const { title, content, slug, image } = values
+
     const input = {
       title,
       content,
       slug,
-      image: image ?? initialValues!.image,
-      createdBy: initialValues?.createdBy ?? 0, // Add userID admin here
+      image: image ?? initialValues?.image ?? '',
+      createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
     }
     try {
       if (!initialValues) {

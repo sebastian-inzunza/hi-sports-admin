@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import { GetServerSideProps } from 'next'
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils'
+
 import Layout from '@/components/layout/admin'
 import Card from '@/components/common/card'
 import Search from '@/components/common/search'
@@ -64,3 +72,23 @@ export default function Notes() {
 }
 
 Notes.Layout = Layout
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { token, permissions } = getAuthCredentials(ctx)
+  if (
+    !isAuthenticated({ token, permissions }) ||
+    !hasAccess(allowedRoles, permissions)
+  ) {
+    return {
+      redirect: {
+        destination: Routes.login,
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      userPermissions: permissions,
+    },
+  }
+}

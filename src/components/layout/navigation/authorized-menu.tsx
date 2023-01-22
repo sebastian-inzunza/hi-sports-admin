@@ -5,8 +5,11 @@ import cn from 'classnames'
 import { Menu, Transition } from '@headlessui/react'
 import Avatar from '@/components/common/avatar'
 import { siteSettings } from '@/settings/site.settings'
+import { useMeQuery } from '@/data/users'
 
 export default function AuthorizedMenu() {
+  const { data } = useMeQuery()
+
   // Again, we're using framer-motion for the transition effect
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -32,8 +35,10 @@ export default function AuthorizedMenu() {
               className="flex w-full flex-col space-y-1 rounded-t
              bg-[#082f75] px-4 py-3 text-sm text-white"
             >
-              <span className="font-semibold capitalize">Jhon Doe</span>
-              <span className="text-xs">admin@kali.com</span>
+              <span className="font-semibold capitalize">
+                {data?.firstName} {data?.lastName}
+              </span>
+              <span className="text-xs">{data?.email}</span>
             </li>
           </Menu.Item>
 

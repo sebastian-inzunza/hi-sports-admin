@@ -1,5 +1,10 @@
-import { BlockUserInput, MakeRoleInput, UserQueryOptions } from '@/types/index'
-import { UserPagination, UserRegistration } from '@/types/users'
+import {
+  BlockUserInput,
+  LoginInput,
+  MakeRoleInput,
+  UserQueryOptions,
+} from '@/types/index'
+import { UserPagination, UserRegistration, UsersResponse } from '@/types/users'
 import { API_ENDPOINTS } from './api-endpoints'
 import { HttpClient } from './http-client'
 
@@ -12,6 +17,12 @@ export const userClient = {
   },
   register: (variables: UserRegistration) => {
     return HttpClient.post(API_ENDPOINTS.REGISTER, variables)
+  },
+  login: (variables: LoginInput) => {
+    return HttpClient.post(API_ENDPOINTS.LOGIN, variables)
+  },
+  me: () => {
+    return HttpClient.get<UsersResponse>(API_ENDPOINTS.ME)
   },
   unblock: (variables: BlockUserInput) => {
     return HttpClient.put(

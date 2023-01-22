@@ -13,9 +13,9 @@ export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
     get({ slug }: { slug: string }) {
       return HttpClient.get<Type>(`${endpoint}/${slug}`)
     },
-    // create(data: InputType, options?: any) {
-    //   return HttpClient.post<Type>(endpoint, data, options)
-    // },
+    create(data: InputType, options?: any) {
+      return HttpClient.post<Type>(endpoint, data, options)
+    },
     update({
       ...input
     }: Partial<InputType> & {

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserPagination, UsersResponse } from '@/types/users'
+import { AUTH_CRED } from '@/utils/constants'
 import { mapPaginatorData } from '@/utils/data-mappers'
+import Cookies from 'js-cookie'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 import { QueryOptionsType } from '../types'
@@ -74,4 +76,19 @@ export const useModifyRoleMutation = () => {
       queryClient.invalidateQueries(API_ENDPOINTS.USERS)
     },
   })
+}
+
+export function useLogin() {
+  return useMutation(userClient.login)
+}
+
+export const useMeQuery = () => {
+  return useQuery<UsersResponse, Error>([API_ENDPOINTS.ME], userClient.me)
+}
+
+export const useLogoutMutation = () => {
+  Cookies.remove(AUTH_CRED)
+  return {
+    message: 'Logged out successfully',
+  }
 }

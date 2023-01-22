@@ -13,12 +13,4 @@ export const blogClient = {
       search,
     })
   },
-  create: async (data: CreateNote) => {
-    const options = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }
-    return HttpClient.post<Note>(API_ENDPOINTS.BLOG, data, options)
-  },
 }

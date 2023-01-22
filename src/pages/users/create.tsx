@@ -1,3 +1,12 @@
+import { GetServerSideProps } from 'next'
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils'
+import { Routes } from '@/config/routes'
+
 import Layout from '@/components/layout/admin'
 import UserCreateForm from '@/components/user/user-form'
 
@@ -14,3 +23,23 @@ export default function CreateUser() {
 }
 
 CreateUser.Layout = Layout
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { token, permissions } = getAuthCredentials(ctx)
+  if (
+    !isAuthenticated({ token, permissions }) ||
+    !hasAccess(allowedRoles, permissions)
+  ) {
+    return {
+      redirect: {
+        destination: Routes.login,
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      userPermissions: permissions,
+    },
+  }
+}

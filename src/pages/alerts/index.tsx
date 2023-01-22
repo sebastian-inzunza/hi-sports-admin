@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import type { GetServerSideProps } from 'next'
+import {
+  allowedRoles,
+  getAuthCredentials,
+  hasAccess,
+  isAuthenticated,
+} from '@/utils/auth-utils'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,6 +23,7 @@ import Link from 'next/link'
 import colorBadge from '@/utils/colorBadge'
 import textAlertBadge from '@/utils/textAlertBadge'
 import AlertAnimation from '@/components/alert/alert-animation'
+import { Routes } from '@/config/routes'
 
 export default function Alerts() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -129,3 +138,23 @@ export default function Alerts() {
 }
 
 Alerts.Layout = Layout
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { token, permissions } = getAuthCredentials(ctx)
+  if (
+    !isAuthenticated({ token, permissions }) ||
+    !hasAccess(allowedRoles, permissions)
+  ) {
+    return {
+      redirect: {
+        destination: Routes.login,
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      userPermissions: permissions,
+    },
+  }
+}
