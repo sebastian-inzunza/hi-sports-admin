@@ -31,6 +31,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
     variant = 'normal',
     shadow = false,
     inputClassName,
+    rows = 4,
     disabled,
     ...rest
   } = props
@@ -65,7 +66,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck="false"
-        rows={4}
+        rows={rows}
         ref={ref}
         disabled={disabled}
         {...rest}

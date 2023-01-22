@@ -10,6 +10,7 @@ export interface UsersResponse {
   emailVerified: boolean
   birthDate: null
   registrationDate: Date
+  banned: boolean | null
   role: Role
 }
 

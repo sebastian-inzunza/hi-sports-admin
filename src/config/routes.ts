@@ -15,6 +15,9 @@ export const Routes = {
   operators: {
     ...routesFactory('/operators'),
   },
+  conversations: {
+    ...routesFactory('/conversations'),
+  },
   blog: {
     ...routesFactory('/blog'),
   },

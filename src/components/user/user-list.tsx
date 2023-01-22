@@ -66,7 +66,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
       dataIndex: 'id',
       key: 'id',
       align: 'center' as AlignType,
-      render: (id: string, { banned, role }: any) => {
+      render: (id: string, { banned, role }: UsersResponse) => {
         // console.log('is_active', is_active)
         return (
           <ActionButtons
@@ -74,6 +74,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             userStatus={true}
             isUserActive={!banned}
             showMakeAdminButton={true}
+            showContact={true}
             role={role}
           />
         )

@@ -4,6 +4,7 @@ import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context'
 import Modal from '@/components/ui/modal/modal'
 import UserBanView from '@/components/user/user-ban-view'
 import UserRoleView from '@/components/user/modify-user-role'
+import UserContactView from '@/components/user/user-contact'
 
 // const SuggestionDeleteView = dynamic(
 //   () => import('@/components/suggestions/suggestion-delete-view')
@@ -25,6 +26,8 @@ const ManagedModal = () => {
         return <UserBanView />
       case 'MAKE_ADMIN':
         return <UserRoleView />
+      case 'SHOW_CONTACT':
+        return <UserContactView />
     }
   }
 

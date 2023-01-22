@@ -36,8 +36,8 @@ export const siteSettings = {
         icon: 'DashboardIcon',
       },
       {
-        href: Routes.operators.list,
-        label: 'Operadores',
+        href: Routes.conversations.list,
+        label: 'Conversaciones',
         icon: 'ShopIcon',
       },
       {

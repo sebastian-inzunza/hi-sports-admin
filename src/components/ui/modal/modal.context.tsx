@@ -16,6 +16,7 @@ export type MODAL_VIEWS =
   | 'ABUSE_REPORT'
   | 'DELETE_SUGGESTION'
   | 'DELETE_NOTE'
+  | 'SHOW_CONTACT'
 
 interface State {
   view?: MODAL_VIEWS

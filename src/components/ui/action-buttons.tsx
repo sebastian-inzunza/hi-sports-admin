@@ -9,6 +9,7 @@ import { CloseFillIcon } from '@/components/icons/close-fill'
 import { AdminIcon } from '@/components/icons/admin-icon'
 import Link from 'next/link'
 import { Role } from '@/types/users'
+import { ChatIcon } from '../icons/chat-icon'
 
 type Props = {
   id: string
@@ -20,6 +21,8 @@ type Props = {
   userStatus?: boolean
   isShopActive?: boolean
   approveButton?: boolean
+  //show contact with user
+  showContact?: boolean
   showAddWalletPoints?: boolean
   changeRefundStatus?: boolean
   showMakeAdminButton?: boolean
@@ -40,6 +43,7 @@ const ActionButtons = ({
   approveButton = false,
   showMakeAdminButton = false,
   showReplyQuestion = false,
+  showContact = false,
   customLocale,
   role,
 }: Props) => {
@@ -67,6 +71,10 @@ const ActionButtons = ({
     } else {
       //   openModal('SHOP_DISAPPROVE_VIEW', id)
     }
+  }
+
+  function handleShowContact() {
+    openModal('SHOW_CONTACT', id)
   }
 
   function handleReplyQuestion() {
@@ -168,6 +176,17 @@ const ActionButtons = ({
           <Eye width={24} />
         </Link>
       )}
+      {
+        // showContact - show icon to contact with user (only for admin)
+        showContact && (
+          <button
+            onClick={handleShowContact}
+            className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
+          >
+            <ChatIcon width={20} />
+          </button>
+        )
+      }
     </div>
   )
 }

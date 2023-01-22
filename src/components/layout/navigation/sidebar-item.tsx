@@ -21,7 +21,7 @@ const SidebarItem = ({ href, icon, label, active }: any) => {
         iconName: icon,
         className: 'w-5 h-5 me-4',
       })}
-      <span onClick={() => closeSidebar()} className="ml-3">
+      <span onClick={closeSidebar} className="ml-3">
         {label}
       </span>
     </Link>
