@@ -15,7 +15,7 @@ const FileInput = ({
   name,
   acceptFile = false,
   helperText,
-  defaultValue = [],
+  defaultValue = null,
 }: FileInputProps) => {
   return (
     <Controller

@@ -18,6 +18,7 @@ export default function Uploader({
   const [files, setFiles] = useState<string>(value)
   const { mutate: upload, isLoading: loading } = useUploadMutation()
   const [error, setError] = useState<string | null>(null)
+  console.log('files', files)
   const { getRootProps, getInputProps } = useDropzone({
     ...(!acceptFile ? { accept: 'image/*' } : { accept: ACCEPTED_FILE_TYPES }),
     multiple,
@@ -84,7 +85,7 @@ export default function Uploader({
           )}
         </aside>
       )}
-      {files && !loading && (
+      {files != null && !loading && (
         <div
           className={`relative mt-2 inline-flex flex-col overflow-hidden rounded me-2  border border-border-200`}
         >

@@ -9,4 +9,5 @@ export const API_ENDPOINTS = {
   ANALYTICS: '/analytics',
   LOGIN: '/auth/login',
   UPLOAD: '/upload',
+  UPDATE_PASSWORD: '/auth/change-password',
 }

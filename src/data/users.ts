@@ -26,6 +26,34 @@ export const useUsersQuery = (params: Partial<QueryOptionsType>) => {
   }
 }
 
+export const useUpdateUserMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.update, {
+    onSuccess() {
+      toast.success('User updated successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.ME)
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}
+
+export const useUpdatePasswordMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(userClient.changePassword, {
+    onSuccess() {
+      toast.success('Password updated successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.ME)
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}
+
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient()
 

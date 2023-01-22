@@ -43,4 +43,10 @@ export const userClient = {
       variables
     )
   },
+  update: ({ id, input }: { id: string; input: UsersResponse }) => {
+    return HttpClient.put(`${API_ENDPOINTS.USERS}/${id}`, input)
+  },
+  changePassword: (variables: { newPassword: string }) => {
+    return HttpClient.post(`${API_ENDPOINTS.UPDATE_PASSWORD}`, variables)
+  },
 }
