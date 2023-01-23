@@ -38,7 +38,7 @@ export const siteSettings = {
       {
         href: Routes.conversations.list,
         label: 'Conversaciones',
-        icon: 'ShopIcon',
+        icon: 'ChatIcon',
       },
       {
         href: Routes.user.list,
@@ -51,19 +51,14 @@ export const siteSettings = {
         icon: 'ProductsIcon',
       },
       {
-        href: Routes.reports.list,
-        label: 'Reports',
-        icon: 'AttributeIcon',
-      },
-      {
         href: Routes.tracker.list,
         label: 'Tracker',
-        icon: 'TagIcon',
+        icon: 'Pin',
       },
       {
         href: Routes.alerts.list,
         label: 'Alertas',
-        icon: 'OrdersIcon',
+        icon: 'BellIcon',
       },
       {
         href: Routes.suggestions.list,

@@ -2,7 +2,7 @@
 import { memo } from 'react'
 import GoogleMapReact from 'google-map-react'
 import Card from '../common/card'
-import { Pin } from '../icons/pin-icon'
+import { PinMap } from '../icons/pin-map-icon'
 
 const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''
 
@@ -14,7 +14,9 @@ type Props = {
 
 // Use memoization to avoid re-rendering the map
 
-const PinComponent: any = () => <Pin />
+const PinComponent: any = () => (
+  <PinMap color={'#ed2524'} width={23} height={23} />
+)
 
 const AlertMap = memo(({ lat, lng }: Props) => {
   const center = {

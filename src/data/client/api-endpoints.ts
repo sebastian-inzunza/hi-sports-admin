@@ -10,4 +10,5 @@ export const API_ENDPOINTS = {
   LOGIN: '/auth/login',
   UPLOAD: '/upload',
   UPDATE_PASSWORD: '/auth/change-password',
+  SETTINGS: '/settings',
 }

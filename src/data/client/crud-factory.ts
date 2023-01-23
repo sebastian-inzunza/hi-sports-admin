@@ -4,7 +4,7 @@ import { HttpClient } from './http-client'
 
 export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
   return {
-    all(params: QueryParams) {
+    all(params?: QueryParams) {
       return HttpClient.get<Type[]>(endpoint, params)
     },
     paginated(params: QueryParams) {

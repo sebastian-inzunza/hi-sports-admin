@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Controller, useForm } from 'react-hook-form'
+
 import Input from '@/components/ui/input'
 import Button from '@/components/ui/button'
 import Description from '@/components/ui/description'
@@ -7,8 +9,12 @@ import Label from '@/components/ui/label'
 import TextArea from '@/components/ui/text-area'
 import { getIcon } from '@/utils/get-icon'
 import * as socialIcons from '@/components/icons/social'
-import CopyContent from '@/components/ui/copy-content'
+// import CopyContent from '@/components/ui/copy-content'
 import { siteSettings } from '@/settings/site.settings'
+import FileInput from '../ui/file-input'
+import GooglePlacesAutocomplete from '../form/google-places-autocomplete'
+import { CreateSettings, Settings } from '@/types/settings'
+import { useSettingsMutation } from '@/data/settings'
 
 const socialIcon = [
   {
@@ -45,8 +51,21 @@ export const updatedIcons = socialIcon.map((item: any) => {
   return item
 })
 
-// TODO: Split Settings
-export default function SettingsForm() {
+type Props = {
+  settings?: Settings
+}
+export default function SettingsForm({ settings }: Props) {
+  const { mutate: updateSwttingsMutation, isLoading: loading } =
+    useSettingsMutation()
+
+  const {
+    control,
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<CreateSettings | Settings>(
+    settings ? { defaultValues: settings } : {}
+  )
   const logoInformation = (
     <span>
       {'Tamaño recomendado'} &nbsp;
@@ -56,8 +75,15 @@ export default function SettingsForm() {
     </span>
   )
 
+  async function onSubmit(value: CreateSettings | Settings) {
+    updateSwttingsMutation({
+      id: settings?.id || 0,
+      ...value,
+    })
+  }
+
   return (
-    <form method="POST">
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
           title={'Logo'}
@@ -66,7 +92,7 @@ export default function SettingsForm() {
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          {/* <FileInput name="logo" control={control} multiple={false} /> */}
+          <FileInput {...register('logo')} control={control} />
         </Card>
       </div>
 
@@ -82,124 +108,67 @@ export default function SettingsForm() {
             label={'Nombre del sitio'}
             variant="outline"
             className="mb-5"
-            name={''}
+            {...register('siteName')}
+            error={errors.siteName?.message}
           />
           <Input
-            label={'Subtítulo'}
-            error={'Subtitle'}
+            label={'Descripción del sitio'}
             variant="outline"
             className="mb-5"
-            name={''}
+            {...register('siteSubtitle')}
+            error={errors.siteSubtitle?.message}
           />
 
           <div className="mb-5">
-            <Label>Moneda</Label>
-            {/* <SelectInput
-              name="currency"
+            <Label>Dirección</Label>
+            <Controller
               control={control}
-              getOptionLabel={(option: any) => option.name}
-              getOptionValue={(option: any) => option.code}
-              options={CURRENCY}
-              disabled={isNotDefaultSettingsPage}
-            /> */}
-            {/* <ValidationError message={t(errors.currency?.message)} /> */}
-          </div>
-          <Input
-            label={'Amount'}
-            type="number"
-            error={'Min order amount'}
-            variant="outline"
-            className="mb-5"
-            name={'minimum-order-amount'}
-          />
-          <Input
-            label={`currency to wallet ratio`}
-            type="number"
-            error={'Wallet currency ratio'}
-            variant="outline"
-            className="mb-5"
-            name={'wallet-currency-ratio'}
-          />
-          <Input
-            label={`Signup points`}
-            type="number"
-            error={'Signup points'}
-            variant="outline"
-            className="mb-5"
-            name={'signup-points'}
-          />
-
-          <Input
-            label={`Maximum question limit`}
-            type="number"
-            error={'Maximum question limit'}
-            variant="outline"
-            className="mb-5"
-            name={'maximum-question-limit'}
-          />
-
-          <div className="mb-5">
-            <div className="flex items-center gap-x-4">
-              {/* <SwitchInput
-                name="useOtp"
-                control={control}
-                disabled={isNotDefaultSettingsPage}
-              /> */}
-              <Label className="mb-0">OTP</Label>
-            </div>
-          </div>
-
-          <div className="mb-5">
-            <Label>Taxes</Label>
-            {/* <SelectInput
-              name="taxClass"
-              control={control}
-              getOptionLabel={(option: any) => option.name}
-              getOptionValue={(option: any) => option.id}
-              options={taxClasses!}
-              disabled={isNotDefaultSettingsPage}
-            /> */}
-          </div>
-        </Card>
-      </div>
-
-      <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
-        <Description
-          title={'Pagos'}
-          details="Podrás encontrar toda la información de pagos aquí."
-          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        />
-
-        <Card className="w-full sm:w-8/12 md:w-2/3">
-          <div className="mb-5">
-            <div className="flex items-center gap-x-4">
-              {/* <SwitchInput
-                name="useCashOnDelivery"
-                control={control}
-                disabled={isNotDefaultSettingsPage}
-              /> */}
-            </div>
-          </div>
-
-          <div className="mb-5">
-            <Label>Seleccion de forma de pago</Label>
-            {/* <SelectInput
-              name="paymentGateway"
-              control={control}
-              getOptionLabel={(option: any) => option.title}
-              getOptionValue={(option: any) => option.name}
-              options={PAYMENT_GATEWAY}
-              disabled={isNotDefaultSettingsPage}
-            /> */}
-          </div>
-
-          <div className="mb-0">
-            <CopyContent
-              label={'Webhook'}
-              variant="outline"
-              value={`${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}/webhooks`}
-              name="webhook"
+              {...register('location')}
+              render={({ field: { onChange } }) => (
+                <GooglePlacesAutocomplete
+                  onChange={onChange}
+                  // data={''}
+                  disabled={false}
+                />
+              )}
             />
+          </div>
+
+          <div className="mb-5">
+            {/* Two Columns */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Input
+                label={'Teléfono'}
+                {...register('contactNumber')}
+                error={errors.contactNumber?.message}
+              />
+              <Input label={'Website'} {...register('website')} />
+            </div>
+          </div>
+
+          <div className="mb-5 mt-10">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Input
+                label={'Facebook'}
+                {...register('facebookUrl')}
+                error={errors.facebookUrl?.message}
+              />
+              <Input
+                label={'Instagram'}
+                {...register('instagramUrl')}
+                error={errors.instagramUrl?.message}
+              />
+              <Input
+                label={'Twitter'}
+                {...register('twitterUrl')}
+                error={errors.twitterUrl?.message}
+              />
+              <Input
+                label={'Youtube'}
+                {...register('youtubeUrl')}
+                error={errors.youtubeUrl?.message}
+              />
+            </div>
           </div>
         </Card>
       </div>
@@ -214,7 +183,8 @@ export default function SettingsForm() {
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
             label={'Meta Title'}
-            name="seo.metaTitle"
+            {...register('metaTitle')}
+            error={errors.metaTitle?.message}
             variant="outline"
             className="mb-5"
           />
@@ -222,63 +192,54 @@ export default function SettingsForm() {
             label={'Meta Description'}
             variant="outline"
             className="mb-5"
-            name="seo.metaDescription"
+            {...register('metaDescription')}
+            error={errors.metaDescription?.message}
           />
           <Input
             label={'Meta Tags'}
             variant="outline"
             className="mb-5"
-            name="seo.metaTags"
+            {...register('metaTags')}
+            error={errors.metaTags?.message}
           />
           <Input
             label={'Canonical URL'}
             variant="outline"
             className="mb-5"
-            name="seo.canonicalUrl"
+            {...register('canonicalUrl')}
+            error={errors.canonicalUrl?.message}
           />
           <Input
-            label={'oG TITLE'}
+            label={'Og Title'}
             variant="outline"
             className="mb-5"
-            name="seo.ogTitle"
+            {...register('ogTitle')}
+            error={errors.ogTitle?.message}
           />
           <TextArea
-            label={'Description'}
+            label={'Og Description'}
             variant="outline"
             className="mb-5"
-            name="seo.ogDescription"
+            {...register('ogDescription')}
+            error={errors.ogDescription?.message}
           />
           <div className="mb-5">
             <Label>Image</Label>
-            {/* <FileInput name="seo.ogImage" control={control} multiple={false} /> */}
+            <FileInput name="ogImage" control={control} />
           </div>
-          <Input
-            label={'Twitter'}
-            variant="outline"
-            className="mb-5"
-            placeholder="your twitter username (exp: @username)"
-            name="seo.twitterUsername"
-          />
           <Input
             label={'Card'}
             variant="outline"
             className="mb-5"
             placeholder="one of summary, summary_large_image, app, or player"
-            name="seo.twitterCardType"
+            {...register('twitterCardType')}
           />
         </Card>
       </div>
-
-      <div className="my-5 flex flex-wrap sm:my-8">
-        <Description
-          title={'Delivery Schedule'}
-          details={'Podrás encontrar toda la información de delivery aquí.'}
-          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pr-4 md:w-1/3 md:pr-5"
-        />
-      </div>
-
       <div className="mb-4 text-end">
-        <Button>Guardar</Button>
+        <Button loading={loading} disabled={loading} type="submit">
+          Guardar
+        </Button>
       </div>
     </form>
   )

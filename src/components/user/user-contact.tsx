@@ -5,9 +5,12 @@
 // import { CloseFillIcon } from '@/components/icons/close-fill'
 import { CloseFillIcon } from '../icons/close-fill'
 import Button from '../ui/button'
+import { useModalAction } from '../ui/modal/modal.context'
 import TextArea from '../ui/text-area'
 
 const UserContactView = () => {
+  const { closeModal } = useModalAction()
+
   function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     // Manage form data with preventDefault
     e.preventDefault()
@@ -24,7 +27,10 @@ const UserContactView = () => {
           {/* Create a div to view las 4 messages */}
           <div className="flex justify-between items-center">
             <h2 className="text-heading text-lg font-semibold">Contacto</h2>
-            <button className="text-body-dark focus:outline-none">
+            <button
+              className="text-body-dark focus:outline-none"
+              onClick={closeModal}
+            >
               <CloseFillIcon width={20} />
             </button>
           </div>

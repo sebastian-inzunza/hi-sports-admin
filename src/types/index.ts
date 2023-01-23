@@ -9,6 +9,16 @@ export enum SortOrder {
   Desc = 'desc',
 }
 
+export interface LocationInput {
+  lat?: number
+  lng?: number
+  city?: string
+  state?: string
+  country?: string
+  zip?: string
+  formattedAddress?: string
+}
+
 export interface MakeRoleInput {
   id: number
   role: Role
