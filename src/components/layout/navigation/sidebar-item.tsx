@@ -10,7 +10,7 @@ const SidebarItem = ({ href, icon, label, active }: any) => {
     <Link
       href={href}
       // Add proprty to check if the link is active or not
-      className={`flex items-center py-3 px-4 rounded-md text-sm font-medium ${
+      className={`flex items-center rounded-md py-2 px-1 text-sm font-medium ${
         active
           ? 'bg-gray-100 text-gray-900'
           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'

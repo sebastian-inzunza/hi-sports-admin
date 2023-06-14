@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Datepicker from 'react-tailwindcss-datepicker'
 // Import dayjs
 import dayjs from 'dayjs'
@@ -12,9 +12,18 @@ import Loader from '@/components/ui/loader'
 import StickerCard from '@/components/widgets/sticker-card'
 import { UsersIcon } from '../icons/sidebar'
 import Card from '../common/card'
+import { SocketContext } from '@/contexts/sockets.context'
+import Toast from '../ui/toast'
+import { useUI } from '@/contexts/ui.context'
+import { useRouter } from 'next/router'
 
 export default function Dashboard() {
+  const router = useRouter()
+
   const { analytics, error, loading } = useAnalyticsQuery()
+  const { online, alert } = useContext(SocketContext)
+  const { displayToaster } = useUI()
+
   const [selected, setSelected] = useState(false)
   const [value, setValue] = useState({
     startDate: new Date(),
@@ -24,6 +33,8 @@ export default function Dashboard() {
   if (loading) return <Loader text="Cargando Analytics..." />
 
   if (error) return <ErrorMessage message={error.message} />
+
+  if (!online) return <ErrorMessage message="No hay conexión" />
 
   const handleValueChange = (value: any) => {
     if (value.startDate === null || value.endDate === null) {
@@ -37,6 +48,10 @@ export default function Dashboard() {
   function formatDate(date: Date) {
     // format with day js like: 16 Agosto 2018
     return dayjs(date).format('DD MMMM, YYYY')
+  }
+
+  function selectAlert() {
+    router.push(`/alerts`)
   }
 
   return (
@@ -116,6 +131,7 @@ export default function Dashboard() {
           </div>
         </div>
       </Card>
+      {displayToaster && <Toast alert={alert} viewAlert={selectAlert} />}
     </>
   )
 }

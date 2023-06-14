@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AlignType, Table } from '@/components/ui/table'
 import { Routes } from '@/config/routes'
+import { useUpdateNoteMutation } from '@/data/blog'
 // import { useUpdateNoteMutation } from '@/data/blog'
 import { Note } from '@/types/blog'
 import { MappedPaginatorInfo } from '@/types/index'
@@ -17,6 +18,17 @@ type NotesListProps = {
 }
 
 const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
+  const { mutate: updateNote } = useUpdateNoteMutation()
+
+  function handleChange(is_approved: boolean, record: any) {
+    console.log('RECORD IS', record)
+    // Approve or disapprove note
+    updateNote({
+      id: record.id,
+      is_approved,
+    })
+  }
+
   const columns = [
     {
       title: 'ID',
@@ -61,20 +73,10 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       align: 'center' as AlignType,
 
       render: function Render(is_approved: boolean, record: any) {
-        // const { mutate: updateNote } = useUpdateNoteMutation()
-        // function handleChange() {
-        //   console.log('Updated', record)
-        //   updateNote({
-        //     ...record,
-        //     id: record.id,
-        //     is_approved: !is_approved,
-        //   })
-        // }
-
         return (
           <Switch
             checked={is_approved}
-            onChange={() => console.log('Updated', record)}
+            onChange={() => handleChange(!is_approved, record)}
             className={`${
               is_approved ? 'bg-accent' : 'bg-gray-300'
             } relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none`}

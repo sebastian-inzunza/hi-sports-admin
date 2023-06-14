@@ -48,9 +48,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                   </Layout>
                 </PrivateRoute>
               ) : (
+                // <SocketProvider>
                 <Layout {...pageProps}>
                   <Component {...pageProps} />
                 </Layout>
+                // </SocketProvider>
               )}
 
               <ToastContainer autoClose={2000} theme="colored" />

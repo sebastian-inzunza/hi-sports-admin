@@ -24,7 +24,6 @@ export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
       return HttpClient.put<Type>(`${endpoint}/${input.id}`, input)
     },
     delete({ id }: { id: string }) {
-      console.log('ID', id)
       return HttpClient.delete<boolean>(`${endpoint}/${id}`)
     },
   }

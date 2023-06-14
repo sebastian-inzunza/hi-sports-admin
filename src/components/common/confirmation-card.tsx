@@ -31,7 +31,10 @@ const ConfirmationCard: React.FC<ConfirmationCardProps> = ({
   deleteBtnLoading,
 }) => {
   return (
-    <div className="m-auto w-full max-w-sm rounded-md bg-light p-4 pb-6 sm:w-[24rem] md:rounded-xl">
+    <div
+      className="m-auto w-full max-w-sm rounded-md bg-light p-4 pb-6 sm:w-[24rem] md:rounded-xl"
+      data-testid="confirmation-card"
+    >
       <div className="h-full w-full text-center">
         <div className="flex h-full flex-col justify-between">
           {icon ? (
@@ -50,6 +53,7 @@ const ConfirmationCard: React.FC<ConfirmationCardProps> = ({
                 loading={cancelBtnLoading}
                 disabled={cancelBtnLoading}
                 variant="custom"
+                data-testid="cancel-btn"
                 className={cn(
                   'w-full rounded bg-accent py-2 px-4 text-center text-base font-semibold text-light shadow-md transition duration-200 ease-in hover:bg-accent-hover focus:bg-accent-hover focus:outline-none',
                   cancelBtnClassName
@@ -65,6 +69,7 @@ const ConfirmationCard: React.FC<ConfirmationCardProps> = ({
                 loading={deleteBtnLoading}
                 disabled={deleteBtnLoading}
                 variant="custom"
+                data-testid="delete-btn"
                 className={cn(
                   'w-full rounded bg-red-600 py-2 px-4 text-center text-base font-semibold text-light shadow-md transition duration-200 ease-in hover:bg-red-700 focus:bg-red-700 focus:outline-none',
                   deleteBtnClassName

@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import { useState } from 'react'
 import {
   allowedRoles,
   getAuthCredentials,
@@ -11,12 +12,23 @@ import Card from '@/components/common/card'
 import Layout from '@/components/layout/admin'
 import SuggestionList from '@/components/suggestions/suggestions-list'
 import { useSuggestionsQuery } from '@/data/suggestions'
+import Loader from '@/components/ui/loader'
+import ErrorMessage from '@/components/ui/error-message'
 
 export default function Suggestions() {
-  const { suggestions, loading, error } = useSuggestionsQuery()
+  const [page, setPage] = useState(1)
 
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error</p>
+  const { suggestions, paginatorInfo, loading, error } = useSuggestionsQuery({
+    limit: 5,
+    page,
+  })
+
+  if (loading) return <Loader text="Cargando sugerencias" />
+  if (error) return <ErrorMessage message={error.message} />
+
+  function handlePagination(current: number) {
+    setPage(current)
+  }
 
   return (
     <>
@@ -25,7 +37,13 @@ export default function Suggestions() {
           <h1 className="text-xl font-semibold text-heading">Sugerencias</h1>
         </div>
       </Card>
-      <SuggestionList suggestions={suggestions} />
+      {loading ? null : (
+        <SuggestionList
+          suggestions={suggestions ?? []}
+          paginatorInfo={paginatorInfo}
+          onPagination={handlePagination}
+        />
+      )}
     </>
   )
 }

@@ -3,9 +3,17 @@ import Link from 'next/link'
 
 const AccessDeniedPage = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-8">
+    <div
+      className="flex min-h-screen w-full flex-col items-center justify-center p-4 sm:p-8"
+      data-testid="access-denied"
+    >
       <div className="relative h-80 w-full sm:h-96 3xl:h-[580px]">
-        <Image alt={'Access Denied'} src="/access-denied.svg" layout="fill" />
+        <Image
+          alt={'Access Denied'}
+          src="/access-denied.svg"
+          width={120}
+          height={120}
+        />
       </div>
 
       <h3 className="mt-5 text-center text-xl font-bold text-sub-heading sm:mt-10 md:text-2xl 3xl:text-3xl">

@@ -44,6 +44,12 @@ type Action =
       type: 'SET_MODAL_DATA'
       data: MODAL_DATA
     }
+  | {
+      type: 'OPEN_TOASTER'
+    }
+  | {
+      type: 'CLOSE_TOASTER'
+    }
 
 type MODAL_VIEWS =
   | 'SIGNUP_VIEW'
@@ -107,6 +113,18 @@ function uiReducer(state: State, action: Action) {
         modalData: action.data,
       }
     }
+    case 'OPEN_TOASTER': {
+      return {
+        ...state,
+        displayToaster: true,
+      }
+    }
+    case 'CLOSE_TOASTER': {
+      return {
+        ...state,
+        displayToaster: false,
+      }
+    }
   }
 }
 type Props = {
@@ -117,6 +135,10 @@ export const UIProvider = (props: Props) => {
 
   const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
   const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' })
+
+  const openToaster = () => dispatch({ type: 'OPEN_TOASTER' })
+  const closeToaster = () => dispatch({ type: 'CLOSE_TOASTER' })
+
   const toggleSidebar = () =>
     state.displaySidebar
       ? dispatch({ type: 'CLOSE_SIDEBAR' })
@@ -143,6 +165,8 @@ export const UIProvider = (props: Props) => {
       closeModal,
       setModalView,
       setModalData,
+      openToaster,
+      closeToaster,
     }),
     [state]
   )

@@ -1,14 +1,17 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useContext, useState } from 'react'
+import Link from 'next/link'
 import type { GetServerSideProps } from 'next'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+
 import {
   allowedRoles,
   getAuthCredentials,
   hasAccess,
   isAuthenticated,
 } from '@/utils/auth-utils'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
 import Search from '@/components/common/search'
 import Layout from '@/components/layout/admin'
@@ -19,18 +22,25 @@ import AlertList from '@/components/alert/alert-list'
 import AlertMap from '@/components/alert/alert-map'
 import { Alert } from '@/types/alerts'
 import Badge from '@/components/ui/badge'
-import Link from 'next/link'
 import colorBadge from '@/utils/colorBadge'
 import textAlertBadge from '@/utils/textAlertBadge'
 import AlertAnimation from '@/components/alert/alert-animation'
 import { Routes } from '@/config/routes'
+import { SocketContext } from '@/contexts/sockets.context'
 
 export default function Alerts() {
+  const { online, alert } = useContext(SocketContext)
+
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
-  const [alert, setAlert] = useState<Alert | null>(null)
+  const [showAlert, setShowAlert] = useState<Alert | null>()
 
-  const { alerts, error, loading, paginatorInfo } = useAlertsQuery({
+  const {
+    alerts: alertsData,
+    error,
+    loading,
+    paginatorInfo,
+  } = useAlertsQuery({
     limit: 5,
     page,
     search: searchTerm,
@@ -54,12 +64,11 @@ export default function Alerts() {
   }
 
   function selectAlert(alert: Alert) {
-    setAlert(alert)
+    setShowAlert(alert)
   }
 
   return (
     <>
-      {/* Create a mobile first style */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="col-span-1">
           <div className="flex justify-between">
@@ -69,40 +78,49 @@ export default function Alerts() {
                 <FontAwesomeIcon icon={faFilter} />
               </button>
             </div>
+            {/* Status */}
+            <div className="flex items-center ml-4 space-x-2">
+              <span className="text-sm text-gray-500">
+                {online ? 'Conectado' : 'Desconectado'}
+              </span>
+              <span
+                className={`${
+                  online ? 'bg-green-500' : 'bg-red-500'
+                } w-3 h-3 rounded-full`}
+              />
+            </div>
           </div>
+
           <AlertList
-            alerts={alerts}
+            alerts={alertsData}
             paginatorInfo={paginatorInfo}
             onPagination={handlePagination}
             seletedAlert={selectAlert}
           />
         </div>
         <div className="col-span-1">
-          {alert && (
+          {showAlert && (
             <div className="bg-white rounded-lg shadow-lg p-4 mt-2 mb-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-heading">
-                  {alert.id}
+                  {showAlert.id}
                 </h2>
                 <Badge
-                  text={textAlertBadge(alert.status)}
-                  color={colorBadge(alert.status)}
+                  text={textAlertBadge(showAlert.status)}
+                  color={colorBadge(showAlert.status)}
                 />
               </div>
-              <p className="text-sm text-gray-500">{alert.content}</p>
+              <p className="text-sm text-gray-500">{showAlert.content}</p>
               <div className="flex items-center justify-between mt-2">
                 <p className="text-sm text-gray-500">
-                  {new Date(alert.createdAt).toLocaleDateString('en-US', {
+                  {new Date(showAlert.createdAt).toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
                   })}
                 </p>
-                {/* Image */}
-                {alert.image && (
-                  // Link to view image on new page
-                  <Link href={alert.image} target="_blank" rel="noreferrer">
-                    {/* Text Link */}
+                {showAlert.image && (
+                  <Link href={showAlert.image} target="_blank" rel="noreferrer">
                     <span className="text-sm text-gray-500 underline cursor-pointer">
                       Ver imágen
                     </span>
@@ -111,13 +129,9 @@ export default function Alerts() {
               </div>
             </div>
           )}
-          {/* Alert Component */}
-
-          {/* If the admin isnot select an alert, show AlertAnimation component in the same column */}
-          {!alert && (
+          {!showAlert && (
             <>
               <div className="p-4 mt-2 mb-3 flex flex-col items-center justify-center">
-                {/* Helper text "Selecciona una alerta para ver el detalle y geolocalización" */}
                 <div className="bg-white rounded-lg shadow-lg p-4 mt-2 mb-3">
                   <p className="text-sm text-gray-500 mt-2">
                     Selecciona una alerta para ver el detalle y geolocalización
@@ -129,7 +143,9 @@ export default function Alerts() {
           )}
           {
             // If the admin select an alert, show AlertMap component
-            alert && <AlertMap lat={alert?.latitude} lng={alert?.longitude} />
+            showAlert && (
+              <AlertMap lat={alert?.latitude} lng={alert?.longitude} />
+            )
           }
         </div>
       </div>

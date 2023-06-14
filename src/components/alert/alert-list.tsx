@@ -85,7 +85,7 @@ const AlertList = ({
         ))}
       </div>
 
-      {!!paginatorInfo && (
+      {!!paginatorInfo && paginatorInfo.total > 0 && (
         <div>
           <Pagination
             total={paginatorInfo.total}

@@ -1,8 +1,4 @@
-// User contact modal view with Tailwind CSS classes, put input to send message to user
-
-// src/components/user/user-contact-view.tsx
-
-// import { CloseFillIcon } from '@/components/icons/close-fill'
+import Link from 'next/link'
 import { CloseFillIcon } from '../icons/close-fill'
 import Button from '../ui/button'
 import { useModalAction } from '../ui/modal/modal.context'
@@ -26,7 +22,9 @@ const UserContactView = () => {
         <div className="space-y-4">
           {/* Create a div to view las 4 messages */}
           <div className="flex justify-between items-center">
-            <h2 className="text-heading text-lg font-semibold">Contacto</h2>
+            <h2 className="text-heading text-lg font-semibold">
+              Contactar al usuario
+            </h2>
             <button
               className="text-body-dark focus:outline-none"
               onClick={closeModal}
@@ -38,16 +36,24 @@ const UserContactView = () => {
           <div className="flex flex-col space-y-4">
             {/* Must be a bubble message like whatsapp */}
             <div className="flex flex-col space-y-2">
-              <p className="text-body text-sm">Hola, ¿cómo puedo ayudarte?</p>
+              <p className="text-body text-sm">Envía un mensaje al usuario</p>
             </div>
           </div>
           <TextArea
             label=""
-            placeholder="Type your message here"
+            placeholder="Escribe tu mensaje aquí..."
             name="message"
             rows={2}
           />
-          <Button>Send</Button>
+          {/* Put on the end of the component a link to go to the conversation */}
+          <div className="flex justify-end">
+            <Link href={'#'}>
+              <p className="text-accent text-sm">Ver conversación</p>
+            </Link>
+          </div>
+          <div className="flex justify-center space-x-4">
+            <Button>Enviar</Button>
+          </div>
         </div>
       </form>
     </div>

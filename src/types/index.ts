@@ -87,5 +87,45 @@ export type QueryOptionsType = {
   sortedBy?: SortOrder
 }
 
+export interface Suggestion {
+  id: number
+  slug: string
+  content: string
+  userId: number
+  createdAt: Date
+  user: SuggestionByUser
+}
+
+export interface SuggestionByUser {
+  id: number
+  firstName: string
+  lastName: string
+  username: string
+  email: string
+  image: null
+  registration: Date
+}
+
+export interface Conversations {
+  id: string
+  created_at: string
+  updated_at: string
+  shop_id: number
+  unseen: boolean
+  user_id: string
+  user: User
+  latest_message: LatestMessage
+}
+
+export interface LatestMessage {
+  body: string
+  conversation_id: string
+  created_at: string
+  updated_at: string
+  user_id: string
+  id: string
+}
+
+export type SuggestionPaginator = PaginatorInfo<Suggestion>
 export type UserPaginator = PaginatorInfo<User>
 export type AlertPaginator = PaginatorInfo<Alert>

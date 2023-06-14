@@ -18,13 +18,22 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
   return (
     <div
+      aria-label={alt}
+      data-testid="avatar"
       className={cn(
         'relative cursor-pointer w-10 h-10 overflow-hidden rounded-full border border-border-100',
         className
       )}
       {...rest}
     >
-      <Image alt={alt} src={src} priority={true} width={40} height={40} />
+      <Image
+        alt={alt}
+        src={src}
+        priority={true}
+        width={40}
+        height={40}
+        data-testid="image-avatar"
+      />
     </div>
   )
 }

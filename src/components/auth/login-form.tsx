@@ -13,6 +13,7 @@ import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
 import Button from '../ui/button'
 import { LoginInput } from '@/types/index'
 import { STAFF, STORE_OWNER, SUPER_ADMIN } from '@/utils/constants'
+import ErrorMessage from '../ui/error-message'
 
 const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -25,7 +26,6 @@ const LoginForm = () => {
       onSuccess: ({ token }: any) => {
         if (hasAccess(allowedRoles, [SUPER_ADMIN, STORE_OWNER, STAFF])) {
           setAuthCredentials(token, [SUPER_ADMIN, STORE_OWNER, STAFF])
-          console.log('token', token)
           Router.push(Routes.dashboard)
           return
         }
@@ -40,20 +40,15 @@ const LoginForm = () => {
   return (
     <>
       <form noValidate onSubmit={onSubmit} method="POST">
-        <Input
-          {...register('identifier')}
-          label="Correo"
-          error={errorMessage ? errorMessage : undefined}
-        />
+        <Input {...register('identifier')} label="Correo" variant="outline" />
         <PasswordInput
           label={'Contraseña'}
           {...register('password')}
-          error={errorMessage ? errorMessage : undefined}
           className="mt-2"
+          variant="outline"
         />
-
         <Button
-          className="w-full mt-5 bg-sky-600"
+          className="mt-5 w-full bg-sky-600"
           type="submit"
           loading={isLoading}
           disabled={isLoading}
@@ -62,6 +57,7 @@ const LoginForm = () => {
             Inicia sesión
           </span>
         </Button>
+        {errorMessage && <ErrorMessage message={errorMessage} />}
       </form>
     </>
   )

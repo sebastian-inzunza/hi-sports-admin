@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import cn from 'classnames'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
-import 'overlayscrollbars/css/OverlayScrollbars.css'
+import 'overlayscrollbars/overlayscrollbars.css'
 
 type ScrollbarProps = {
   options?: any
