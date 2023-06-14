@@ -22,7 +22,6 @@ export { CalendarScheduleIcon } from '@/components/icons/sidebar/calendar-schedu
 export { ReviewIcon } from '@/components/icons/sidebar/review'
 export { QuestionIcon } from '@/components/icons/sidebar/question'
 export { ChatIcon } from '@/components/icons/chat-icon'
-export { AdminIcon } from '@/components/icons/admin-icon'
 export { Eye } from '@/components/icons/eye-icon'
 export { Pin } from '@/components/icons/pin-icon'
 export { BellIcon } from '@/components/icons/bell-icon'

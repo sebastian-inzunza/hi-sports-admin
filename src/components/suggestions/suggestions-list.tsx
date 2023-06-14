@@ -1,39 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from 'next/image'
-import { AlignType, Table } from '@/components/ui/table'
+import { Table } from '@/components/ui/table'
 
 import { siteSettings } from '@/settings/site.settings'
+import { SuggestionsResponse, User } from '@/types/suggestions'
 import TitleWithSort from '../ui/title-with-sort'
-import Pagination from '../ui/pagination'
-import {
-  MappedPaginatorInfo,
-  Suggestion,
-  SuggestionByUser as User,
-} from '@/types/index'
-import ActionButtons from '../ui/action-buttons'
+import LanguageSwitcher from '../ui/lang-action/action'
+import { Routes } from '@/config/routes'
 
 type SuggestionListProps = {
-  suggestions: Suggestion[]
-  paginatorInfo: MappedPaginatorInfo | null
-  onPagination: (current: number) => void
+  suggestions: SuggestionsResponse[]
 }
-
-const SuggestionList = ({
-  suggestions,
-  paginatorInfo,
-  onPagination,
-}: SuggestionListProps) => {
+const SuggestionList = ({ suggestions }: SuggestionListProps) => {
   const columns = [
     {
       title: 'Avatar',
       dataIndex: 'user',
       key: 'user',
-      align: 'center' as AlignType,
+      width: 120,
       render: (user: User) => {
         return (
           <Image
             src={user?.image ?? siteSettings.logo.url}
-            alt={user?.firstName ?? 'Avatar'}
+            alt={user?.name ?? 'Avatar'}
             width={60}
             height={60}
             className="overflow-hidden rounded"
@@ -45,14 +34,13 @@ const SuggestionList = ({
       title: 'Nombre',
       dataIndex: 'user',
       key: 'user',
-      align: 'center' as AlignType,
-      width: 200,
+      width: 300,
       render: (record: User) => {
         return (
           <div className="flex items-center">
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-heading">
-                {record?.firstName} {record?.lastName}
+                {record?.name}
               </span>
               <span className="text-xs text-gray-500">{record?.email}</span>
             </div>
@@ -64,6 +52,7 @@ const SuggestionList = ({
       title: 'Sugerencia',
       dataIndex: 'content',
       key: 'content',
+      width: 350,
       render: (suggestion: string) => {
         return (
           <div className="flex items-center">
@@ -87,8 +76,8 @@ const SuggestionList = ({
       ),
       className: 'cursor-pointer',
       dataIndex: 'user',
-      align: 'center' as AlignType,
       key: 'user',
+      width: 200,
       render: (registration: User) => {
         return (
           <span>
@@ -105,13 +94,16 @@ const SuggestionList = ({
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
-      align: 'center' as AlignType,
-      render: (id: string) => {
+      width: 100,
+      render: (id: string, record: any) => {
+        console.log('record', record)
         return (
-          <ActionButtons
+          <LanguageSwitcher
             id={id}
+            slug={record.slug}
+            record={record}
+            routes={Routes.suggestions}
             deleteModalView="DELETE_SUGGESTION"
-            showSuggestion={true}
           />
         )
       },
@@ -122,23 +114,18 @@ const SuggestionList = ({
       <div className="mb-6 overflow-hidden rounded shadow">
         <Table
           columns={columns}
+          rowClassName="align-top"
           emptyText={'No hay sugerencias'}
           data={suggestions}
           rowKey="id"
+          scroll={{ x: 1000 }}
         />
       </div>
 
       {/* Pagination */}
-      {!!paginatorInfo?.total && (
-        <div className="flex items-center justify-end">
-          <Pagination
-            total={paginatorInfo.total}
-            current={paginatorInfo.currentPage}
-            pageSize={paginatorInfo.perPage}
-            onChange={onPagination}
-          />
-        </div>
-      )}
+      <div className="flex items-center justify-end">
+        <p>Pagination</p>
+      </div>
     </>
   )
 }

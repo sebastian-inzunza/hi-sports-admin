@@ -27,5 +27,4 @@ export interface CreateNote {
   createdAt: string
   updatedAt: string
   slug: string
-  is_approved: boolean
 }

@@ -17,7 +17,6 @@ import type { NextPageWithLayout } from '@/types/index'
 import DefaultSeo from '@/components/ui/default-seo'
 import { ModalProvider } from '@/components/ui/modal/modal.context'
 import ManagedModal from '@/components/ui/modal/managed-modal'
-import { SessionProvider } from 'next-auth/react'
 import PrivateRoute from '@/utils/private-route'
 
 type NoopProps = {
@@ -37,30 +36,26 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <SessionProvider>
-          <UIProvider>
-            <ModalProvider>
-              <DefaultSeo />
-              {authProps ? (
-                <PrivateRoute authProps={authProps}>
-                  <Layout {...pageProps}>
-                    <Component {...pageProps} />
-                  </Layout>
-                </PrivateRoute>
-              ) : (
-                // <SocketProvider>
+        <UIProvider>
+          <ModalProvider>
+            <DefaultSeo />
+            {authProps ? (
+              <PrivateRoute authProps={authProps}>
                 <Layout {...pageProps}>
                   <Component {...pageProps} />
                 </Layout>
-                // </SocketProvider>
-              )}
+              </PrivateRoute>
+            ) : (
+              <Layout {...pageProps}>
+                <Component {...pageProps} />
+              </Layout>
+            )}
 
-              <ToastContainer autoClose={2000} theme="colored" />
-              <ManagedModal />
-            </ModalProvider>
-          </UIProvider>
-          <ReactQueryDevtools />
-        </SessionProvider>
+            <ToastContainer autoClose={2000} theme="colored" />
+            <ManagedModal />
+          </ModalProvider>
+        </UIProvider>
+        <ReactQueryDevtools />
       </Hydrate>
     </QueryClientProvider>
   )

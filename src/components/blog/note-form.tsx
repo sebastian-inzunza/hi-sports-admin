@@ -62,7 +62,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
       slug,
       image: image ?? initialValues?.image ?? '',
       createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
-      is_approved: initialValues?.is_approved ?? false,
     }
     try {
       if (!initialValues) {

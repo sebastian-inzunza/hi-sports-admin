@@ -24,8 +24,7 @@
       "@/utils/*": ["src/utils/*"],
       "@/settings/*": ["src/settings/*"],
       "@/config/*": ["src/config/*"],
-      "@/data/*": ["src/data/*"],
-      "@/hooks/*": ["src/hooks/*"]
+      "@/data/*": ["src/data/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],

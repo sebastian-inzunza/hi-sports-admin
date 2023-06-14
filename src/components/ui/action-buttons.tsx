@@ -29,7 +29,6 @@ type Props = {
   showReplyQuestion?: boolean
   customLocale?: string
   role?: Role
-  showSuggestion?: boolean
 }
 
 const ActionButtons = ({
@@ -45,7 +44,6 @@ const ActionButtons = ({
   showMakeAdminButton = false,
   showReplyQuestion = false,
   showContact = false,
-  showSuggestion = false,
   customLocale,
   role,
 }: Props) => {
@@ -77,10 +75,6 @@ const ActionButtons = ({
 
   function handleShowContact() {
     openModal('SHOW_CONTACT', id)
-  }
-
-  function handleShoeSuggestion() {
-    openModal('SHOW_SUGGESTION', id)
   }
 
   function handleReplyQuestion() {
@@ -193,14 +187,6 @@ const ActionButtons = ({
           </button>
         )
       }
-      {showSuggestion && (
-        <button
-          onClick={handleShoeSuggestion}
-          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-        >
-          <Eye width={24} />
-        </button>
-      )}
     </div>
   )
 }

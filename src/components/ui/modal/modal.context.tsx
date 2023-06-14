@@ -17,9 +17,6 @@ export type MODAL_VIEWS =
   | 'DELETE_SUGGESTION'
   | 'DELETE_NOTE'
   | 'SHOW_CONTACT'
-  | 'DELETE_SUGGESTION'
-  | 'SHOW_SUGGESTION'
-  | 'COMPOSE_MESSAGE'
 
 interface State {
   view?: MODAL_VIEWS

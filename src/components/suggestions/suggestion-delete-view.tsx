@@ -3,29 +3,20 @@ import {
   useModalAction,
   useModalState,
 } from '@/components/ui/modal/modal.context'
-import { useDeleteSuggestionMutation } from '@/data/suggestions'
-import { getErrorMessage } from '@/utils/form-error'
 
 const SuggestionDeleteView = () => {
   const { data: modalData } = useModalState()
   const { closeModal } = useModalAction()
-  const { mutate: deleteSuggestion, isLoading: loading } =
-    useDeleteSuggestionMutation()
 
   function handleDelete() {
-    try {
-      deleteSuggestion({ id: modalData })
-      closeModal()
-    } catch (error) {
-      closeModal()
-      getErrorMessage(error)
-    }
+    console.log('delete', modalData)
+    closeModal()
   }
 
   return (
     <ConfirmationCard
       onCancel={closeModal}
-      deleteBtnLoading={loading}
+      deleteBtnLoading={false}
       deleteBtnText="Delete"
       onDelete={handleDelete}
     />

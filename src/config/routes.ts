@@ -15,14 +15,8 @@ export const Routes = {
   operators: {
     ...routesFactory('/operators'),
   },
-  environments: {
-    ...routesFactory('/environments'),
-  },
   conversations: {
     ...routesFactory('/conversations'),
-  },
-  notifications: {
-    ...routesFactory('/notifications'),
   },
   blog: {
     ...routesFactory('/blog'),
@@ -53,9 +47,6 @@ export const Routes = {
   },
   question: {
     ...routesFactory('/questions'),
-  },
-  message: {
-    ...routesFactory('/message'),
   },
 }
 

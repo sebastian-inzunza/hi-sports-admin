@@ -5,14 +5,12 @@ export interface UsersResponse {
   passwordHash: string
   firstName: string
   lastName: string
-  lastSeen: Date
   middleName: null | string
   image: null
   emailVerified: boolean
   birthDate: null
   registrationDate: Date
   banned: boolean | null
-  online: boolean
   role: Role
 }
 

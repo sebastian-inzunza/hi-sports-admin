@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useQuery } from 'react-query'
-
 import { Alert, AlertResponse } from '@/types/alerts'
 import { mapPaginatorData } from '@/utils/data-mappers'
+import { useQuery } from 'react-query'
 import { QueryOptionsType } from '../types'
 import { alertClient } from './client/alerts'
 import { API_ENDPOINTS } from './client/api-endpoints'

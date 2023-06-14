@@ -77,7 +77,6 @@ const Search: React.FC<SearchProps> = ({
       role="search"
       className={cn('relative flex w-full items-center', className)}
       onSubmit={handleSubmit(onSearch)}
-      data-testid="search"
     >
       <label htmlFor="search" className="sr-only">
         Busqueda

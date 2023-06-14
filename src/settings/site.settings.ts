@@ -4,7 +4,7 @@ export const siteSettings = {
   name: 'Kali Connect',
   description: 'Kali Connect Admin Panel',
   logo: {
-    url: '/logo.png',
+    url: '/images/logo.png',
     alt: 'KaliConnect',
     href: '/',
     width: 128,
@@ -36,14 +36,9 @@ export const siteSettings = {
         icon: 'DashboardIcon',
       },
       {
-        href: Routes.notifications.list,
-        label: 'Notificaciones',
+        href: Routes.conversations.list,
+        label: 'Conversaciones',
         icon: 'ChatIcon',
-      },
-      {
-        href: Routes.environments.list,
-        label: 'Ambientes',
-        icon: 'AdminIcon',
       },
       {
         href: Routes.user.list,
