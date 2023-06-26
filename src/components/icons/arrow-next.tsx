@@ -12,5 +12,5 @@ export const ArrowNext = ({ ...props }) => {
         stroke="currentColor"
       />
     </svg>
-  )
-}
+  );
+};

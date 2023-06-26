@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const WalletPointsIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg viewBox="0 0 192 192" {...props}>
     <g data-name="06-king">
@@ -12,4 +11,4 @@ export const WalletPointsIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       />
     </g>
   </svg>
-)
+);

@@ -1,37 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react'
-import 'react-toastify/dist/ReactToastify.css'
 import type { AppProps } from 'next/app'
-import '@/assets/css/main.css'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { appWithTranslation } from 'next-i18next'
 import { ToastContainer } from 'react-toastify'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Hydrate } from 'react-query/hydration'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-config.autoAddCss = false
+import 'react-toastify/dist/ReactToastify.css'
 
-import { UIProvider } from '@/contexts/ui.context'
-
-import type { NextPageWithLayout } from '@/types/index'
-import DefaultSeo from '@/components/ui/default-seo'
-import { ModalProvider } from '@/components/ui/modal/modal.context'
-import ManagedModal from '@/components/ui/modal/managed-modal'
+import '../assets/css/main.css'
+import '@/styles/global.css'
 import PrivateRoute from '@/utils/private-route'
+import { UIProvider } from '@/contexts/ui.context'
+import { ModalProvider } from '@/components/ui/modal/modal.context'
+import DefaultSeo from '@/components/ui/default-seo'
 
-type NoopProps = {
-  children: React.ReactNode
-}
-const Noop = ({ children }: NoopProps) => <>{children}</>
+const Noop: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
+  <>{children}</>
+)
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
-
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const Layout = (Component as any).Layout || Noop
-  const authProps = (Component as any).authenticate
+const MyApp = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient())
+  const authProps = (Component as any).authenticate
+  const Layout = (Component as any).Layout || Noop
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -50,13 +38,12 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <Component {...pageProps} />
               </Layout>
             )}
-
             <ToastContainer autoClose={2000} theme="colored" />
-            <ManagedModal />
           </ModalProvider>
         </UIProvider>
-        <ReactQueryDevtools />
       </Hydrate>
     </QueryClientProvider>
   )
 }
+
+export default appWithTranslation(MyApp)

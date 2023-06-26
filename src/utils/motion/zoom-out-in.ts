@@ -1,4 +1,4 @@
-export function zoomOutIn(duration = 0.2) {
+export function zoomOutIn(duration: number = 0.2) {
   return {
     from: {
       scale: 1.1,
@@ -14,5 +14,5 @@ export function zoomOutIn(duration = 0.2) {
         duration: duration,
       },
     },
-  }
+  };
 }

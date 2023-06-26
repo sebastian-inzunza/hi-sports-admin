@@ -1,20 +1,36 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/ui/link'
+import cn from 'classnames'
+import { useSettings } from '@/contexts/settings.context'
+import { siteSettings } from '@/settings/site.settings'
 
-type Props = {
-  className?: string
-}
-const Logo = (props: Props) => {
+const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
+  className,
+  ...props
+}) => {
+  const { logo, siteTitle } = useSettings()
   return (
-    <Link href="/">
-      <Image
-        src="/images/logo.png"
-        alt="Logo"
-        width={110}
-        height={110}
-        loading="eager"
-        {...props}
-      />
+    <Link
+      href={siteSettings.logo.href}
+      className={cn('inline-flex', className)}
+      {...props}
+    >
+      <span
+        className="relative overflow-hidden"
+        style={{
+          width: siteSettings.logo.width,
+          height: siteSettings.logo.height,
+        }}
+      >
+        <Image
+          src={logo?.original ?? siteSettings.logo.url}
+          alt={siteTitle ?? siteSettings.logo.alt}
+          fill
+          sizes="(max-width: 768px) 100vw"
+          className="object-contain"
+          loading="eager"
+        />
+      </span>
     </Link>
   )
 }

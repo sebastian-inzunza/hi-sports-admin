@@ -1,36 +1,34 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
-import { useRouter } from 'next/router'
-import { getAuthCredentials, hasAccess } from './auth-utils'
-import Loader from '@/components/ui/loader/index'
-import AccessDeniedPage from '@/components/common/access-denied'
-import { Routes } from '@/config/routes'
+import React from "react";
+import { useRouter } from "next/router";
+import { getAuthCredentials, hasAccess } from "./auth-utils";
+import Loader from "@/components/ui/loader/loader";
+import AccessDeniedPage from "@/components/common/access-denied";
+import { Routes } from "@/config/routes";
 
-type PrivateRouteProps = {
-  authProps: any
-  children: React.ReactNode
-}
-const PrivateRoute = ({ children, authProps }: PrivateRouteProps) => {
-  const router = useRouter()
-  const { token, permissions } = getAuthCredentials()
-  const isUser = !!token
+const PrivateRoute: React.FC<{
+  authProps: any;
+  children?: React.ReactNode;
+}> = ({ children, authProps }) => {
+  const router = useRouter();
+  const { token, permissions } = getAuthCredentials();
+  const isUser = !!token;
   const hasPermission =
     Array.isArray(permissions) &&
     !!permissions.length &&
-    hasAccess(authProps.permissions, permissions)
+    hasAccess(authProps.permissions, permissions);
   React.useEffect(() => {
-    if (!isUser) router.replace(Routes.login) // If not authenticated, force log in
-  }, [isUser])
+    if (!isUser) router.replace(Routes.login); // If not authenticated, force log in
+  }, [isUser]);
 
   if (isUser && hasPermission) {
-    return <>{children}</>
+    return <>{children}</>;
   }
   if (isUser && !hasPermission) {
-    return <AccessDeniedPage />
+    return <AccessDeniedPage />;
   }
   // Session is being fetched, or no user.
   // If no user, useEffect() will redirect.
-  return <Loader showText={false} />
-}
+  return <Loader showText={false} />;
+};
 
-export default PrivateRoute
+export default PrivateRoute;

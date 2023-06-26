@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,17 +14,17 @@
     /*
     * primary color
     */
-    --color-accent: 8, 47, 117;
+    --color-accent: 0, 73, 136;
 
     /*
     * Hover state color of primary color
     */
-    --color-accent-hover: 1, 71, 145;
+    --color-accent-hover: 41, 145, 206;
 
     /*
     * shade of primary color
     */
-    --color-accent-300: 153, 217, 204;
+    --color-accent-300: 46, 187, 241;
 
     /*
     * shade of primary color
@@ -36,7 +34,7 @@
     /*
     * shade of primary color
     */
-    --color-accent-500: 0, 159, 127;
+    --color-accent-500: 0, 73, 136;
 
     /*
     * shade of primary color
@@ -240,11 +238,35 @@
     * orange-900
     */
     --color-orange-900: 124, 45, 18;
+
+    /*
+    Pending
+    */
+    --color-pending: 201, 161, 22;
+
+    /*
+    Processing
+    */
+    --color-processing: 158, 117, 0;
+
+    /*
+    Complete
+    */
+    --color-complete: 0, 161, 127;
+
+    /*
+    Canceled
+    */
+    --color-canceled: 227, 110, 1;
+
+    /*
+    Failed
+    */
+    --color-failed: 238, 43, 0;
   }
 
   a {
     @apply no-underline;
   }
 }
-
 @import './custom-plugins.css';

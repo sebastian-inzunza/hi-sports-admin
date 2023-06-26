@@ -1,121 +1,93 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react'
-import Datepicker from 'react-tailwindcss-datepicker'
-// Import dayjs
-import dayjs from 'dayjs'
+import { useTranslation } from "next-i18next";
 
-import { useAnalyticsQuery } from '@/data/analytics'
-import ColumnChart from '@/components/widgets/column-chart'
+import StickerCard from "../widgets/sticker-card";
+import { DollarIcon } from "../icons/shops/dollar";
+import { CartIconBig } from "../icons/cart-icon-bag";
+import { CoinIcon } from "../icons/coin-icon";
+import ColumnChart from "../widgets/column-chart";
+import { useAnalyticsQuery } from "@/data/analytics";
+import Loader from "../ui/loader/loader";
+const Dashboard = () => {
+  const { t } = useTranslation();
+  const { data, isLoading: loading } = useAnalyticsQuery();
 
-import ErrorMessage from '@/components/ui/error-message'
-import Loader from '@/components/ui/loader'
-import StickerCard from '@/components/widgets/sticker-card'
-import { UsersIcon } from '../icons/sidebar'
-import Card from '../common/card'
-
-export default function Dashboard() {
-  const { analytics, error, loading } = useAnalyticsQuery()
-  const [selected, setSelected] = useState(false)
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date(),
-  })
-
-  if (loading) return <Loader text="Cargando Analytics..." />
-
-  if (error) return <ErrorMessage message={error.message} />
-
-  const handleValueChange = (value: any) => {
-    if (value.startDate === null || value.endDate === null) {
-      setSelected(false)
-    } else {
-      setSelected(true)
-    }
-    setValue(value)
-  }
-
-  function formatDate(date: Date) {
-    // format with day js like: 16 Agosto 2018
-    return dayjs(date).format('DD MMMM, YYYY')
+  if (loading) {
+    return <Loader text={t("common:text-loading") ?? ""} />;
   }
 
   return (
     <>
-      <div className="mb-6 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-        <div className="w-full ">
-          <StickerCard
-            icon={<UsersIcon className="h-7 w-7" color="#047857" />}
-            title="Total de Usuario"
-            subtitle="(Últimos 30 días)"
-            iconBgStyle={{ backgroundColor: '#A7F3D0' }}
-            total={analytics.usersCount}
-          />
-        </div>
-        <div className="w-full ">
-          <StickerCard
-            icon={<UsersIcon className="h-7 w-7" color="#1D4ED8" />}
-            title="Total de Alertas"
-            subtitle="(Últimos 30 días)"
-            iconBgStyle={{ backgroundColor: '#93C5FD' }}
-            total={analytics.alertsCount}
-          />
-        </div>
-        <div className="w-full ">
-          <StickerCard
-            icon={<UsersIcon className="h-7 w-7" color="#1D4ED8" />}
-            title="Total de Notas"
-            subtitle="(Últimos 30 días)"
-            iconBgStyle={{ backgroundColor: '#93C5FD' }}
-            total={analytics.notesCount}
-          />
-        </div>
-      </div>
-      <div className="mb-6 flex w-full flex-wrap md:flex-nowrap">
-        <ColumnChart />
-      </div>
-      {/* Title "Reportes" */}
-      <div className="mb-6 flex w-full flex-wrap md:flex-nowrap">
+      <div className="mb-6 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full">
-          <h2 className="text-2xl font-semibold text-gray-700">Reportes</h2>
+          <StickerCard
+            titleTransKey="sticker-card-title-rev"
+            subtitleTransKey="sticker-card-subtitle-rev"
+            icon={<DollarIcon className="h-7 w-7" color="#047857" />}
+            iconBgStyle={{ backgroundColor: "#A7F3D0" }}
+            price={data.usersCount}
+          />
+        </div>
+        <div className="w-full ">
+          <StickerCard
+            titleTransKey="sticker-card-title-order"
+            subtitleTransKey="sticker-card-subtitle-order"
+            icon={<CartIconBig />}
+            price={data.alertsCount}
+          />
+        </div>
+        <div className="w-full ">
+          <StickerCard
+            titleTransKey="sticker-card-title-today-rev"
+            icon={<CoinIcon />}
+            price={data.notesCount}
+          />
         </div>
       </div>
-      {/* Create Column */}
-      <Card>
-        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-2">
-          <div className="w-full">
-            <Datepicker
-              primaryColor={'sky'}
-              value={value}
-              onChange={handleValueChange}
-              maxDate={new Date()}
-              minDate={new Date('2021-01-01')}
-              displayFormat="DD/MM/YYYY"
-            />
-          </div>
-          <div className="w-full">
-            {/* Put here range selected with format like 23 Jun 2023 */}
-            <div className="flex justify-center col-span-2 mb-4">
-              <p className="text-gray-700 text-center">
-                {selected
-                  ? `${formatDate(value.startDate)} | ${formatDate(
-                      value.endDate
-                    )}`
-                  : 'Seleccione un rango de fechas'}
-              </p>
-            </div>
 
-            {/* Center button */}
-            <div className="flex justify-center col-span-2">
-              <button
-                className="font-bold py-2 px-4 rounded text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:shadow-outline disabled:opacity-50"
-                disabled={!selected}
-              >
-                Descargar Reporte
-              </button>
-            </div>
-          </div>
+      <div className="mb-6 flex w-full flex-wrap md:flex-nowrap">
+        <ColumnChart
+          widgetTitle={t("common:sale-history")}
+          colors={["#03D3B5"]}
+          series={10}
+          categories={[
+            t("common:january"),
+            t("common:february"),
+            t("common:march"),
+            t("common:april"),
+            t("common:may"),
+            t("common:june"),
+            t("common:july"),
+            t("common:august"),
+            t("common:september"),
+            t("common:october"),
+            t("common:november"),
+            t("common:december"),
+          ]}
+        />
+      </div>
+
+      <div className="mb-6 flex w-full flex-wrap space-y-6 rtl:space-x-reverse xl:flex-nowrap xl:space-x-5 xl:space-y-0">
+        <div className="w-full xl:w-1/2">
+          {/* <RecentOrders
+            orders={orderData}
+            title={t('table:recent-order-table-title')}
+          /> */}
         </div>
-      </Card>
+
+        <div className="w-full xl:w-1/2">
+          {/* <WithdrawTable
+            withdraws={withdraws}
+            title={t('table:withdraw-table-title')}
+          /> */}
+        </div>
+      </div>
+      <div className="mb-6 w-full xl:mb-0">
+        {/* <PopularProductList
+          products={popularProductData}
+          title={t('table:popular-products-table-title')}
+        /> */}
+      </div>
     </>
-  )
-}
+  );
+};
+export default Dashboard;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const CalendarScheduleIcon: React.FC<React.SVGAttributes<{}>> = (
   props
 ) => (
@@ -34,4 +33,4 @@ export const CalendarScheduleIcon: React.FC<React.SVGAttributes<{}>> = (
       </g>
     </g>
   </svg>
-)
+);

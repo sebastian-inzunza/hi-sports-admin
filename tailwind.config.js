@@ -1,30 +1,24 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 //read from env for specific product
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
     if (opacityValue !== undefined) {
-      return `rgba(var(${variableName}), ${opacityValue})`
+      return `rgba(var(${variableName}), ${opacityValue})`;
     } else {
-      return `rgb(var(${variableName}))`
+      return `rgb(var(${variableName}))`;
     }
-  }
+  };
 }
 
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/react-tailwindcss-datepicker/dist/index.esm.js',
-  ],
-  darkMode: 'class',
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       screens: {
         '3xl': '1900px',
       },
       fontFamily: {
-        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
+        body: ['Open Sans', 'system-ui', 'sans-serif'],
+        heading: ['Open Sans', 'system-ui', 'sans-serif'],
       },
       colors: {
         light: withOpacity('--color-light'),
@@ -70,6 +64,14 @@ module.exports = {
           google: '#4285f4',
           'google-hover': '#3574de',
         },
+        status: {
+          pending: withOpacity('--color-pending'),
+          processing: withOpacity('--color-processing'),
+          complete: withOpacity('--color-complete'),
+          canceled: withOpacity('--color-canceled'),
+          failed: withOpacity('--color-failed'),
+          'out-for-delivery': withOpacity('--color-out-for-delivery'),
+        },
       },
 
       textColor: {
@@ -103,6 +105,12 @@ module.exports = {
       boxShadow: {
         base: 'rgba(0, 0, 0, 0.16) 0px 4px 16px',
         translatePanel: '0px 15px 50px rgba(71, 92, 111, 0.15)',
+        chatBox:
+          '0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1)',
+        cardAction:
+          '0 0 0 1px #8898aa1a, 0 15px 35px #31315d1a, 0 5px 15px #00000014',
+        chat: '0px 1px 2px rgba(0, 0, 0, 0.08)',
+        promptSuggestion: '0px 2px 6px rgba(59, 74, 92, 0.1)',
       },
       gridTemplateColumns: {
         fit: 'repeat(auto-fit, minmax(0, 1fr))',
@@ -114,4 +122,4 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('tailwindcss-rtl'),
   ],
-}
+};

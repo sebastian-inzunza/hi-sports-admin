@@ -1,33 +1,30 @@
-import { Settings } from '@/types/settings'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { toast } from 'react-toastify'
-import { API_ENDPOINTS } from './client/api-endpoints'
-import { settingsClient } from './client/settings'
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import { useTranslation } from "next-i18next";
+import { API_ENDPOINTS } from "./client/api-endpoints";
+import { settingsClient } from "./client/settings";
+import { useSettings } from "@/contexts/settings.context";
 
-export const useSettingsQuery = () => {
-  const { data, isLoading, error } = useQuery<Settings, Error>(
-    [API_ENDPOINTS.SETTINGS],
-    () => settingsClient.getSettings(),
-    {
-      keepPreviousData: true,
-    }
-  )
-  return {
-    settings: data as Settings,
-    loading: isLoading,
-    error,
-  }
-}
-
-export const useSettingsMutation = () => {
-  const queryClient = useQueryClient()
+export const useUpdateSettingsMutation = () => {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { updateSettings } = useSettings();
 
   return useMutation(settingsClient.update, {
-    onSuccess: () => {
-      toast.success('Settings updated successfully')
+    onError: (error) => {
+      console.log(error);
     },
+    onSuccess: (data) => {
+      updateSettings(data?.options);
+      toast.success(t("common:successfully-updated"));
+    },
+    // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries(API_ENDPOINTS.SETTINGS)
+      queryClient.invalidateQueries(API_ENDPOINTS.SETTINGS);
     },
-  })
-}
+  });
+};
+
+export const useSettingsQuery = ({ language }: { language: string }) => {
+  return;
+};

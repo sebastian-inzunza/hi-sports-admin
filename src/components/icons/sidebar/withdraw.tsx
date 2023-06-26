@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const WithdrawIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" {...props}>
     <path
@@ -22,4 +21,4 @@ export const WithdrawIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       fill="currentColor"
     />
   </svg>
-)
+);

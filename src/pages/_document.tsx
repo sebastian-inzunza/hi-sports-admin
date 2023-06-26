@@ -4,11 +4,11 @@ import Document, {
   Main,
   NextScript,
   DocumentContext,
-} from 'next/document'
+} from "next/document";
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    return Document.getInitialProps(ctx)
+    return Document.getInitialProps(ctx);
   }
   render() {
     return (
@@ -24,6 +24,6 @@ export default class CustomDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }

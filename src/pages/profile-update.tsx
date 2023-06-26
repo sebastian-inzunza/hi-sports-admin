@@ -1,15 +1,15 @@
-import Layout from '@/components/layout/app'
+import Layout from "@/components/layout/app";
 
-import ProfileUpdateForm from '@/components/auth/profile-update-form'
-import ErrorMessage from '@/components/ui/error-message'
-import Loader from '@/components/ui/loader'
-import { useMeQuery } from '@/data/users'
-import ChangePasswordForm from '@/components/auth/change-password-form'
+import ErrorMessage from "@/components/ui/error-message";
+import { useMeQuery } from "@/data/users";
+import ChangePasswordForm from "@/components/auth/change-password-form";
+import Loader from "@/components/ui/loader/loader";
+import ProfileUpdateForm from "@/components/auth/profile-update-form";
 
 export default function ProfilePage() {
-  const { data, isLoading: loading, error } = useMeQuery()
-  if (loading) return <Loader text={'Cargando perfil...'} />
-  if (error) return <ErrorMessage message={error.message} />
+  const { data, isLoading: loading, error } = useMeQuery();
+  if (loading) return <Loader text={"Cargando perfil..."} />;
+  if (error) return <ErrorMessage message={error.message} />;
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
@@ -20,7 +20,7 @@ export default function ProfilePage() {
       <ProfileUpdateForm me={data} />
       <ChangePasswordForm />
     </>
-  )
+  );
 }
 
-ProfilePage.Layout = Layout
+ProfilePage.Layout = Layout;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const TwitterIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.747 12" {...props}>
     <path
@@ -7,4 +6,4 @@ export const TwitterIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       fill="currentColor"
     />
   </svg>
-)
+);

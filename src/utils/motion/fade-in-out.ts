@@ -1,4 +1,4 @@
-export function fadeInOut(duration = 0.2) {
+export function fadeInOut(duration: number = 0.2) {
   return {
     from: {
       opacity: 0,
@@ -14,5 +14,5 @@ export function fadeInOut(duration = 0.2) {
         duration: duration,
       },
     },
-  }
+  };
 }

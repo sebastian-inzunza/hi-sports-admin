@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const InstagramIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg
     data-name="Group 96"
@@ -17,4 +16,4 @@ export const InstagramIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       fill="currentColor"
     />
   </svg>
-)
+);

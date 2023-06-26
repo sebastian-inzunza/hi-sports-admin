@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 export const IosArrowUp = ({
   color = 'currentColor',
   width = '7px',
@@ -19,5 +19,5 @@ export const IosArrowUp = ({
         fill={color}
       />
     </svg>
-  )
-}
+  );
+};

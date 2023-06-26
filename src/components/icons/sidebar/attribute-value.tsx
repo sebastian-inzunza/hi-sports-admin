@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const AttributeValueIcon: React.FC<React.SVGAttributes<{}>> = (
   props
 ) => (
@@ -31,4 +30,4 @@ export const AttributeValueIcon: React.FC<React.SVGAttributes<{}>> = (
       />
     </g>
   </svg>
-)
+);

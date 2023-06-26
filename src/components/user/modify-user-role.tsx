@@ -1,40 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useModifyRoleMutation } from '@/data/users'
-import { Role } from '@/types/users'
-import ConfirmationCard from '../common/confirmation-card'
-import { useModalAction, useModalState } from '../ui/modal/modal.context'
+import { useModifyRoleMutation } from "@/data/users";
+import ConfirmationCard from "../common/confirmation-card";
+import { useModalAction, useModalState } from "../ui/modal/modal.context";
+import { Role } from "@/types/users";
 
 const UserRoleView = () => {
-  const { data } = useModalState()
-  const { closeModal } = useModalAction()
+  const { data } = useModalState();
+  const { closeModal } = useModalAction();
   const { mutate: makeOrRevokeOperator, isLoading: loading } =
-    useModifyRoleMutation()
+    useModifyRoleMutation();
 
   async function handleDelete() {
     makeOrRevokeOperator({
       id: data.id,
       role: data.role === Role.Operator ? Role.User : Role.Operator,
-    })
-    closeModal()
+    });
+    closeModal();
   }
 
   // Asign role enum to a variable
-  let role = data.role
+  let role = data.role;
 
   // Use the variable to compare
   if (role === Role.Admin) {
-    role = 'Administrador'
+    role = "Administrador";
   } else if (role === Role.User) {
-    role = 'Usuario'
+    role = "Usuario";
   } else if (role === Role.Operator) {
-    role = 'Operador'
+    role = "Operador";
   }
 
   return (
     <ConfirmationCard
       onCancel={closeModal}
       onDelete={handleDelete}
-      deleteBtnText={'Modificar'}
+      deleteBtnText={"Modificar"}
       title={`Modificar rol de ${role}`}
       description={
         // back tick
@@ -42,7 +42,7 @@ const UserRoleView = () => {
       }
       deleteBtnLoading={loading}
     />
-  )
-}
+  );
+};
 
-export default UserRoleView
+export default UserRoleView;

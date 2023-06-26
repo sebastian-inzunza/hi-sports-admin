@@ -61,7 +61,7 @@
   @apply !bg-accent;
 }
 
-.Toastify__toast-theme--colored..Toastify__toast--error {
+.Toastify__toast-theme--colored.Toastify__toast--error {
   @apply !bg-red-500;
 }
 

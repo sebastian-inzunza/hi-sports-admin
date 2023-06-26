@@ -1,21 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment } from 'react'
-import Link from 'next/link'
-import cn from 'classnames'
-import { Menu, Transition } from '@headlessui/react'
-import Avatar from '@/components/common/avatar'
-import { siteSettings } from '@/settings/site.settings'
-import { useMeQuery } from '@/data/users'
+import cn from "classnames";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import Link from "@/components/ui/link";
+import { siteSettings } from "@/settings/site.settings";
+import { useTranslation } from "next-i18next";
+import { useMeQuery } from "@/data/user";
+import Avatar from "@/components/common/avatar";
 
 export default function AuthorizedMenu() {
-  const { data } = useMeQuery()
+  const { data } = useMeQuery();
+  const { t } = useTranslation("common");
 
   // Again, we're using framer-motion for the transition effect
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className="flex items-center focus:outline-none">
         <Avatar
-          src={data?.image ? data?.image : siteSettings?.avatar?.placeholder}
+          src={data?.image ?? siteSettings?.avatar?.placeholder}
           alt="avatar"
         />
       </Menu.Button>
@@ -31,15 +32,15 @@ export default function AuthorizedMenu() {
       >
         <Menu.Items
           as="ul"
-          className="end-0 origin-top-end absolute mt-1 w-48 rounded bg-white shadow-md focus:outline-none"
+          className="absolute mt-1 w-48 rounded bg-white shadow-md end-0 origin-top-end focus:outline-none"
         >
-          <Menu.Item key={'user'}>
+          <Menu.Item key={data?.email}>
             <li
               className="flex w-full flex-col space-y-1 rounded-t
              bg-[#082f75] px-4 py-3 text-sm text-white"
             >
               <span className="font-semibold capitalize">
-                {data?.firstName} {data?.lastName}
+                {data?.firstName}
               </span>
               <span className="text-xs">{data?.email}</span>
             </li>
@@ -47,16 +48,16 @@ export default function AuthorizedMenu() {
 
           {siteSettings.authorizedLinks.map(({ href, labelTransKey }) => (
             <Menu.Item key={`${href}${labelTransKey}`}>
-              {({ active }: any) => (
+              {({ active }) => (
                 <li className="cursor-pointer border-b border-gray-100 last:border-0">
                   <Link
                     href={href}
                     className={cn(
-                      'block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent',
-                      active ? 'text-accent' : 'text-heading'
+                      "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent",
+                      active ? "text-accent" : "text-heading"
                     )}
                   >
-                    {labelTransKey}
+                    {t(labelTransKey)}
                   </Link>
                 </li>
               )}
@@ -65,5 +66,5 @@ export default function AuthorizedMenu() {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
+  );
 }

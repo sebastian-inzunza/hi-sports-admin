@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const CloseIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg
     {...props}
@@ -12,4 +11,4 @@ export const CloseIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       clipRule="evenodd"
     />
   </svg>
-)
+);

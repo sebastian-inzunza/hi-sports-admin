@@ -1,11 +1,26 @@
-import { motion } from 'framer-motion'
-import { NavbarIcon } from '@/components/icons/navbar-icon'
-import UniLogo from '@/components/ui/uni-logo'
-import { useUI } from '@/contexts/ui.context'
-import AuthorizedMenu from './authorized-menu'
+import Logo from "@/components/ui/logo";
+import { useUI } from "@/contexts/ui.context";
+import AuthorizedMenu from "./authorized-menu";
+import LinkButton from "@/components/ui/link-button";
+import { NavbarIcon } from "@/components/icons/navbar-icon";
+import { motion } from "framer-motion";
+import { useTranslation } from "next-i18next";
+import { Routes } from "@/config/routes";
+import {
+  adminAndOwnerOnly,
+  getAuthCredentials,
+  hasAccess,
+} from "@/utils/auth-utils";
+import LanguageSwitcher from "./language-switcher";
+import { Config } from "@/config";
 
 const Navbar = () => {
-  const { toggleSidebar } = useUI()
+  const { t } = useTranslation();
+  const { toggleSidebar } = useUI();
+
+  const { permissions } = getAuthCredentials();
+
+  const { enableMultiLang } = Config;
 
   return (
     <header className="fixed z-40 w-full bg-white shadow">
@@ -19,16 +34,22 @@ const Navbar = () => {
           <NavbarIcon />
         </motion.button>
 
-        <div className="ms-5 me-auto hidden md:flex">
-          <UniLogo />
+        <div className="hidden ms-5 me-auto md:flex">
+          <Logo />
         </div>
 
-        <div className="space-s-8 flex items-center">
+        <div className="flex items-center space-s-8">
+          {hasAccess(adminAndOwnerOnly, permissions) && (
+            <LinkButton href={"/"} className="ms-4 md:ms-6" size="small">
+              {t("common:text-create-shop")}
+            </LinkButton>
+          )}
+          {enableMultiLang ? <LanguageSwitcher /> : null}
           <AuthorizedMenu />
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -1,70 +1,108 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import Input from '@/components/ui/input'
-import PasswordInput from '@/components/ui/password-input'
-import { useLogin } from '@/data/users'
-import { useState } from 'react'
-import Router from 'next/router'
-import { useForm } from 'react-hook-form'
+import { useTranslation } from "next-i18next";
+import * as yup from "yup";
 
-import { Routes } from '@/config/routes'
-import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
-import Button from '../ui/button'
-import { LoginInput } from '@/types/index'
-import { STAFF, STORE_OWNER, SUPER_ADMIN } from '@/utils/constants'
+import Input from "@/components/ui/input";
+import Form from "@/components/ui/forms/form";
+import { Routes } from "@/config/routes";
+import { useLogin } from "@/data/user";
+import { useState } from "react";
+import Alert from "@/components/ui/alert";
+import Router from "next/router";
+import {
+  allowedRoles,
+  hasAccess,
+  setAuthCredentials,
+} from "@/utils/auth-utils";
+import PasswordInput from "../ui/password-input";
+import Button from "../ui/button";
+import { LoginInput } from "@/types";
+
+const loginFormSchema = yup.object().shape({
+  identifier: yup
+    .string()
+    .email("form:error-email-format")
+    .required("form:error-email-required"),
+  password: yup.string().required("form:error-password-required"),
+});
 
 const LoginForm = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const { register, handleSubmit } = useForm<LoginInput>()
+  const { t } = useTranslation();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { mutate: login, isLoading, error } = useLogin();
 
-  const { mutate: login, isLoading } = useLogin()
-
-  const onSubmit = handleSubmit((data) => {
-    login(data, {
-      onSuccess: ({ token }: any) => {
-        if (hasAccess(allowedRoles, [SUPER_ADMIN, STORE_OWNER, STAFF])) {
-          setAuthCredentials(token, [SUPER_ADMIN, STORE_OWNER, STAFF])
-          console.log('token', token)
-          Router.push(Routes.dashboard)
-          return
-        }
-        setErrorMessage(null)
+  function onSubmit({ identifier, password }: LoginInput) {
+    login(
+      {
+        identifier,
+        password,
       },
-      onError: (error: any) => {
-        setErrorMessage(error.response?.data?.message)
-      },
-    })
-  })
+      {
+        onSuccess: (data: any) => {
+          if (data?.jwt) {
+            const role = data?.role;
+            if (hasAccess(allowedRoles, role)) {
+              setAuthCredentials(data.jwt, data.role);
+              Router.push(Routes.dashboard);
+              return;
+            }
+            setErrorMessage("form:error-enough-permission");
+          } else {
+            setErrorMessage("form:error-credential-wrong");
+          }
+        },
+        onError: () => {
+          console.log("====== error ======");
+          const messages = error as any;
+          if (messages?.response?.data?.message) {
+            setErrorMessage(messages?.response?.data?.message[0]);
+          } else {
+            setErrorMessage("form:error-credential-wrong");
+          }
+          console.log("====== error ======");
+        },
+      }
+    );
+  }
 
   return (
     <>
-      <form noValidate onSubmit={onSubmit} method="POST">
-        <Input
-          {...register('identifier')}
-          label="Correo"
-          error={errorMessage ? errorMessage : undefined}
+      <Form<LoginInput> validationSchema={loginFormSchema} onSubmit={onSubmit}>
+        {({ register, formState: { errors } }) => (
+          <>
+            <Input
+              label={t("form:input-label-email") ?? ""}
+              {...register("identifier")}
+              type="email"
+              variant="outline"
+              className="mb-4"
+              error={t(errors?.identifier?.message!) ?? ""}
+            />
+            <PasswordInput
+              label={t("form:input-label-password")}
+              forgotPassHelpText={t("form:input-forgot-password-label") ?? ""}
+              {...register("password")}
+              error={t(errors?.password?.message!) ?? ""}
+              variant="outline"
+              className="mb-4"
+              forgotPageLink={Routes.forgotPassword}
+            />
+            <Button className="w-full" loading={isLoading} disabled={isLoading}>
+              {t("form:button-label-login")}
+            </Button>
+          </>
+        )}
+      </Form>
+      {errorMessage ? (
+        <Alert
+          message={t(errorMessage)}
+          variant="error"
+          closeable={true}
+          className="mt-5"
+          onClose={() => setErrorMessage(null)}
         />
-        <PasswordInput
-          label={'Contraseña'}
-          {...register('password')}
-          error={errorMessage ? errorMessage : undefined}
-          className="mt-2"
-        />
-
-        <Button
-          className="w-full mt-5 bg-sky-600"
-          type="submit"
-          loading={isLoading}
-          disabled={isLoading}
-        >
-          <span className="text-sm font-semibold text-white">
-            Inicia sesión
-          </span>
-        </Button>
-      </form>
+      ) : null}
     </>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

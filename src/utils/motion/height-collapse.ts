@@ -14,5 +14,5 @@ export function heightCollapse() {
         ease: [0.04, 0.62, 0.23, 0.98],
       },
     },
-  }
+  };
 }

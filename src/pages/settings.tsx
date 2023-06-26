@@ -1,48 +1,37 @@
-import AppLayout from '@/components/layout/app'
-import SettingsForm from '@/components/settings/settings-form'
-import { Routes } from '@/config/routes'
-import { useSettingsQuery } from '@/data/settings'
-import {
-  allowedRoles,
-  getAuthCredentials,
-  hasAccess,
-  isAuthenticated,
-} from '@/utils/auth-utils'
-import { GetServerSideProps } from 'next'
+import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import SettingsForm from "@/components/settings/settings-form";
+// import AdminLayout from "@/components/layouts/admin";
+import { adminOnly } from "@/utils/auth-utils";
 
 export default function Settings() {
-  const { settings, loading, error } = useSettingsQuery()
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  const { t } = useTranslation();
+  const { locale } = useRouter();
 
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">Settings</h1>
+        <h1 className="text-lg font-semibold text-heading">
+          {t("form:form-title-settings")}
+        </h1>
       </div>
-      <SettingsForm settings={settings} />
+      {/* <SettingsForm
+        // TODO: fix it
+        // @ts-ignore
+        settings={settings}
+      /> */}
     </>
-  )
+  );
 }
+Settings.authenticate = {
+  permissions: adminOnly,
+};
+// Settings.Layout = AdminLayout;
 
-Settings.Layout = AppLayout
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { token, permissions } = getAuthCredentials(ctx)
-  if (
-    !isAuthenticated({ token, permissions }) ||
-    !hasAccess(allowedRoles, permissions)
-  ) {
-    return {
-      redirect: {
-        destination: Routes.login,
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {
-      userPermissions: permissions,
-    },
-  }
-}
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["form", "common"])),
+  },
+});

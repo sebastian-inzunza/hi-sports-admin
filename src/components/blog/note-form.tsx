@@ -72,7 +72,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         })
       } else {
         updateNote({
-          id: initialValues?.id ?? 0,
+          id: initialValues?.id.toString() ?? '0',
           ...input,
         })
       }

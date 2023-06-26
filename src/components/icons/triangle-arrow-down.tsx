@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import React from 'react'
+import React from 'react';
 export const TriangleArrowDown: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -11,4 +10,4 @@ export const TriangleArrowDown: React.FC<React.SVGAttributes<{}>> = (props) => (
       fill="currentColor"
     />
   </svg>
-)
+);

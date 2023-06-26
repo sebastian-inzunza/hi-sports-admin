@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Logo from '@/components/ui/logo'
-import { CloseIcon } from '@/components/icons/close-icon'
-import Scrollbar from './scrollbar'
+import Logo from '@/components/ui/logo';
+import { CloseIcon } from '@/components/icons/close-icon';
+import Scrollbar from './scrollbar';
 
 type DrawerWrapperProps = {
-  hideTopBar?: boolean
-  children: any
-  onClose?: () => void
-}
+  hideTopBar?: boolean;
+  children: any;
+  onClose?: () => void;
+};
 
 const DrawerWrapper: React.FunctionComponent<DrawerWrapperProps> = ({
   hideTopBar = false,
@@ -33,7 +32,7 @@ const DrawerWrapper: React.FunctionComponent<DrawerWrapperProps> = ({
       </div>
       {/* End of menu part */}
     </div>
-  )
-}
+  );
+};
 
-export default DrawerWrapper
+export default DrawerWrapper;

@@ -1,74 +1,51 @@
 export const Routes = {
-  dashboard: '/',
-  login: '/auth/login',
-  logout: '/logout',
-  register: '/register',
-  forgotPassword: '/forgot-password',
-  resetPassword: '/reset-password',
-  profile: '/profile',
-  settings: '/settings',
-  profileUpdate: '/profile-update',
-  checkout: '/orders/checkout',
-  user: {
-    ...routesFactory('/users'),
-  },
-  operators: {
-    ...routesFactory('/operators'),
-  },
-  conversations: {
-    ...routesFactory('/conversations'),
-  },
+  dashboard: "/",
+  login: "/login",
+  logout: "/logout",
+  profile: "/profile",
+  settings: "/settings",
+  forgotPassword: "/forgot-password",
+  profileUpdate: "/profile-update",
   blog: {
-    ...routesFactory('/blog'),
-  },
-  tracker: {
-    ...routesFactory('/tracker'),
-  },
-  category: {
-    ...routesFactory('/categories'),
-  },
-  reports: {
-    ...routesFactory('/reports'),
+    ...routesFactory("/blog"),
   },
   alerts: {
-    ...routesFactory('/alerts'),
-  },
-  reviews: {
-    ...routesFactory('/reviews'),
+    ...routesFactory("/alerts"),
   },
   suggestions: {
-    ...routesFactory('/suggestions'),
+    ...routesFactory("/suggestions"),
   },
-  staff: {
-    ...routesFactory('/staffs'),
+  tracker: {
+    ...routesFactory("/tracker"),
   },
-  refund: {
-    ...routesFactory('/refunds'),
+  users: {
+    ...routesFactory("/users"),
   },
-  question: {
-    ...routesFactory('/questions'),
+  storeNotice: {
+    ...routesFactory("/store-notice"),
   },
-}
+  operators: {
+    ...routesFactory("/operators"),
+  },
+  conversations: {
+    ...routesFactory("/conversations"),
+  },
+};
 
 function routesFactory(endpoint: string) {
   return {
     list: `${endpoint}`,
     create: `${endpoint}/create`,
-    editWithoutLang: (slug: string, shop?: string) => {
-      return shop
-        ? `/${shop}${endpoint}/${slug}/edit`
-        : `${endpoint}/${slug}/edit`
+    editWithoutLang: (slug: string, environment?: string) => {
+      return environment
+        ? `/${environment}${endpoint}/${slug}/edit`
+        : `${endpoint}/${slug}/edit`;
     },
-    edit: (slug: string, language: string, shop?: string) => {
-      return shop
-        ? `/${language}/${shop}${endpoint}/${slug}/edit`
-        : `${language}${endpoint}/${slug}/edit`
-    },
-    translate: (slug: string, language: string, shop?: string) => {
-      return shop
-        ? `/${language}/${shop}${endpoint}/${slug}/translate`
-        : `${language}${endpoint}/${slug}/translate`
+    edit: (slug: string, language: string, environment?: string) => {
+      return environment
+        ? `/${language}/${environment}${endpoint}/${slug}/edit`
+        : `${language}${endpoint}/${slug}/edit`;
     },
     details: (slug: string) => `${endpoint}/${slug}`,
-  }
+  };
 }

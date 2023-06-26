@@ -41,7 +41,7 @@ export const siteSettings = {
         icon: 'ChatIcon',
       },
       {
-        href: Routes.user.list,
+        href: Routes.users.list,
         label: 'Usuarios',
         icon: 'UsersIcon',
       },
@@ -58,7 +58,7 @@ export const siteSettings = {
       {
         href: Routes.alerts.list,
         label: 'Alertas',
-        icon: 'BellIcon',
+        icon: 'Bell',
       },
       {
         href: Routes.suggestions.list,

@@ -1,18 +1,14 @@
-import { CloseIcon } from '@/components/icons/close-icon'
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useRef } from 'react'
-import { useRouter } from 'next/router'
+import { CloseIcon } from "@/components/icons/close-icon";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useRef } from "react";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
-type ModalProps = {
-  open: boolean
-  onClose: () => void
-  children: React.ReactNode
-}
-
-export default function Modal({ open, onClose, children }: ModalProps) {
-  const cancelButtonRef = useRef(null)
-  const { locale } = useRouter()
-  const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
+export default function Modal({ open, onClose, children }: any) {
+  const cancelButtonRef = useRef(null);
+  const { t } = useTranslation("common");
+  const { locale } = useRouter();
+  const dir = locale === "ar" || locale === "he" ? "rtl" : "ltr";
 
   return (
     <Transition show={open} as={Fragment}>
@@ -23,7 +19,7 @@ export default function Modal({ open, onClose, children }: ModalProps) {
         static
         open={open}
         onClose={onClose}
-        dir={dir}
+        dir={"ltr"}
       >
         <div className="min-h-full text-center md:p-5">
           <Transition.Child
@@ -35,7 +31,7 @@ export default function Modal({ open, onClose, children }: ModalProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 h-full w-full bg-gray-900 bg-opacity-50" />
+            <div className="fixed inset-0 h-full w-full bg-gray-900 bg-opacity-50" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -54,21 +50,21 @@ export default function Modal({ open, onClose, children }: ModalProps) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="min-w-content text-start relative inline-block max-w-full align-middle  transition-all md:rounded-xl">
+            <Dialog.Panel className="min-w-content relative inline-block max-w-full align-middle transition-all ltr:text-left rtl:text-right">
               <button
                 onClick={onClose}
                 aria-label="Close panel"
                 ref={cancelButtonRef}
-                className="end-4 absolute top-4 z-[60] inline-block outline-none focus:outline-none md:hidden"
+                className="absolute top-4 z-[60] inline-block outline-none focus:outline-none ltr:right-4 rtl:left-4 lg:hidden"
               >
-                <span className="sr-only">Cerrar</span>
+                <span className="sr-only">{t("text-close")}</span>
                 <CloseIcon className="h-4 w-4" />
               </button>
               {children}
-            </div>
+            </Dialog.Panel>
           </Transition.Child>
         </div>
       </Dialog>
     </Transition>
-  )
+  );
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const MyShopIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.828 14.8" {...props}>
     <g
@@ -55,4 +54,4 @@ export const MyShopIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       <path data-name="Line 4" d="M1.135 14.4h14.559" />
     </g>
   </svg>
-)
+);

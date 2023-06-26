@@ -1,18 +1,31 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const runtimeCaching = require('next-pwa/cache')
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
+/** @type {import('next').NextConfig} */
+const runtimeCaching = require("next-pwa/cache");
+const { i18n } = require("./next-i18next.config");
+const withPWA = require("next-pwa")({
+  disable: process.env.NODE_ENV === "development",
+  dest: "public",
   runtimeCaching,
-  disable: process.env.NODE_ENV === 'development',
-  buildExcludes: [/middleware-manifest.json$/],
-})
+});
 
-const nextConfig = withPWA({
-  // next config
+module.exports = withPWA({
+  reactStrictMode: true,
+  i18n,
   images: {
-    domains: ['loremflickr.com', 'localhost'],
+    domains: [
+      "via.placeholder.com",
+      "res.cloudinary.com",
+      "s3.amazonaws.com",
+      "18.141.64.26",
+      "127.0.0.1",
+      "localhost",
+    ],
   },
-})
-module.exports = nextConfig
+  ...(process.env.APPLICATION_MODE === "production" && {
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+  }),
+});

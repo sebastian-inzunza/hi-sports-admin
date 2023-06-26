@@ -1,17 +1,19 @@
-import { useMutation, useQueryClient } from 'react-query'
-import { API_ENDPOINTS } from '@/data/client/api-endpoints'
-import { uploadClient } from '@/data/client/upload'
-import { toast } from 'react-toastify'
+import { useMutation, useQueryClient } from "react-query";
+import { API_ENDPOINTS } from "@/data/client/api-endpoints";
+import { uploadClient } from "@/data/client/upload";
 
 export const useUploadMutation = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
-  return useMutation(uploadClient.upload, {
-    onSuccess() {
-      toast.success('File uploaded successfully')
+  return useMutation(
+    (input: any) => {
+      return uploadClient.upload(input);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries(API_ENDPOINTS.UPLOAD)
-    },
-  })
-}
+    {
+      // Always refetch after error or success:
+      onSettled: () => {
+        queryClient.invalidateQueries(API_ENDPOINTS.SETTINGS);
+      },
+    }
+  );
+};

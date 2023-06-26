@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export const TrashIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -26,4 +25,4 @@ export const TrashIcon: React.FC<React.SVGAttributes<{}>> = (props) => (
       <path data-name="Line 3" d="M11.777 6.238V18.7" />
     </g>
   </svg>
-)
+);

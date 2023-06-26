@@ -1,22 +1,24 @@
-import Loader from '@/components/ui/loader'
-import { Routes } from '@/config/routes'
-import { useLogoutMutation } from '@/data/users'
-import { AUTH_CRED } from '@/utils/constants'
-import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+import { useEffect } from "react";
+import Loader from "@/components/ui/loader/loader";
+import { useLogoutMutation } from "@/data/user";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 function SignOut() {
-  const router = useRouter()
-  const { message } = useLogoutMutation()
+  const { t } = useTranslation();
+  const { isSuccess } = useLogoutMutation();
 
   useEffect(() => {
-    Cookies.remove(AUTH_CRED)
-    router.replace(Routes.login)
-    toast.success('Hasta luego')
-  }, [])
+    isSuccess;
+  }, []);
 
-  return <Loader text={message} />
+  return <Loader text={t("common:signing-out-text") ?? ""} />;
 }
-export default SignOut
+
+export default SignOut;
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"])),
+  },
+});
