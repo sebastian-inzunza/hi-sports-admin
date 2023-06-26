@@ -1,7 +1,7 @@
-import React from "react";
-import { useTranslation } from "next-i18next";
-import { IosArrowDown } from "../icons/ios-arrow-down";
-import { IosArrowUp } from "../icons/ios-arrow-up";
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { IosArrowDown } from '../icons/ios-arrow-down'
+import { IosArrowUp } from '../icons/ios-arrow-up'
 
 const StickerCard = ({
   titleTransKey,
@@ -15,7 +15,7 @@ const StickerCard = ({
   link,
   linkText,
 }: any) => {
-  const { t } = useTranslation("widgets");
+  const { t } = useTranslation('widgets')
   return (
     <div className="flex h-full w-full flex-col rounded bg-light p-7">
       <div className="mb-auto flex w-full justify-between pb-8">
@@ -37,22 +37,22 @@ const StickerCard = ({
       </div>
 
       <span className="mb-2 text-xl font-semibold text-heading">{price}</span>
-      {indicator === "up" && (
+      {indicator === 'up' && (
         <span
           className="mb-12 inline-block text-sm font-semibold text-body"
-          style={{ color: "#03D3B5" }}
+          style={{ color: '#0f7ebf' }}
         >
-          <IosArrowUp width="9px" height="11px" className="inline-block" />{" "}
+          <IosArrowUp width="9px" height="11px" className="inline-block" />{' '}
           {indicatorText}
           <span className="text-sm font-normal text-body"> {note}</span>
         </span>
       )}
-      {indicator === "down" && (
+      {indicator === 'down' && (
         <span
           className="mb-12 inline-block text-sm font-semibold text-body"
-          style={{ color: "#FC6687" }}
+          style={{ color: '#FC6687' }}
         >
-          <IosArrowDown width="9px" height="11px" className="inline-block" />{" "}
+          <IosArrowDown width="9px" height="11px" className="inline-block" />{' '}
           {indicatorText}
           <span className="text-sm font-normal text-body"> {note}</span>
         </span>
@@ -68,7 +68,7 @@ const StickerCard = ({
         </a>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default StickerCard;
+export default StickerCard

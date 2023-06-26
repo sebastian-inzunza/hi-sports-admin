@@ -2,15 +2,20 @@
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
     if (opacityValue !== undefined) {
-      return `rgba(var(${variableName}), ${opacityValue})`;
+      return `rgba(var(${variableName}), ${opacityValue})`
     } else {
-      return `rgb(var(${variableName}))`;
+      return `rgb(var(${variableName}))`
     }
-  };
+  }
 }
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/react-tailwindcss-datepicker/dist/index.esm.js',
+  ],
+  darkMode: 'class',
   theme: {
     extend: {
       screens: {
@@ -18,7 +23,12 @@ module.exports = {
       },
       fontFamily: {
         body: ['Open Sans', 'system-ui', 'sans-serif'],
-        heading: ['Open Sans', 'system-ui', 'sans-serif'],
+        heading: [
+          'Open Sans',
+          'system-ui',
+          'sans-serif',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       colors: {
         light: withOpacity('--color-light'),
@@ -70,7 +80,6 @@ module.exports = {
           complete: withOpacity('--color-complete'),
           canceled: withOpacity('--color-canceled'),
           failed: withOpacity('--color-failed'),
-          'out-for-delivery': withOpacity('--color-out-for-delivery'),
         },
       },
 
@@ -122,4 +131,4 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('tailwindcss-rtl'),
   ],
-};
+}
