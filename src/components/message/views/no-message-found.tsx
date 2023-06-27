@@ -1,9 +1,9 @@
-import React from 'react'
-import { useTranslation } from 'next-i18next'
-import { NoMessageFound } from '@/components/icons/no-message-found'
+import React from 'react';
+import { useTranslation } from 'next-i18next';
+import { NoMessageFound } from '@/components/icons/no-message-found';
 
 const MessageNotFound = ({ ...rest }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <div className="flex h-full" {...rest}>
@@ -17,7 +17,7 @@ const MessageNotFound = ({ ...rest }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MessageNotFound
+export default MessageNotFound;

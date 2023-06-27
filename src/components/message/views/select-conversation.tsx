@@ -1,13 +1,13 @@
-import cn from 'classnames'
-import { SelectConversationIcon } from '@/components/icons/select-conversation'
-import { useTranslation } from 'next-i18next'
+import cn from 'classnames';
+import { SelectConversationIcon } from '@/components/icons/select-conversation';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
 const SelectConversation = ({ className, ...rest }: Props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <div className={cn('m-auto w-full', className)} {...rest}>
@@ -19,7 +19,7 @@ const SelectConversation = ({ className, ...rest }: Props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SelectConversation
+export default SelectConversation;

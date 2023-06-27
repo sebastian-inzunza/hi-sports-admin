@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import UserBoxHeaderView from '@/components/message/user-box-header'
+import UserListView from '@/components/message/user-list'
 import Button from '@/components/ui/button'
 import cn from 'classnames'
 import { useModalAction } from '@/components/ui/modal/modal.context'
@@ -7,7 +8,6 @@ import { useWindowSize } from '@/utils/use-window-size'
 import { RESPONSIVE_WIDTH } from '@/utils/constants'
 import { useState } from 'react'
 import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
-import UserListView from './views/list-view'
 interface Props {
   className?: string
 }
@@ -19,6 +19,7 @@ const UserListIndex = ({ className, ...rest }: Props) => {
   const { width } = useWindowSize()
   const { permissions } = getAuthCredentials()
   let adminPermission = hasAccess(adminOnly, permissions)
+
   function handleComposeClick() {
     // openModal('COMPOSE_MESSAGE');
   }

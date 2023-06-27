@@ -1,29 +1,34 @@
-import { useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
-import { useWindowSize } from 'react-use'
 import isEmpty from 'lodash/isEmpty'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-
+import ErrorMessage from '@/components/ui/error-message'
+import Loader from '@/components/ui/loader/loader'
+import { useTranslation } from 'next-i18next'
+import Avatar from '@/components/common/avatar'
+import { siteSettings } from '@/settings/site.settings'
+import { DataChat } from '@/types'
+import MessageNotFound from '@/components/message/views/no-message-found'
+import React, { useEffect, useState, useRef } from 'react'
+import { useWindowSize } from '@/utils/use-window-size'
+import { RESPONSIVE_WIDTH } from '@/utils/constants'
 import {
   offset,
   flip,
+  autoUpdate,
   useFloating,
   shift,
 } from '@floating-ui/react-dom-interactions'
-
-import { DataChat } from '@/types'
+import { ArrowDown } from '@/components/icons/arrow-down'
 import { useMeQuery } from '@/data/user'
 import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
-import { RESPONSIVE_WIDTH } from '@/utils/constants'
-import { ArrowDown } from '@/components/icons/arrow-down'
-import Avatar from '@/components/common/avatar'
-import { siteSettings } from '@/settings/site.settings'
-import MessageNotFound from './no-message-found'
+
+dayjs.extend(relativeTime)
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 interface Props {
   conversation?: DataChat
@@ -74,14 +79,60 @@ const UserMessageView = ({
     //@ts-ignore
     messagesEndRef?.current?.scrollIntoView({ behavior: 'smooth' })
   }
+  useEffect(defaultScrollToBottom, [messages])
 
+  // scroll to bottom
+  useEffect(() => {
+    const chatBody = document.getElementById('chatBody')
+    // @ts-ignore
+    chatBody?.scrollTo({
+      top: chatBody?.scrollHeight,
+    })
+    if (!refs.reference.current || !refs.floating.current) {
+      return
+    }
+    return autoUpdate(refs.reference.current, refs.floating.current, update)
+  }, [query?.id, isSuccess, refs.reference, refs.floating, update])
+  const chatBody = document.getElementById('chatBody')
   const scrollToBottom = () => {
-    // chatBody?.scrollTo({
-    //   top: chatBody?.scrollHeight,
-    //   behavior: 'smooth',
-    // });
+    chatBody?.scrollTo({
+      top: chatBody?.scrollHeight,
+      behavior: 'smooth',
+    })
   }
+  useEffect(() => {
+    const chatBody = document.getElementById('chatBody')
+    const toggleVisible = () => {
+      if (
+        Number(
+          Number(chatBody?.scrollHeight) - Number(chatBody?.clientHeight)
+        ) !== Number(chatBody?.scrollTop) &&
+        Number(chatBody?.clientHeight) <= Number(chatBody?.scrollHeight)
+      ) {
+        setVisible(true)
+      } else {
+        setVisible(false)
+      }
+    }
+    chatBody?.addEventListener('scroll', toggleVisible)
+    return () => {
+      chatBody?.removeEventListener('scroll', toggleVisible)
+    }
+  }, [loading])
 
+  if (loading || meLoading)
+    return (
+      <Loader
+        className="!h-full flex-1"
+        text={t('common:text-loading') ?? ''}
+      />
+    )
+  if (meError)
+    return (
+      <div className="!h-full flex-1">
+        <ErrorMessage message={meError?.message} />
+      </div>
+    )
   return (
     <>
       <div

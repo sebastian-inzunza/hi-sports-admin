@@ -1,35 +1,35 @@
-import cn from 'classnames'
-import { useWindowSize } from 'react-use'
-import isEmpty from 'lodash/isEmpty'
-
-import { LIMIT, RESPONSIVE_WIDTH } from '@/utils/constants'
-import UserMessageView from './views/message-view'
-import {
-  useConversationQuery,
-  useMessageSeen,
-  useMessagesQuery,
-} from '@/data/conversations'
+import Loader from '@/components/ui/loader/loader'
+import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import cn from 'classnames'
+import isEmpty from 'lodash/isEmpty'
+import UserMessageView from '@/components/message/views/message-view'
+import { useMessagesQuery } from '@/data/conversations'
+import { useConversationQuery } from '@/data/conversations'
+import { LIMIT } from '@/utils/constants'
+import SelectConversation from '@/components/message/views/select-conversation'
+import BlockedView from '@/components/message/views/blocked-view'
+import CreateMessageForm from '@/components/message/views/form-view'
 import { useEffect, useRef } from 'react'
-import Loader from '../ui/loader/loader'
-import MessageCardLoader from './content-loader'
-import CreateMessageForm from './views/form-view'
-import SelectConversation from './views/select-conversation'
-import { useTranslation } from 'react-i18next'
-import ErrorMessage from '../ui/error-message'
+import MessageCardLoader from '@/components/message/content-loader'
+import { useWindowSize } from '@/utils/use-window-size'
+import { RESPONSIVE_WIDTH } from '@/utils/constants'
+import ErrorMessage from '@/components/ui/error-message'
+import { useMessageSeen } from '@/data/conversations'
 
 interface Props {
   className?: string
 }
+
 const UserMessageIndex = ({ className, ...rest }: Props) => {
   const { t } = useTranslation()
   const loadMoreRef = useRef(null)
   const router = useRouter()
   const { mutate: createSeenMessage } = useMessageSeen()
   const { query } = router
-  // const { data, loading, error } = useConversationQuery({
-  //   id: query.id as string,
-  // });
+  const { data, loading, error } = useConversationQuery({
+    id: query.id as string,
+  })
   const { width } = useWindowSize()
   let {
     error: messageError,
@@ -81,8 +81,9 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
   const seenMessage = (unseen: boolean) => {
     if (unseen) {
       // createSeenMessage({
-      //   conve: query?.id as string,
-      // });
+      //   userId: query?.id as string,
+      //   messageId: data?.id as string,
+      // })
     }
   }
   return (
@@ -97,7 +98,7 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
       >
         {!isEmpty(query?.id) ? (
           <>
-            {!messageLoading ? (
+            {!loading || !messageLoading ? (
               <div
                 className={cn('flex h-full w-full flex-col')}
                 onFocus={() => {
@@ -151,7 +152,7 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
             ) : (
               <Loader
                 className="!h-full"
-                text={t('common:text-loading') ?? ''}
+                text={t('common:text-loading') ?? 'Loading...'}
               />
             )}
           </>

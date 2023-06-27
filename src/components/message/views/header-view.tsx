@@ -1,37 +1,29 @@
-import { useRouter } from 'next/router'
-import cn from 'classnames'
-import { useWindowSize } from 'react-use'
-
-import Link from '@/components/ui/link'
-import { Routes } from '@/config/routes'
-import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
-import { RESPONSIVE_WIDTH } from '@/utils/constants'
-import { BackIcon } from '@/components/icons/back-icon'
-import Avatar from '@/components/common/avatar'
-import { siteSettings } from '@/settings/site.settings'
-
-interface User {
-  id: number
-  firstName: string
-  lastName: string
-  email: string
-  avatar: string | null
-  online: boolean
-}
+import { useRouter } from 'next/router';
+import Button from '@/components/ui/button';
+import cn from 'classnames';
+import PopOver from '@/components/ui/popover';
+import Avatar from '@/components/common/avatar';
+import { siteSettings } from '@/settings/site.settings';
+import { Shop } from '@/types';
+import { useWindowSize } from '@/utils/use-window-size';
+import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils';
+import Link from '@/components/ui/link';
+import { Routes } from '@/config/routes';
+import { BackIcon } from '@/components/icons/back-icon';
+import { RESPONSIVE_WIDTH } from '@/utils/constants';
 interface Props {
-  className?: string
-  user: User
+  className?: string;
+  shop: Shop;
 }
 
-const HeaderView = ({ className, user, ...rest }: Props) => {
-  const router = useRouter()
-  const { width } = useWindowSize()
-  const { permissions } = getAuthCredentials()
-  let adminPermission = hasAccess(adminOnly, permissions)
+const HeaderView = ({ className, shop, ...rest }: Props) => {
+  const router = useRouter();
+  const { width } = useWindowSize();
+  const { permissions } = getAuthCredentials();
+  let adminPermission = hasAccess(adminOnly, permissions);
   const routes = adminPermission
     ? Routes.message.list
-    : `${Routes?.dashboard}?tab=1`
-
+    : `${Routes?.dashboard}?tab=1`;
   return (
     <>
       <div
@@ -56,18 +48,51 @@ const HeaderView = ({ className, user, ...rest }: Props) => {
           className={`flex ${
             adminPermission ? 'cursor-pointer' : ''
           } items-center`}
-          onClick={() => (adminPermission ? router.push(`/${user?.id}`) : '')}
+          onClick={() => (adminPermission ? router.push(`/${shop?.slug}`) : '')}
         >
           <Avatar
-            src={user?.avatar ?? siteSettings?.avatar?.placeholder}
+            src={shop?.logo?.thumbnail ?? siteSettings?.avatar?.placeholder}
             {...rest}
-            alt={user?.firstName}
+            alt={shop?.name}
           />
           <h2 className="ml-2 text-xs font-semibold text-[#64748B]">
-            {user?.firstName} {user?.lastName}
+            {shop?.name}
           </h2>
         </div>
+        {/* {adminPermission ? (
+          <PopOver
+            iconStyle="vertical"
+            popOverPanelClass="!w-full min-w-[10rem] max-w-full rounded bg-white py-2 px-1 text-left shadow-cardAction"
+            popOverButtonClass="text-[#9CA3AF]"
+          >
+            <Button
+              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
+              variant="custom"
+              onClick={() => router.push(`/${shop?.slug}`)}
+            >
+              See Profile
+            </Button>
+
+            <Button
+              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
+              variant="custom"
+            >
+              Set As Default
+            </Button>
+
+            <Button
+              variant="custom"
+              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 text-[#F83D3D] hover:bg-gray-50 hover:text-[#d03131]"
+            >
+              Delete
+            </Button>
+          </PopOver>
+        ) : (
+          ''
+        )} */}
       </div>
     </>
-  )
-}
+  );
+};
+
+export default HeaderView;

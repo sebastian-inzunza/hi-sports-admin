@@ -8,7 +8,7 @@ import ListView from '@/components/message/views/list-view'
 import Scrollbar from '@/components/ui/scrollbar'
 import { LIMIT } from '@/utils/constants'
 import UserListNotFound from '@/components/message/views/conversation-not-found'
-import { DataChat, SortOrder } from '@/types'
+import { SortOrder } from '@/types'
 import cn from 'classnames'
 
 interface Props {
@@ -104,7 +104,7 @@ const UserList = ({ className, filterText, permission, ...rest }: Props) => {
               }}
             >
               {isSuccess &&
-                conversations?.map((conversation: DataChat, key: number) => (
+                conversations?.map((conversation: any, key: number) => (
                   <ListView
                     key={key}
                     conversation={conversation}

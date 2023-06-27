@@ -1,32 +1,32 @@
-import ContentLoader from 'react-content-loader'
-import Avatar from '@/components/common/avatar'
-import { siteSettings } from '@/settings/site.settings'
-import cn from 'classnames'
+import ContentLoader from 'react-content-loader';
+import Avatar from '@/components/common/avatar';
+import { siteSettings } from '@/settings/site.settings';
+import cn from 'classnames';
 interface MessageCardLoaderProps {
-  classes: any
-  limit: number
+  classes: any;
+  limit: number;
 }
 interface LoaderProps {
-  props?: any
-  backgroundColor: string
-  foregroundColor: string
+  props?: any;
+  backgroundColor: string;
+  foregroundColor: string;
 }
 
 const rangeMap = (n: number, fn: (i: number) => any) => {
-  const arr: string[] = []
+  const arr: string[] = [];
   while (n > arr?.length) {
-    arr?.push(fn(arr?.length))
+    arr?.push(fn(arr?.length));
   }
-  return arr
-}
+  return arr;
+};
 
 const checkOddAdnEven = (number: number) => {
   if (number % 2 == 0) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
-}
+};
 
 const Loader = ({ props, backgroundColor, foregroundColor }: LoaderProps) => {
   return (
@@ -42,8 +42,8 @@ const Loader = ({ props, backgroundColor, foregroundColor }: LoaderProps) => {
       <rect width="241" height="6" rx="2" />
       <rect y="12" width="120.5" height="6" rx="2" />
     </ContentLoader>
-  )
-}
+  );
+};
 
 const MessageCardLoader = ({
   classes,
@@ -83,7 +83,7 @@ const MessageCardLoader = ({
         </>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default MessageCardLoader
+export default MessageCardLoader;

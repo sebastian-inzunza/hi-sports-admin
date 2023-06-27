@@ -1,13 +1,12 @@
-import { useWindowSize } from 'react-use'
-import Card from '../common/card'
-import { RESPONSIVE_WIDTH } from '@/utils/constants'
-import ResponsiveView from '@/components/message/views/responsive-view'
-import UserListIndex from './user-list-index'
-import UserMessageIndex from './user-message-index'
+import UserListIndex from '@/components/message/user-list-index';
+import UserMessageIndex from '@/components/message/user-message-index';
+import Card from '@/components/common/card';
+import { useWindowSize } from '@/utils/use-window-size';
+import ResponsiveView from '@/components/message/views/responsive-vew';
+import { RESPONSIVE_WIDTH } from '@/utils/constants';
 
 export default function MessagePageIndex() {
-  const { width } = useWindowSize()
-
+  const { width } = useWindowSize();
   return (
     <>
       <Card
@@ -21,11 +20,9 @@ export default function MessagePageIndex() {
             <UserMessageIndex />
           </div>
         ) : (
-          <>
-            <ResponsiveView />
-          </>
+          <ResponsiveView />
         )}
       </Card>
     </>
-  )
+  );
 }

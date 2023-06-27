@@ -1,13 +1,13 @@
-import { useTranslation } from 'next-i18next'
-import cn from 'classnames'
+import { useTranslation } from 'next-i18next';
+import cn from 'classnames';
 
 interface Props {
-  className?: string
-  name: string
+  className?: string;
+  name: string;
 }
 
 const BlockedView = ({ className, name, ...rest }: Props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <div
@@ -24,7 +24,7 @@ const BlockedView = ({ className, name, ...rest }: Props) => {
         <p className="text-sm">{t('text-blocked-content-two')}</p>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default BlockedView
+export default BlockedView;
