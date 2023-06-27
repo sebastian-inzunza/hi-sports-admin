@@ -1,0 +1,44 @@
+import {
+  CreateMessageInput,
+  CreateMessageSeenInput,
+  DataChat,
+  MessagePaginator,
+  MessageQueryOptions,
+} from '@/types'
+import { HttpClient } from './http-client'
+import { API_ENDPOINTS } from './api-endpoints'
+import { crudFactory } from './crud-factory'
+import { QueryOptions } from 'react-query'
+
+export const conversationsClient = {
+  ...crudFactory<DataChat, QueryOptions, CreateMessageInput>(
+    API_ENDPOINTS.CONVERSIONS
+  ),
+  allConversation: (params: Partial<MessageQueryOptions>) =>
+    HttpClient.get<any>(API_ENDPOINTS.CONVERSIONS, params),
+
+  getMessage({ conversationId, ...prams }: Partial<MessageQueryOptions>) {
+    return HttpClient.get<MessagePaginator>(
+      `${API_ENDPOINTS.MESSAGE}/${conversationId}`,
+      {
+        searchJoin: 'and',
+        ...prams,
+      }
+    )
+  },
+  getConversion({ id }: { id: string }) {
+    return HttpClient.get<DataChat>(`${API_ENDPOINTS.CONVERSIONS}/${id}`)
+  },
+  messageSeen({ userId, messageId }: CreateMessageSeenInput) {
+    return HttpClient.post(`${API_ENDPOINTS.MESSAGE_SEEN}`, {
+      userId,
+      messageId,
+    })
+  },
+
+  messageCreate(input: CreateMessageInput) {
+    return HttpClient.post(`${API_ENDPOINTS.MESSAGE}`, {
+      input,
+    })
+  },
+}
