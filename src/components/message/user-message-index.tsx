@@ -26,11 +26,15 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
   const { t } = useTranslation()
   const loadMoreRef = useRef(null)
   const router = useRouter()
-  const { mutate: createSeenMessage } = useMessageSeen()
   const { query } = router
-  const { data, loading, error } = useConversationQuery({
+  const {
+    data: conversation,
+    loading,
+    error,
+  } = useConversationQuery({
     id: query.id as string,
   })
+
   const { width } = useWindowSize()
   let {
     error: messageError,
@@ -42,10 +46,12 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
     isLoadingMore,
     isFetching,
   } = useMessagesQuery({
-    userId: query?.id as string,
+    id: query?.id as string,
     conversationId: query?.conversationId as string,
     limit: LIMIT,
   })
+
+  console.log('MessageError:', messages)
 
   useEffect(() => {
     if (!hasMore) {
@@ -87,6 +93,7 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
       // })
     }
   }
+
   return (
     <>
       <div
@@ -108,10 +115,10 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
                 }}
               >
                 {/* @ts-ignore */}
-                <HeaderView shop={data?.shop} />
+                {/* <HeaderView shop={data?.shop} /> */}
 
                 <UserMessageView
-                  messages={messages}
+                  messages={[]}
                   id="chatBody"
                   error={messageError}
                   loading={messageLoading}
@@ -138,16 +145,15 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
 
                 <div className="relative mx-6">
                   {/* @ts-ignore */}
-                  {Boolean(data?.shop?.is_active) ? (
+                  {/* {Boolean(data?.shop?.is_active) ? (
                     <>
                       <CreateMessageForm />
                     </>
                   ) : (
                     <>
-                      {/* @ts-ignore */}
                       <BlockedView name={data?.shop?.name} />
                     </>
-                  )}
+                  )} */}
                 </div>
               </div>
             ) : (

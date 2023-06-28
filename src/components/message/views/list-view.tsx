@@ -1,17 +1,18 @@
+import React from 'react'
 import cn from 'classnames'
 import { useRouter } from 'next/router'
-import React from 'react'
 import isEmpty from 'lodash/isEmpty'
 import Image from 'next/image'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-// import { Routes } from '@/config/routes'
 import { DataChat } from '@/types'
 import { MessageAvatarPlaceholderIcon } from '@/components/icons/message-avatar-placeholder-icon'
 import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
-import { useMessageSeen } from '@/data/conversations'
+import { useMeQuery } from '@/data/users'
+import Loader from '@/components/ui/loader/loader'
+import { Routes } from '@/config/routes'
 
 dayjs.extend(relativeTime)
 dayjs.extend(utc)
@@ -24,12 +25,26 @@ interface Props {
 
 const UserListView = ({ conversation, className, ...rest }: Props) => {
   const router = useRouter()
-  const { mutate: createSeenMessage } = useMessageSeen()
+  const { data, isLoading } = useMeQuery()
   const { permissions } = getAuthCredentials()
   let permission = hasAccess(adminOnly, permissions)
-  // const routes = permission
-  //   ? Routes?.message?.details(conversation.id)
-  //   : Routes?.shopMessage?.details(conversation?.id);
+  console.log('Conversation data on user list', conversation)
+
+  if (isLoading) return <Loader text="Loading..." />
+
+  // map participants to get the other user
+  const participant = conversation?.participants?.find(
+    (participant) => participant?.id !== data?.id
+  )
+
+  console.log('===== Conversation =====')
+  console.log(conversation)
+  console.log('===== Conversation =====')
+  const id = conversation?.id
+  const routes = permission
+    ? Routes?.message?.details({ id: id.toString() })
+    : Routes?.users?.details({ id: participant?.id.toString() ?? '' })
+
   const seenMessage = (unseen: boolean) => {
     if (unseen) {
       // createSeenMessage({
@@ -50,7 +65,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
           className
         )}
         onClick={() => {
-          // router.push(`${routes}`);
+          router.push(`${routes}`)
           // seenMessage(Boolean(conversation?.unseen));
         }}
         {...rest}

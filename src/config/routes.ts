@@ -34,7 +34,7 @@ export const Routes = {
     ...routesFactory('/operators'),
   },
   conversations: {
-    ...routesFactory('/conversations'),
+    ...routesFactory('/message'),
   },
 }
 
@@ -52,6 +52,6 @@ function routesFactory(endpoint: string) {
         ? `/${language}/${environment}${endpoint}/${slug}/edit`
         : `${language}${endpoint}/${slug}/edit`
     },
-    details: (slug: string) => `${endpoint}/${slug}`,
+    details: ({ id }: { id: string }) => `${endpoint}/${id}`,
   }
 }

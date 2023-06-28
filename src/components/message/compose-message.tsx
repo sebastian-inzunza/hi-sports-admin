@@ -82,7 +82,7 @@ const ComposeMessageModal = () => {
           isLoading={false}
           getOptionLabel={(option: any) => option.name}
           getOptionValue={(option: any) => option.slug}
-          placeholder="Find Vendor"
+          placeholder="Encuentra a un usuario"
           onChange={onTypeFilter as any}
           isClearable={true}
           // @ts-ignore

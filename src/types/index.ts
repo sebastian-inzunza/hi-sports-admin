@@ -146,14 +146,14 @@ export interface Chat {
 }
 
 export interface DataChat {
-  id: number
+  id: number | string
   participants: Participant[]
   latestMessage: LatestMessage
   messages: Message[]
 }
 export interface MessageQueryOptions extends QueryOptions {
   conversationId: string
-  userId: string
+  id: string
 }
 export interface LatestMessage {
   id: number

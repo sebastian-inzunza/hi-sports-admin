@@ -64,6 +64,8 @@ export const useMessagesQuery = (options: Partial<MessageQueryOptions>) => {
     }
   }
 
+  console.log('DATA -USER MESSAGES QUERY', data)
+
   return {
     messages: data?.pages?.flatMap((page) => page.data) ?? [],
     paginatorInfo: Array.isArray(data?.pages)

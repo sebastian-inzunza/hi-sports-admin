@@ -172,11 +172,9 @@ const UserMessageView = ({
             {!isEmpty(messages) ? (
               <div className="space-y-6">
                 {messages?.map((item: any, key: number) => {
-                  const { body, created_at, user_id, conversation } = item
-                  const checkUser = Number(data?.id) === Number(user_id)
-                  let avatarUrl = !permission
-                    ? conversation?.user?.profile?.avatar?.thumbnail
-                    : item?.conversation?.shop?.logo?.thumbnail
+                  // const { cont, created_at, user_id, conversation } = item
+                  const checkUser = Number(data?.id) === Number(item?.user_id)
+                  let avatarUrl = item?.conversation?.shop?.logo?.thumbnail
                   return (
                     <div
                       className={`flex w-full gap-x-3 ${
@@ -205,11 +203,12 @@ const UserMessageView = ({
                               checkUser ? classes?.default : classes?.reverse
                             )}`}
                           >
-                            {body.replace(/['"]+/g, '')}
+                            {/* {item.content.replace(/['"]+/g, '')} */}
+                            {item?.content}
                           </h2>
                         </div>
                         <div className="mt-2 text-xs text-[#686D73]">
-                          {dayjs().to(dayjs.utc(created_at))}
+                          {dayjs().to(dayjs.utc(item?.createdAt))}
                         </div>
                       </div>
                     </div>

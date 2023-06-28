@@ -21,6 +21,6 @@ export const API_ENDPOINTS = {
   SUGGESTIONS: '/suggestions',
   // Chat
   CONVERSIONS: '/chat/conversations',
-  MESSAGE: '/chat/message',
+  MESSAGE: '/chat/conversations',
   MESSAGE_SEEN: '/chat/message/seen',
 }
