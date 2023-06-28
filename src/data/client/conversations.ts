@@ -17,14 +17,11 @@ export const conversationsClient = {
   allConversation: (params: Partial<MessageQueryOptions>) =>
     HttpClient.get<any>(API_ENDPOINTS.CONVERSIONS, params),
 
-  getMessage({ conversationId, ...prams }: Partial<MessageQueryOptions>) {
-    return HttpClient.get<MessagePaginator>(
-      `${API_ENDPOINTS.MESSAGE}/${conversationId}`,
-      {
-        searchJoin: 'and',
-        ...prams,
-      }
-    )
+  getMessage({ id, ...prams }: Partial<MessageQueryOptions>) {
+    return HttpClient.get<MessagePaginator>(`${API_ENDPOINTS.MESSAGE}/${id}`, {
+      searchJoin: 'and',
+      ...prams,
+    })
   },
   getConversion({ id }: { id: string }) {
     return HttpClient.get<DataChat>(`${API_ENDPOINTS.CONVERSIONS}/${id}`)
@@ -37,8 +34,8 @@ export const conversationsClient = {
   },
 
   messageCreate(input: CreateMessageInput) {
-    return HttpClient.post(`${API_ENDPOINTS.MESSAGE}`, {
-      input,
+    return HttpClient.post(`${API_ENDPOINTS.CREATE_MESSAGE}`, {
+      ...input,
     })
   },
 }

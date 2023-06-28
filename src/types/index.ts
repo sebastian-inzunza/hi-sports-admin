@@ -152,7 +152,6 @@ export interface DataChat {
   messages: Message[]
 }
 export interface MessageQueryOptions extends QueryOptions {
-  conversationId: string
   id: string
 }
 export interface LatestMessage {
@@ -193,7 +192,7 @@ export interface Message {
   createdAt: Date
 }
 
-export interface MessagePaginator extends PaginatorInfo<Message> {}
+export interface MessagePaginator extends PaginatorInfo<DataChat> {}
 
 export interface Participant {
   id: number

@@ -28,7 +28,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
   const { data, isLoading } = useMeQuery()
   const { permissions } = getAuthCredentials()
   let permission = hasAccess(adminOnly, permissions)
-  console.log('Conversation data on user list', conversation)
+  // console.log('Conversation data on user list', conversation)
 
   if (isLoading) return <Loader text="Loading..." />
 
@@ -37,21 +37,18 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
     (participant) => participant?.id !== data?.id
   )
 
-  console.log('===== Conversation =====')
-  console.log(conversation)
-  console.log('===== Conversation =====')
   const id = conversation?.id
   const routes = permission
     ? Routes?.message?.details({ id: id.toString() })
     : Routes?.users?.details({ id: participant?.id.toString() ?? '' })
 
-  const seenMessage = (unseen: boolean) => {
-    if (unseen) {
-      // createSeenMessage({
-      //   id: conversation?.id,
-      // });
-    }
-  }
+  // const seenMessage = (unseen: boolean) => {
+  //   if (unseen) {
+  //     // createSeenMessage({
+  //     //   id: conversation?.id,
+  //     // });
+  //   }
+  // }
   return (
     <>
       <div

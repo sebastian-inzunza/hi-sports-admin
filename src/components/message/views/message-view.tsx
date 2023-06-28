@@ -10,7 +10,7 @@ import Loader from '@/components/ui/loader/loader'
 import { useTranslation } from 'next-i18next'
 import Avatar from '@/components/common/avatar'
 import { siteSettings } from '@/settings/site.settings'
-import { DataChat } from '@/types'
+import { DataChat, Message } from '@/types'
 import MessageNotFound from '@/components/message/views/no-message-found'
 import React, { useEffect, useState, useRef } from 'react'
 import { useWindowSize } from '@/utils/use-window-size'
@@ -46,7 +46,6 @@ interface Props {
 }
 
 const UserMessageView = ({
-  conversation,
   className,
   id,
   listen,
@@ -79,7 +78,7 @@ const UserMessageView = ({
     //@ts-ignore
     messagesEndRef?.current?.scrollIntoView({ behavior: 'smooth' })
   }
-  useEffect(defaultScrollToBottom, [messages])
+  useEffect(defaultScrollToBottom, [messages[0]?.messages])
 
   // scroll to bottom
   useEffect(() => {
@@ -171,10 +170,10 @@ const UserMessageView = ({
           <>
             {!isEmpty(messages) ? (
               <div className="space-y-6">
-                {messages?.map((item: any, key: number) => {
+                {messages[0]?.messages.map((item: Message, key: number) => {
                   // const { cont, created_at, user_id, conversation } = item
-                  const checkUser = Number(data?.id) === Number(item?.user_id)
-                  let avatarUrl = item?.conversation?.shop?.logo?.thumbnail
+                  const checkUser = Number(data?.id) === Number(item?.sender.id)
+                  let avatarUrl = item?.sender?.image
                   return (
                     <div
                       className={`flex w-full gap-x-3 ${
@@ -203,8 +202,8 @@ const UserMessageView = ({
                               checkUser ? classes?.default : classes?.reverse
                             )}`}
                           >
-                            {/* {item.content.replace(/['"]+/g, '')} */}
-                            {item?.content}
+                            {item.content.replace(/['"]+/g, '')}
+                            {/* {item?.content} */}
                           </h2>
                         </div>
                         <div className="mt-2 text-xs text-[#686D73]">

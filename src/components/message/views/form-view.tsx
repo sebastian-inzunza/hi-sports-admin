@@ -1,30 +1,33 @@
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
-import Button from '@/components/ui/button';
-import { SendMessageIcon } from '@/components/icons/send-message';
-import { toast } from 'react-toastify';
-import { useSendMessage } from '@/data/conversations';
-import * as yup from 'yup';
-import TextArea from '@/components/ui/text-area';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { isEmpty } from 'lodash';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { isEmpty } from 'lodash'
+
+import Button from '@/components/ui/button'
+import { SendMessageIcon } from '@/components/icons/send-message'
+import { useSendMessage } from '@/data/conversations'
+import * as yup from 'yup'
+import TextArea from '@/components/ui/text-area'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMeQuery } from '@/data/users'
 
 type FormValues = {
-  message: string;
-};
+  message: string
+}
 
 const messageSchema = yup.object().shape({
   message: yup.string().required('error-body-required'),
-});
+})
 
 interface Props {
-  className?: string;
+  className?: string
+  user?: any
 }
 
-const CreateMessageForm = ({ className, ...rest }: Props) => {
+const CreateMessageForm = ({ className, user, ...rest }: Props) => {
+  const { data } = useMeQuery()
+
   const {
     register,
     handleSubmit,
@@ -34,62 +37,64 @@ const CreateMessageForm = ({ className, ...rest }: Props) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(messageSchema),
-  });
+  })
 
-  const { t } = useTranslation();
-  const router = useRouter();
-  const { query } = router;
-  const { mutate: createMessage, isLoading: creating } = useSendMessage();
+  const router = useRouter()
+  const { query } = router
+  const { mutate: createMessage, isLoading: creating } = useSendMessage()
   useEffect(() => {
     const listener = (event: any) => {
       if (event.key === 'Enter' && event.shiftKey) {
-        return false;
+        return false
       }
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        event.preventDefault();
-        const values = getValues();
-        onSubmit(values);
+        event.preventDefault()
+        const values = getValues()
+        onSubmit(values)
       }
-    };
-    document.addEventListener('keydown', listener);
+    }
+    document.addEventListener('keydown', listener)
     return () => {
-      document.removeEventListener('keydown', listener);
-    };
-  }, [query?.id]);
+      document.removeEventListener('keydown', listener)
+    }
+  }, [query?.id])
+
   const onSubmit = async (values: FormValues) => {
     if (isEmpty(values.message)) {
-      toast?.error('Message is required');
-      return;
+      toast?.error('Message is required')
+      return
     }
     createMessage(
       {
-        message: values?.message,
-        id: query?.id as string,
+        content: values?.message,
+        conversationId: query?.id as string,
+        senderId: data?.id.toString() ?? '1',
+        recipientId: user.userId,
       },
       {
         onError: (error: any) => {
-          toast?.error(error?.message);
+          toast?.error(error?.message)
         },
         onSuccess: () => {
-          const chatBody = document.getElementById('chatBody');
+          const chatBody = document.getElementById('chatBody')
           chatBody?.scrollTo({
             top: chatBody?.scrollHeight,
             behavior: 'smooth',
-          });
-          reset();
+          })
+          reset()
         },
       }
-    );
-  };
+    )
+  }
   useEffect(() => {
-    setFocus('message');
-  }, [setFocus]);
+    setFocus('message')
+  }, [setFocus])
   return (
     <>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="relative">
           {!!creating ? (
-            <div className="absolute top-0 left-0 z-50 flex h-full w-full cursor-not-allowed bg-[#EEF1F4]/50">
+            <div className="absolute left-0 top-0 z-50 flex h-full w-full cursor-not-allowed bg-[#EEF1F4]/50">
               <div className="m-auto h-5 w-4 animate-spin rounded-full border-2 border-t-2 border-transparent border-t-accent"></div>
             </div>
           ) : (
@@ -104,7 +109,7 @@ const CreateMessageForm = ({ className, ...rest }: Props) => {
             rows={3}
             disabled={!!creating}
           />
-          <div className="absolute top-0 right-0 h-full">
+          <div className="absolute right-0 top-0 h-full">
             <Button
               className="!h-full px-4 text-lg focus:!shadow-none focus:!ring-0"
               variant="custom"
@@ -116,7 +121,7 @@ const CreateMessageForm = ({ className, ...rest }: Props) => {
         </div>
       </form>
     </>
-  );
-};
+  )
+}
 
-export default CreateMessageForm;
+export default CreateMessageForm

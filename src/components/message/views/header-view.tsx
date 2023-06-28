@@ -1,29 +1,31 @@
-import { useRouter } from 'next/router';
-import Button from '@/components/ui/button';
-import cn from 'classnames';
-import PopOver from '@/components/ui/popover';
-import Avatar from '@/components/common/avatar';
-import { siteSettings } from '@/settings/site.settings';
-import { Shop } from '@/types';
-import { useWindowSize } from '@/utils/use-window-size';
-import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils';
-import Link from '@/components/ui/link';
-import { Routes } from '@/config/routes';
-import { BackIcon } from '@/components/icons/back-icon';
-import { RESPONSIVE_WIDTH } from '@/utils/constants';
+import { useRouter } from 'next/router'
+import cn from 'classnames'
+import Avatar from '@/components/common/avatar'
+import { siteSettings } from '@/settings/site.settings'
+import { Participant } from '@/types'
+import { useWindowSize } from '@/utils/use-window-size'
+import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
+import Link from '@/components/ui/link'
+import { Routes } from '@/config/routes'
+import { BackIcon } from '@/components/icons/back-icon'
+import { RESPONSIVE_WIDTH } from '@/utils/constants'
+import Button from '@/components/ui/button'
+import PopOver from '@/components/ui/popover'
 interface Props {
-  className?: string;
-  shop: Shop;
+  className?: string
+  user: Participant
 }
 
-const HeaderView = ({ className, shop, ...rest }: Props) => {
-  const router = useRouter();
-  const { width } = useWindowSize();
-  const { permissions } = getAuthCredentials();
-  let adminPermission = hasAccess(adminOnly, permissions);
+const HeaderView = ({ className, user, ...rest }: Props) => {
+  const userId = user?.id.toString()
+  const router = useRouter()
+  const { width } = useWindowSize()
+  const { permissions } = getAuthCredentials()
+  let adminPermission = hasAccess(adminOnly, permissions)
   const routes = adminPermission
     ? Routes.message.list
-    : `${Routes?.dashboard}?tab=1`;
+    : `${Routes?.dashboard}?tab=1`
+
   return (
     <>
       <div
@@ -48,51 +50,49 @@ const HeaderView = ({ className, shop, ...rest }: Props) => {
           className={`flex ${
             adminPermission ? 'cursor-pointer' : ''
           } items-center`}
-          onClick={() => (adminPermission ? router.push(`/${shop?.slug}`) : '')}
+          onClick={() => (adminPermission ? router.push(`/${user?.id}`) : '')}
         >
           <Avatar
-            src={shop?.logo?.thumbnail ?? siteSettings?.avatar?.placeholder}
+            src={user?.avatar ?? siteSettings?.avatar?.placeholder}
             {...rest}
-            alt={shop?.name}
+            alt={user?.firstName}
           />
           <h2 className="ml-2 text-xs font-semibold text-[#64748B]">
-            {shop?.name}
+            {user?.firstName} {user?.lastName}
           </h2>
         </div>
-        {/* {adminPermission ? (
-          <PopOver
-            iconStyle="vertical"
-            popOverPanelClass="!w-full min-w-[10rem] max-w-full rounded bg-white py-2 px-1 text-left shadow-cardAction"
-            popOverButtonClass="text-[#9CA3AF]"
+        <PopOver
+          iconStyle="vertical"
+          popOverPanelClass="!w-full min-w-[10rem] max-w-full rounded bg-white py-2 px-1 text-left shadow-cardAction"
+          popOverButtonClass="text-[#9CA3AF]"
+        >
+          <Button
+            className="!h-auto w-full !justify-start !py-1 px-2 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
+            variant="custom"
+            onClick={() =>
+              router.push(`${Routes.users.details({ id: userId })}}`)
+            }
           >
-            <Button
-              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
-              variant="custom"
-              onClick={() => router.push(`/${shop?.slug}`)}
-            >
-              See Profile
-            </Button>
+            See Profile
+          </Button>
 
-            <Button
-              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
-              variant="custom"
-            >
-              Set As Default
-            </Button>
+          <Button
+            className="!h-auto w-full !justify-start !py-1 px-2 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
+            variant="custom"
+          >
+            Set As Default
+          </Button>
 
-            <Button
-              variant="custom"
-              className="!h-auto w-full !justify-start px-2 !py-1 text-sm leading-6 text-[#F83D3D] hover:bg-gray-50 hover:text-[#d03131]"
-            >
-              Delete
-            </Button>
-          </PopOver>
-        ) : (
-          ''
-        )} */}
+          <Button
+            variant="custom"
+            className="!h-auto w-full !justify-start !py-1 px-2 text-sm leading-6 text-[#F83D3D] hover:bg-gray-50 hover:text-[#d03131]"
+          >
+            Delete
+          </Button>
+        </PopOver>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default HeaderView;
+export default HeaderView

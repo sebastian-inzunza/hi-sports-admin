@@ -17,6 +17,7 @@ import { useWindowSize } from '@/utils/use-window-size'
 import { RESPONSIVE_WIDTH } from '@/utils/constants'
 import ErrorMessage from '@/components/ui/error-message'
 import { useMessageSeen } from '@/data/conversations'
+import { useMeQuery } from '@/data/user'
 
 interface Props {
   className?: string
@@ -27,14 +28,8 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
   const loadMoreRef = useRef(null)
   const router = useRouter()
   const { query } = router
-  const {
-    data: conversation,
-    loading,
-    error,
-  } = useConversationQuery({
-    id: query.id as string,
-  })
 
+  const { data } = useMeQuery()
   const { width } = useWindowSize()
   let {
     error: messageError,
@@ -47,11 +42,12 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
     isFetching,
   } = useMessagesQuery({
     id: query?.id as string,
-    conversationId: query?.conversationId as string,
     limit: LIMIT,
   })
 
-  console.log('MessageError:', messages)
+  const participant = messages[0]?.participants.find((participant: any) => {
+    return participant?.user.id !== data?.id
+  })
 
   useEffect(() => {
     if (!hasMore) {
@@ -74,7 +70,6 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
     observer?.observe(element)
   }, [loadMoreRef?.current, hasMore])
 
-  messages = [...messages].reverse()
   const classes = {
     common: 'inline-block rounded-[13.5px] px-4 py-2 shadow-chat break-all',
     default: 'bg-white text-left',
@@ -106,19 +101,19 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
       >
         {!isEmpty(query?.id) ? (
           <>
-            {!loading || !messageLoading ? (
+            {!messageLoading ? (
               <div
                 className={cn('flex h-full w-full flex-col')}
                 onFocus={() => {
                   // @ts-ignore
-                  seenMessage(Boolean(data?.unseen))
+                  seenMessage(Boolean(messages[0]?.unseen))
                 }}
               >
                 {/* @ts-ignore */}
-                {/* <HeaderView shop={data?.shop} /> */}
+                <HeaderView user={participant?.user} />
 
                 <UserMessageView
-                  messages={[]}
+                  messages={messages}
                   id="chatBody"
                   error={messageError}
                   loading={messageLoading}
@@ -145,15 +140,17 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
 
                 <div className="relative mx-6">
                   {/* @ts-ignore */}
-                  {/* {Boolean(data?.shop?.is_active) ? (
+                  {Boolean(!messages[0]?.sender?.banned) ? (
                     <>
-                      <CreateMessageForm />
+                      <CreateMessageForm user={participant} />
                     </>
                   ) : (
                     <>
-                      <BlockedView name={data?.shop?.name} />
+                      <BlockedView
+                        name={messages[0].latestMessage.sender.firstName}
+                      />
                     </>
-                  )} */}
+                  )}
                 </div>
               </div>
             ) : (
