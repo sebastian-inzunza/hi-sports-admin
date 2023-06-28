@@ -1,7 +1,7 @@
 import React from 'react'
+import { IosArrowDown } from '@/components/icons/ios-arrow-down'
+import { IosArrowUp } from '@/components/icons/ios-arrow-up'
 import { useTranslation } from 'next-i18next'
-import { IosArrowDown } from '../icons/ios-arrow-down'
-import { IosArrowUp } from '../icons/ios-arrow-up'
 
 const StickerCard = ({
   titleTransKey,
@@ -40,7 +40,7 @@ const StickerCard = ({
       {indicator === 'up' && (
         <span
           className="mb-12 inline-block text-sm font-semibold text-body"
-          style={{ color: '#0f7ebf' }}
+          style={{ color: '#03D3B5' }}
         >
           <IosArrowUp width="9px" height="11px" className="inline-block" />{' '}
           {indicatorText}

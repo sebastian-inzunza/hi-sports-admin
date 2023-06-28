@@ -1,50 +1,79 @@
-import { useState } from 'react'
 import type { AppProps } from 'next/app'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { appWithTranslation } from 'next-i18next'
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import '@/assets/css/main.css'
-import PrivateRoute from '@/utils/private-route'
 import { UIProvider } from '@/contexts/ui.context'
+import { SettingsProvider } from '@/contexts/settings.context'
+import ErrorMessage from '@/components/ui/error-message'
+import PageLoader from '@/components/ui/page-loader/page-loader'
+import { ToastContainer } from 'react-toastify'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate } from 'react-query/hydration'
+import { useSettingsQuery } from '@/data/settings'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { appWithTranslation } from 'next-i18next'
 import { ModalProvider } from '@/components/ui/modal/modal.context'
 import DefaultSeo from '@/components/ui/default-seo'
+import ManagedModal from '@/components/ui/modal/managed-modal'
+import { useState } from 'react'
+import type { NextPageWithLayout } from '@/types'
+import { useRouter } from 'next/router'
+import PrivateRoute from '@/utils/private-route'
+import { Config } from '@/config'
 
 const Noop: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
   <>{children}</>
 )
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [queryClient] = useState(() => new QueryClient())
-  const authProps = (Component as any).authenticate
+const AppSettings: React.FC<{ children?: React.ReactNode }> = (props) => {
+  const { settings, loading, error } = useSettingsQuery()
+  if (loading) return <PageLoader />
+  if (error) return <ErrorMessage message={error.message} />
+  // TODO: fix it
+  // @ts-ignore
+  return <SettingsProvider initialValue={settings?.options} {...props} />
+}
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = (Component as any).Layout || Noop
+  const authProps = (Component as any).authenticate
+  const [queryClient] = useState(() => new QueryClient())
+  const getLayout = Component.getLayout ?? ((page) => page)
 
+  const { locale } = useRouter()
+  const dir = Config.getDirection(locale)
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <UIProvider>
-          <ModalProvider>
-            <>
-              <DefaultSeo />
-              {authProps ? (
-                <PrivateRoute authProps={authProps}>
-                  <Layout {...pageProps}>
-                    <Component {...pageProps} />
-                  </Layout>
-                </PrivateRoute>
-              ) : (
-                <Layout {...pageProps}>
-                  <Component {...pageProps} />
-                </Layout>
-              )}
-            </>
-            <ToastContainer autoClose={2000} theme="colored" />
-          </ModalProvider>
-        </UIProvider>
-      </Hydrate>
-    </QueryClientProvider>
+    <div dir={dir}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps?.dehydratedState}>
+          <AppSettings>
+            <UIProvider>
+              <ModalProvider>
+                <>
+                  <DefaultSeo />
+                  {authProps ? (
+                    <PrivateRoute authProps={authProps}>
+                      <Layout {...pageProps}>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </PrivateRoute>
+                  ) : (
+                    <Layout {...pageProps}>
+                      <Component {...pageProps} />
+                    </Layout>
+                  )}
+                  <ToastContainer autoClose={2000} theme="colored" />
+                  <ManagedModal />
+                </>
+              </ModalProvider>
+            </UIProvider>
+          </AppSettings>
+          <ReactQueryDevtools />
+        </Hydrate>
+      </QueryClientProvider>
+    </div>
   )
 }
 
-export default appWithTranslation(MyApp)
+export default appWithTranslation(CustomApp)

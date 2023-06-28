@@ -3,7 +3,7 @@
   width: 120px;
   height: 120px;
   border: 16px solid #f3f3f3;
-  border-top: 16px solid #00d2a8;
+  border-top: 16px solid #0f7ebf;
   border-radius: 50%;
   animation: spin 2s linear infinite, heart-beat 2s linear infinite;
   background-color: #fff;
@@ -25,13 +25,13 @@
     background-color: #fff;
   }
   60% {
-    background-color: #00d2a8;
+    background-color: #0f7ebf;
   }
   65% {
     background-color: #fff;
   }
   70% {
-    background-color: #00d2a8;
+    background-color: #0f7ebf;
   }
   100% {
     background-color: #fff;

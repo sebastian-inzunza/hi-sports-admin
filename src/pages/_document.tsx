@@ -4,13 +4,17 @@ import Document, {
   Main,
   NextScript,
   DocumentContext,
-} from "next/document";
+} from 'next/document'
+// import { Config } from '@/config';
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    return Document.getInitialProps(ctx);
+    return Document.getInitialProps(ctx)
   }
   render() {
+    // const { locale } = this.props.__NEXT_DATA__;
+    // const dir = Config.getDirection(locale);
+
     return (
       <Html>
         <Head>
@@ -24,6 +28,6 @@ export default class CustomDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
