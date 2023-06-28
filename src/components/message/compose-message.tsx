@@ -43,14 +43,6 @@ const ComposeMessageModal = () => {
   const [active, setIsActive] = useState<boolean>(Boolean(0))
   const { t } = useTranslation()
   const { permissions } = getAuthCredentials()
-  let permission = hasAccess(adminOnly, permissions)
-
-  let options = {
-    limit: 1000,
-    page: 1,
-    orderBy: 'created_at',
-    sortedBy: SortOrder.Desc as SortOrder,
-  }
 
   // let { shops, loading, error } = useShopsQuery(options);
   // let {

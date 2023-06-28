@@ -21,7 +21,7 @@ const UserListIndex = ({ className, ...rest }: Props) => {
   let adminPermission = hasAccess(adminOnly, permissions)
 
   function handleComposeClick() {
-    // openModal('COMPOSE_MESSAGE');
+    openModal('COMPOSE_MESSAGE')
   }
   return (
     <>

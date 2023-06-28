@@ -10,6 +10,7 @@ import { LIMIT } from '@/utils/constants'
 import SelectConversation from '@/components/message/views/select-conversation'
 import BlockedView from '@/components/message/views/blocked-view'
 import CreateMessageForm from '@/components/message/views/form-view'
+import HeaderView from '@/components/message/views/header-view'
 import { useEffect, useRef } from 'react'
 import MessageCardLoader from '@/components/message/content-loader'
 import { useWindowSize } from '@/utils/use-window-size'
@@ -41,7 +42,8 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
     isLoadingMore,
     isFetching,
   } = useMessagesQuery({
-    conversationId: query?.id as string,
+    userId: query?.id as string,
+    conversationId: query?.conversationId as string,
     limit: LIMIT,
   })
 
@@ -81,8 +83,7 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
   const seenMessage = (unseen: boolean) => {
     if (unseen) {
       // createSeenMessage({
-      //   userId: query?.id as string,
-      //   messageId: data?.id as string,
+      //   us: query?.id as string,
       // })
     }
   }

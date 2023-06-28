@@ -25,18 +25,20 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Hydrate state={pageProps.dehydratedState}>
         <UIProvider>
           <ModalProvider>
-            <DefaultSeo />
-            {authProps ? (
-              <PrivateRoute authProps={authProps}>
+            <>
+              <DefaultSeo />
+              {authProps ? (
+                <PrivateRoute authProps={authProps}>
+                  <Layout {...pageProps}>
+                    <Component {...pageProps} />
+                  </Layout>
+                </PrivateRoute>
+              ) : (
                 <Layout {...pageProps}>
                   <Component {...pageProps} />
                 </Layout>
-              </PrivateRoute>
-            ) : (
-              <Layout {...pageProps}>
-                <Component {...pageProps} />
-              </Layout>
-            )}
+              )}
+            </>
             <ToastContainer autoClose={2000} theme="colored" />
           </ModalProvider>
         </UIProvider>
