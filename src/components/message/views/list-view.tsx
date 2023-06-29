@@ -28,7 +28,6 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
   const { data, isLoading } = useMeQuery()
   const { permissions } = getAuthCredentials()
   let permission = hasAccess(adminOnly, permissions)
-  // console.log('Conversation data on user list', conversation)
 
   if (isLoading) return <Loader text="Loading..." />
 
@@ -57,8 +56,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
           Number(router?.query?.id) === Number(conversation?.id)
             ? 'bg-[#F3F4F6]'
             : '',
-          // Boolean(conversation?.shop?.is_active) ? '' : 'bg-[#e6e7ea]',
-          Boolean(conversation.latestMessage.isRead) ? '' : 'bg-[#e6e7ea]',
+          Boolean(conversation?.latestMessage?.isRead) ? '' : 'bg-[#e6e7ea]',
           className
         )}
         onClick={() => {
@@ -67,7 +65,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
         }}
         {...rest}
       >
-        {Boolean(conversation.latestMessage.isRead) ? (
+        {Boolean(conversation?.latestMessage?.isRead) ? (
           <div className="absolute left-2 top-1/2 z-50 h-[.375rem] w-[.375rem] -translate-y-1/2 transform rounded-full bg-[#EF4444]"></div>
         ) : (
           ''
@@ -79,11 +77,11 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
           )}
         >
           <div className="relative h-8 w-8 overflow-hidden rounded-full 2xl:h-10 2xl:w-10">
-            {!isEmpty(conversation.latestMessage.sender.image) ? (
+            {!isEmpty(conversation.latestMessage?.sender?.image) ? (
               <Image
                 // @ts-ignore
                 src={conversation?.shop?.logo?.thumbnail}
-                alt={String(conversation.latestMessage.sender.image)}
+                alt={String(conversation.latestMessage?.sender?.image)}
                 fill
                 sizes="(max-width: 768px) 100vw"
                 className="product-image object-contain"
@@ -99,7 +97,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
             <div className="flex items-center justify-between">
               {isEmpty(conversation?.latestMessage?.content) ? (
                 <h2 className="mr-1 w-[70%] truncate text-sm font-semibold">
-                  {conversation?.latestMessage.sender.firstName}
+                  {conversation?.latestMessage?.sender.firstName}
                 </h2>
               ) : (
                 <h2 className="mr-1 w-[70%] truncate text-sm font-semibold">
@@ -119,7 +117,7 @@ const UserListView = ({ conversation, className, ...rest }: Props) => {
             </div>
             {!isEmpty(conversation?.latestMessage?.content) ? (
               <p className="text-xs text-[#64748B]">
-                {conversation?.latestMessage?.sender.firstName}
+                {participant?.firstName} {participant?.lastName}
               </p>
             ) : (
               ''

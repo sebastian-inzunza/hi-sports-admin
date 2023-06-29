@@ -68,7 +68,6 @@ const CreateMessageForm = ({ className, user, ...rest }: Props) => {
       {
         content: values?.message,
         conversationId: query?.id as string,
-        senderId: data?.id.toString() ?? '1',
         recipientId: user.userId,
       },
       {

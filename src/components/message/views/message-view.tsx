@@ -170,8 +170,7 @@ const UserMessageView = ({
           <>
             {!isEmpty(messages) ? (
               <div className="space-y-6">
-                {messages[0]?.messages.map((item: Message, key: number) => {
-                  // const { cont, created_at, user_id, conversation } = item
+                {messages.map((item: Message, key: number) => {
                   const checkUser = Number(data?.id) === Number(item?.sender.id)
                   let avatarUrl = item?.sender?.image
                   return (
@@ -203,7 +202,6 @@ const UserMessageView = ({
                             )}`}
                           >
                             {item.content.replace(/['"]+/g, '')}
-                            {/* {item?.content} */}
                           </h2>
                         </div>
                         <div className="mt-2 text-xs text-[#686D73]">

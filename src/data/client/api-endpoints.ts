@@ -24,4 +24,5 @@ export const API_ENDPOINTS = {
   MESSAGE: '/chat/conversations',
   CREATE_MESSAGE: '/chat/message',
   MESSAGE_SEEN: '/chat/message/seen',
+  CREATE_CONVERSION: '/chat/conversation',
 }

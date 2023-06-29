@@ -1,28 +1,33 @@
-import { MessageAvatarPlaceholderIcon } from '@/components/icons/message-avatar-placeholder-icon'
-import Button from '@/components/ui/button'
-import { SortOrder } from '@/types'
-import { adminOnly, getAuthCredentials, hasAccess } from '@/utils/auth-utils'
-import isEmpty from 'lodash/isEmpty'
-import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
+import isEmpty from 'lodash/isEmpty'
+
+import { MessageAvatarPlaceholderIcon } from '@/components/icons/message-avatar-placeholder-icon'
+import Button from '@/components/ui/button'
 import Select from '../select/select'
+import { useUsersQuery, useMeQuery } from '@/data/users'
+import { useCreateConversations } from '@/data/conversations'
+import ErrorMessage from '../ui/error-message'
 
 type FormatOptionLabelProps = {
-  name: string
-  logo: {
-    thumbnail: string
-  }
+  firstName: string
+  lastName: string
+  image: string
 }
 
-const formatOptionLabel = ({ logo, name }: FormatOptionLabelProps) => (
+const formatOptionLabel = ({
+  image,
+  firstName,
+  lastName,
+}: FormatOptionLabelProps) => (
   <div className="flex items-center">
     <div className="relative mr-3 h-6 w-6 shrink-0 overflow-hidden rounded-full">
-      {!isEmpty(logo?.thumbnail) ? (
+      {!isEmpty(image) ? (
         <Image
-          src={logo?.thumbnail}
-          alt={name}
+          src={image}
+          alt={firstName}
           className="product-image object-contain"
           fill
           sizes="(max-width: 768px) 100vw"
@@ -34,43 +39,42 @@ const formatOptionLabel = ({ logo, name }: FormatOptionLabelProps) => (
         />
       )}
     </div>
-    <div className="truncate">{name}</div>
+    <div className="truncate">
+      {firstName} {lastName}
+    </div>
   </div>
 )
 
 const ComposeMessageModal = () => {
-  const [shop, setShop] = useState(null)
-  const [active, setIsActive] = useState<boolean>(Boolean(0))
+  const { data } = useMeQuery()
   const { t } = useTranslation()
-  const { permissions } = getAuthCredentials()
-
-  // let { shops, loading, error } = useShopsQuery(options);
-  // let {
-  //   admins,
-  //   loading: adminLoading,
-  //   error: adminError,
-  // } = useAdminsQuery(options);
-  // const { mutate: createConversations, isLoading: creating } =
-  //   useCreateConversations();
   const { handleSubmit } = useForm()
-  // let lists = permission ? shops : admins;
-  // let loadingState = permission ? loading : adminLoading;
-  // let errorState = permission ? error : adminError;
+  const [user, setUser] = useState<any>(null)
+  const [active, setIsActive] = useState<boolean>(Boolean(0))
+  const [page, setPage] = useState(1)
+  const {
+    mutate: createConversation,
+    isLoading: creating,
+    error: errorSending,
+  } = useCreateConversations()
 
-  // if (errorState) return <ErrorMessage message={error?.message} />;
+  const { users, loading, error } = useUsersQuery({
+    limit: 100,
+    page,
+  })
 
-  const onTypeFilter = (shop: any | undefined) => {
-    // @ts-ignore
-    setShop(shop?.id)
-    // @ts-ignore
-    setIsActive(shop?.is_active)
+  if (errorSending) return <ErrorMessage message={error?.message} />
+
+  const onTypeFilter = (user: any | undefined) => {
+    setUser(user)
+    setIsActive(user?.banned)
   }
+
   async function onSubmit() {
-    if (shop || !Boolean(active)) {
-      // createConversations({
-      //   // @ts-ignore
-      //   shop_id: shop,
-      // });
+    if (user || !Boolean(active)) {
+      createConversation({
+        recipientId: user?.id,
+      })
     }
   }
   return (
@@ -78,10 +82,10 @@ const ComposeMessageModal = () => {
       <h2 className="mb-6 text-base font-medium">{t('text-starting-chat')}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Select
-          options={[]}
-          isLoading={false}
-          getOptionLabel={(option: any) => option.name}
-          getOptionValue={(option: any) => option.slug}
+          options={users ?? []}
+          isLoading={loading}
+          getOptionLabel={(option: any) => option?.firstName ?? ''}
+          getOptionValue={(option: any) => option?.id ?? ''}
           placeholder="Encuentra a un usuario"
           onChange={onTypeFilter as any}
           isClearable={true}
@@ -91,8 +95,8 @@ const ComposeMessageModal = () => {
         <div className="mt-6 text-right">
           <Button
             className="px-4 text-base "
-            loading={false}
-            disabled={!Boolean(active)}
+            loading={creating}
+            disabled={!user || Boolean(active)}
           >
             {t('text-start-conversation')}
           </Button>

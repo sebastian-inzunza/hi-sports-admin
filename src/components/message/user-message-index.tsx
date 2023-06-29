@@ -34,6 +34,7 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
   let {
     error: messageError,
     messages,
+    participants,
     loading: messageLoading,
     isSuccess,
     hasMore,
@@ -45,9 +46,9 @@ const UserMessageIndex = ({ className, ...rest }: Props) => {
     limit: LIMIT,
   })
 
-  const participant = messages[0]?.participants.find((participant: any) => {
-    return participant?.user.id !== data?.id
-  })
+  const participant = participants?.find(
+    (participant) => participant?.user?.id !== data?.id
+  )
 
   useEffect(() => {
     if (!hasMore) {

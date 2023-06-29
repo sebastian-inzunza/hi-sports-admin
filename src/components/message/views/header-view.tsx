@@ -26,6 +26,8 @@ const HeaderView = ({ className, user, ...rest }: Props) => {
     ? Routes.message.list
     : `${Routes?.dashboard}?tab=1`
 
+  console.log('user', user)
+
   return (
     <>
       <div

@@ -18,7 +18,7 @@ export const conversationsClient = {
     HttpClient.get<any>(API_ENDPOINTS.CONVERSIONS, params),
 
   getMessage({ id, ...prams }: Partial<MessageQueryOptions>) {
-    return HttpClient.get<MessagePaginator>(`${API_ENDPOINTS.MESSAGE}/${id}`, {
+    return HttpClient.get<any>(`${API_ENDPOINTS.MESSAGE}/${id}`, {
       searchJoin: 'and',
       ...prams,
     })
@@ -36,6 +36,12 @@ export const conversationsClient = {
   messageCreate(input: CreateMessageInput) {
     return HttpClient.post(`${API_ENDPOINTS.CREATE_MESSAGE}`, {
       ...input,
+    })
+  },
+
+  createConversation({ recipientId }: { recipientId: string }) {
+    return HttpClient.post(`${API_ENDPOINTS.CREATE_CONVERSION}`, {
+      recipientId,
     })
   },
 }

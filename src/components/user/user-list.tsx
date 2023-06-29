@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Image from "next/image";
-import { siteSettings } from "@/settings/site.settings";
-import { UsersResponse } from "@/types/users";
-import { MappedPaginatorInfo } from "@/types/index";
-import StatusColor from "./user-role-status-color";
-import Badge from "../ui/badge/badge";
-import { AlignType, Table } from "../ui/table";
-import ActionButtons from "../common/action-buttons";
-import Pagination from "../ui/pagination";
+import Image from 'next/image'
+import { siteSettings } from '@/settings/site.settings'
+import { UsersResponse } from '@/types/users'
+import { MappedPaginatorInfo } from '@/types/index'
+import StatusColor from './user-role-status-color'
+import Badge from '../ui/badge/badge'
+import { AlignType, Table } from '../ui/table'
+import ActionButtons from '../common/action-buttons'
+import Pagination from '../ui/pagination'
 
 type UserListProps = {
-  users: UsersResponse[];
-  paginatorInfo: MappedPaginatorInfo | null;
-  onPagination: (current: number) => void;
-};
+  users: UsersResponse[]
+  paginatorInfo: MappedPaginatorInfo | null
+  onPagination: (current: number) => void
+}
 const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
   const columns = [
     {
-      title: "Avatar",
-      dataIndex: "users",
-      key: "users",
-      align: "center" as AlignType,
+      title: 'Avatar',
+      dataIndex: 'users',
+      key: 'users',
+      align: 'center' as AlignType,
       render: (image: string) => (
         <Image
           src={image ?? siteSettings.logo.url}
@@ -31,43 +31,42 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
       ),
     },
     {
-      title: "Nombre",
-      dataIndex: "firstName",
-      key: "firstName",
-      align: "center" as AlignType,
+      title: 'Nombre',
+      dataIndex: 'firstName',
+      key: 'firstName',
+      align: 'center' as AlignType,
       render: (text: string) => <a>{text}</a>,
     },
     {
-      title: "Apellido",
-      dataIndex: "lastName",
-      key: "lastName",
-      align: "center" as AlignType,
+      title: 'Apellido',
+      dataIndex: 'lastName',
+      key: 'lastName',
+      align: 'center' as AlignType,
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      align: "center" as AlignType,
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      align: 'center' as AlignType,
     },
     {
-      title: "Estatus",
-      dataIndex: "banned",
-      key: "banned",
-      align: "center" as AlignType,
+      title: 'Estatus',
+      dataIndex: 'banned',
+      key: 'banned',
+      align: 'center' as AlignType,
       render: (banned: true) => (
         <Badge
-          text={banned ? "Inactivo" : "Activo"}
+          text={banned ? 'Inactivo' : 'Activo'}
           color={StatusColor(banned)}
         />
       ),
     },
     {
-      title: "Acciones",
-      dataIndex: "id",
-      key: "id",
-      align: "center" as AlignType,
+      title: 'Acciones',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center' as AlignType,
       render: (id: string, { banned, role }: UsersResponse) => {
-        // console.log('is_active', is_active)
         return (
           <ActionButtons
             id={id}
@@ -77,14 +76,14 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             showContact={true}
             role={role}
           />
-        );
+        )
       },
     },
-  ];
+  ]
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-        <Table columns={columns} data={users} rowKey={"id"} />
+        <Table columns={columns} data={users} rowKey={'id'} />
       </div>
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
@@ -97,7 +96,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default UserList;
+export default UserList
