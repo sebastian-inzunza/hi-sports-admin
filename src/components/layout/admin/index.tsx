@@ -3,14 +3,11 @@ import MobileNavigation from '@/components/layout/navigation/mobile-navigation'
 import { siteSettings } from '@/settings/site.settings'
 import { useTranslation } from 'next-i18next'
 import SidebarItem from '@/components/layout/navigation/sidebar-item'
-import { useRouter } from 'next/router'
 
 const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   const { t } = useTranslation()
-  const { locale } = useRouter()
-  const dir = locale === 'ar' || locale === 'he' ? 'rtl' : 'ltr'
 
   const SidebarItemMap = () => (
     <>

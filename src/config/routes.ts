@@ -15,6 +15,9 @@ export const Routes = {
   blog: {
     ...routesFactory('/blog'),
   },
+  storeNotice: {
+    ...routesFactory('/notices'),
+  },
   alerts: {
     ...routesFactory('/alerts'),
   },
@@ -26,9 +29,6 @@ export const Routes = {
   },
   users: {
     ...routesFactory('/users'),
-  },
-  storeNotice: {
-    ...routesFactory('/store-notice'),
   },
   operators: {
     ...routesFactory('/operators'),

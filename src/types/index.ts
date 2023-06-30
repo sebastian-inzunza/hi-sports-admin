@@ -4,25 +4,6 @@ import type { NextPage } from 'next'
 import { Alert } from './alerts'
 import { Role, UsersResponse as User } from './users'
 
-export interface StoreNotice {
-  id: string
-  translated_languages: string[]
-  notice: string
-  description?: string
-  effective_from?: string
-  expired_at: string
-  type?: string
-  is_read?: boolean
-  received_by?: string
-  created_by: string
-  expire_at: string
-  created_at: string
-  creator_role: string
-  updated_at: string
-  deleted_at?: string
-  creator?: any
-}
-
 export interface AuthResponse {
   jwt: string
   role: Role
@@ -30,7 +11,59 @@ export interface AuthResponse {
 
 export interface StoreNoticeQueryOptions extends QueryOptions {
   notice: string
-  environment_id: string
+  environmentId: string
+}
+
+;[
+  {
+    id: 1,
+    name: 'Kali Connect',
+    logo: null,
+    active: false,
+    primary_color: '#0f406b',
+    secondary_color: '#1285c1',
+    Segment: {
+      id: 1,
+      name: 'kali-connect',
+      environmentId: 1,
+    },
+  },
+]
+
+export interface Environment {
+  id: number
+  name: string
+  logo?: string
+  active: boolean
+  primary_color: string
+  secondary_color: string
+  Segment: {
+    id: number
+    name: string
+    environmentId: number
+  }
+}
+export enum StoreStatus {
+  HIGHT = 'HIGHT',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+}
+export interface NoticeCreateInput {
+  id?: number
+  priority?: StoreStatus
+  creator: string
+  notice: string
+  description?: string | null
+  effectiveFrom: Date | string
+  expiredAt: Date | string
+  type?: string | null
+  updatedBy: number
+  is_approved?: boolean | null
+  environmentId: number
+}
+export interface Notice extends NoticeCreateInput {}
+export interface EnvironmentQueryOptions extends QueryOptions {
+  name: string
 }
 
 export interface StoreNoticeInput {
@@ -204,4 +237,4 @@ export interface Participant {
 
 export type UserPaginator = PaginatorInfo<User>
 export type AlertPaginator = PaginatorInfo<Alert>
-export interface StoreNoticePaginator extends PaginatorInfo<StoreNotice> {}
+export interface StoreNoticePaginator extends PaginatorInfo<Notice> {}

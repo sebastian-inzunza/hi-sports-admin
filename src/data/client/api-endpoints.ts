@@ -8,7 +8,7 @@ export const API_ENDPOINTS = {
   ADD_STAFF: '/staffs',
   REMOVE_STAFF: '/staffs',
   ADMIN_LIST: '/admin/list',
-  STORE_NOTICES: '/store-notices',
+  STORE_NOTICES: '/notice',
   USERS: 'users',
   BLOG: 'notes',
   UPLOAD: 'upload',
