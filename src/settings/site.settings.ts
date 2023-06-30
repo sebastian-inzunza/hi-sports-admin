@@ -46,6 +46,11 @@ export const siteSettings = {
         icon: 'UsersIcon',
       },
       {
+        href: Routes.environments.list,
+        label: 'Entornos',
+        icon: 'UsersIcon',
+      },
+      {
         href: Routes.storeNotice.list,
         label: 'sidebar-nav-item-store-notice',
         icon: 'StoreNoticeIcon',

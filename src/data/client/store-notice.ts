@@ -1,5 +1,6 @@
 import {
   Notice,
+  ReceivedData,
   StoreNoticeInput,
   StoreNoticePaginator,
   StoreNoticeQueryOptions,
@@ -11,7 +12,7 @@ import { crudFactory } from './crud-factory'
 export const storeNoticeClient = {
   ...crudFactory<Notice, any, StoreNoticeInput>(API_ENDPOINTS.STORE_NOTICES),
   get({ id }: { id: string }) {
-    return HttpClient.get<Notice>(`${API_ENDPOINTS.STORE_NOTICES}/${id}`)
+    return HttpClient.get<ReceivedData>(`${API_ENDPOINTS.STORE_NOTICES}/${id}`)
   },
   paginated({
     notice,

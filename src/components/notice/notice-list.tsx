@@ -238,29 +238,17 @@ const StoreNoticeList = ({
       align: alignRight,
       width: 150,
       render: (data: Notice) => {
-        if (router?.asPath !== '/') {
-          return (
-            <>
-              <LanguageSwitcher
-                id={data?.id?.toString() ?? ''}
-                record={data}
-                deleteModalView="DELETE_STORE_NOTICE"
-                routes={Routes?.storeNotice}
-                slug={''}
-              />
-            </>
-          )
-        } else {
-          return (
+        return (
+          <>
             <ActionButtons
               id={data?.id?.toString() ?? ''}
-              detailsUrl={Routes?.storeNotice?.details({
+              editUrl={Routes?.storeNotice?.edit({
                 id: data?.id?.toString() ?? '',
               })}
               customLocale={router?.locale}
             />
-          )
-        }
+          </>
+        )
       },
     },
   ]

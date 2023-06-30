@@ -58,6 +58,8 @@
   "input-label-orders": "Pedidos",
   "input-label-order-id": "Solicitar ID",
   "input-label-sku": "SKU",
+  "input-label-environments": "Ambientes",
+  "button-label-add-environment": "Crea un ambiente",
   "input-note-multilang-sku": "Asegúrese de que el SKU sea idéntico para todos los idiomas.",
   "input-label-name": "Nombre",
   "input-label-description": "Descripción",

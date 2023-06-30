@@ -4,7 +4,12 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'next-i18next'
 import { storeNoticeClient } from './client/store-notice'
 
-import { Notice, StoreNoticePaginator, StoreNoticeQueryOptions } from '@/types'
+import {
+  Notice,
+  ReceivedData,
+  StoreNoticePaginator,
+  StoreNoticeQueryOptions,
+} from '@/types'
 
 import { Routes } from '@/config/routes'
 import { API_ENDPOINTS } from './client/api-endpoints'
@@ -78,23 +83,13 @@ export const useUpdateStoreNoticeMutation = () => {
   })
 }
 
-export const useStoreNoticeQuery = ({
-  id,
-}: {
-  id: string
-  language: string
-}) => {
-  const { data, error, isLoading } = useQuery<Notice, Error>(
-    [API_ENDPOINTS.STORE_NOTICES, { id }],
+export const useStoreNoticeQuery = ({ id }: { id: string }) => {
+  const { data, error, isLoading } = useQuery<ReceivedData, Error>(
+    [`${API_ENDPOINTS.STORE_NOTICES}/${id}`],
     () => storeNoticeClient.get({ id })
   )
-
-  console.log('=================== Store Notice ===================')
-  console.log(data)
-  console.log('=================== Store Notice ===================')
-
   return {
-    storeNotice: data,
+    storeNotice: data?.data,
     error,
     loading: isLoading,
   }

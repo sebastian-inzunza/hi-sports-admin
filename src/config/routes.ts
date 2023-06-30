@@ -27,6 +27,9 @@ export const Routes = {
   tracker: {
     ...routesFactory('/tracker'),
   },
+  environments: {
+    ...routesFactory('/environments'),
+  },
   users: {
     ...routesFactory('/users'),
   },
@@ -47,10 +50,10 @@ function routesFactory(endpoint: string) {
         ? `/${environment}${endpoint}/${slug}/edit`
         : `${endpoint}/${slug}/edit`
     },
-    edit: (slug: string, language: string, environment?: string) => {
+    edit: ({ id, environment }: { id: string; environment?: string }) => {
       return environment
-        ? `/${language}/${environment}${endpoint}/${slug}/edit`
-        : `${language}${endpoint}/${slug}/edit`
+        ? `/${environment}${endpoint}/${id}/edit`
+        : `${endpoint}/${id}/edit`
     },
     details: ({ id }: { id: string }) => `${endpoint}/${id}`,
   }

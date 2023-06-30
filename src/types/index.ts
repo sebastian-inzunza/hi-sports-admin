@@ -48,14 +48,19 @@ export enum StoreStatus {
   MEDIUM = 'MEDIUM',
   LOW = 'LOW',
 }
+
+export type ReceivedData = {
+  data: Notice
+  success: boolean
+}
 export interface NoticeCreateInput {
   id?: number
   priority?: StoreStatus
   creator: string
   notice: string
   description?: string | null
-  effectiveFrom: Date | string
-  expiredAt: Date | string
+  effectiveFrom: string
+  expiredAt: string
   type?: string | null
   updatedBy: number
   is_approved?: boolean | null

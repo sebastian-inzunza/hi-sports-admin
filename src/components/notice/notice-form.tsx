@@ -51,6 +51,11 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
 
   const noticeType = watch('type')
   const [effectiveFrom, expiredAt] = watch(['effectiveFrom', 'expiredAt'])
+  // effectiveForm change date forma
+
+  console.log('effectiveFrom', effectiveFrom)
+  console.log('expiredAt', expiredAt)
+
   return (
     <form>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -102,7 +107,7 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
             <div className="mb-5 w-full p-0 sm:mb-0 sm:w-1/2 sm:pe-2">
               <Label>{`${t('form:store-notice-active-from')}*`}</Label>
 
-              <Controller
+              {/* <Controller
                 control={control}
                 name="effectiveFrom"
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -120,7 +125,7 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
                     className="border border-border-base"
                   />
                 )}
-              />
+              /> */}
               <ValidationError message={errors.effectiveFrom?.message ?? ''} />
             </div>
             <div className="w-full p-0 sm:w-1/2 sm:ps-2">
