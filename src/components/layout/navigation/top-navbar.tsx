@@ -1,26 +1,25 @@
-import Logo from "@/components/ui/logo";
-import { useUI } from "@/contexts/ui.context";
-import AuthorizedMenu from "./authorized-menu";
-import LinkButton from "@/components/ui/link-button";
-import { NavbarIcon } from "@/components/icons/navbar-icon";
-import { motion } from "framer-motion";
-import { useTranslation } from "next-i18next";
-import { Routes } from "@/config/routes";
+import Logo from '@/components/ui/logo'
+import { useUI } from '@/contexts/ui.context'
+import AuthorizedMenu from './authorized-menu'
+import LinkButton from '@/components/ui/link-button'
+import { NavbarIcon } from '@/components/icons/navbar-icon'
+import { motion } from 'framer-motion'
+import { useTranslation } from 'next-i18next'
 import {
   adminAndOwnerOnly,
   getAuthCredentials,
   hasAccess,
-} from "@/utils/auth-utils";
-import LanguageSwitcher from "./language-switcher";
-import { Config } from "@/config";
+} from '@/utils/auth-utils'
+import LanguageSwitcher from './language-switcher'
+import { Config } from '@/config'
 
 const Navbar = () => {
-  const { t } = useTranslation();
-  const { toggleSidebar } = useUI();
+  const { t } = useTranslation()
+  const { toggleSidebar } = useUI()
 
-  const { permissions } = getAuthCredentials();
+  const { permissions } = getAuthCredentials()
 
-  const { enableMultiLang } = Config;
+  const { enableMultiLang } = Config
 
   return (
     <header className="fixed z-40 w-full bg-white shadow">
@@ -40,8 +39,8 @@ const Navbar = () => {
 
         <div className="flex items-center space-s-8">
           {hasAccess(adminAndOwnerOnly, permissions) && (
-            <LinkButton href={"/"} className="ms-4 md:ms-6" size="small">
-              {t("common:text-create-shop")}
+            <LinkButton href={'/'} className="ms-4 md:ms-6" size="small">
+              {t('common:text-create-shop')}
             </LinkButton>
           )}
           {enableMultiLang ? <LanguageSwitcher /> : null}
@@ -49,7 +48,7 @@ const Navbar = () => {
         </div>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

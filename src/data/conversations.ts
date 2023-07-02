@@ -106,10 +106,6 @@ export const useMessagesQuery = (options: Partial<MessageQueryOptions>) => {
     }
   }
 
-  console.log('===== data =====')
-  console.log(data)
-  console.log('===== data =====')
-
   return {
     participants: data?.pages?.flatMap((page) => page.participants) ?? [],
     messages:

@@ -8,7 +8,6 @@ import {
   hasAccess,
   isAuthenticated,
 } from '@/utils/auth-utils'
-import { SUPER_ADMIN } from '@/utils/constants'
 import { Routes } from '@/config/routes'
 import { Config } from '@/config'
 import AppLayout from '@/components/layout/app'
