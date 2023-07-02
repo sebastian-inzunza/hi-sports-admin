@@ -10,7 +10,6 @@ import { useSendMessage } from '@/data/conversations'
 import * as yup from 'yup'
 import TextArea from '@/components/ui/text-area'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMeQuery } from '@/data/users'
 
 type FormValues = {
   message: string
@@ -26,8 +25,6 @@ interface Props {
 }
 
 const CreateMessageForm = ({ className, user, ...rest }: Props) => {
-  const { data } = useMeQuery()
-
   const {
     register,
     handleSubmit,
@@ -64,11 +61,12 @@ const CreateMessageForm = ({ className, user, ...rest }: Props) => {
       toast?.error('Message is required')
       return
     }
+
     createMessage(
       {
         content: values?.message,
-        conversationId: query?.id as string,
-        recipientId: user.userId,
+        conversationId: Number(query?.id),
+        recipientId: Number(user.userId),
       },
       {
         onError: (error: any) => {

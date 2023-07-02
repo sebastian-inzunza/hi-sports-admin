@@ -1,15 +1,19 @@
-import cn from "classnames";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import Link from "@/components/ui/link";
-import { siteSettings } from "@/settings/site.settings";
-import { useTranslation } from "next-i18next";
-import { useMeQuery } from "@/data/user";
-import Avatar from "@/components/common/avatar";
+import cn from 'classnames'
+import { Fragment } from 'react'
+import { useTranslation } from 'next-i18next'
+import { Menu, Transition } from '@headlessui/react'
+
+import { useSockets } from '@/contexts/socket.context'
+
+import Link from '@/components/ui/link'
+import { siteSettings } from '@/settings/site.settings'
+import { useMeQuery } from '@/data/user'
+import Avatar from '@/components/common/avatar'
 
 export default function AuthorizedMenu() {
-  const { data } = useMeQuery();
-  const { t } = useTranslation("common");
+  const { online } = useSockets()
+  const { data } = useMeQuery()
+  const { t } = useTranslation('common')
 
   // Again, we're using framer-motion for the transition effect
   return (
@@ -18,6 +22,7 @@ export default function AuthorizedMenu() {
         <Avatar
           src={data?.image ?? siteSettings?.avatar?.placeholder}
           alt="avatar"
+          online={online}
         />
       </Menu.Button>
 
@@ -53,8 +58,8 @@ export default function AuthorizedMenu() {
                   <Link
                     href={href}
                     className={cn(
-                      "block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent",
-                      active ? "text-accent" : "text-heading"
+                      'block px-4 py-3 text-sm font-semibold capitalize transition duration-200 hover:text-accent',
+                      active ? 'text-accent' : 'text-heading'
                     )}
                   >
                     {t(labelTransKey)}
@@ -66,5 +71,5 @@ export default function AuthorizedMenu() {
         </Menu.Items>
       </Transition>
     </Menu>
-  );
+  )
 }

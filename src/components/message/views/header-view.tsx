@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import cn from 'classnames'
+
 import Avatar from '@/components/common/avatar'
 import { siteSettings } from '@/settings/site.settings'
 import { Participant } from '@/types'

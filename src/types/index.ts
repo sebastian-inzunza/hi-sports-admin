@@ -172,8 +172,8 @@ export interface CreateMessageSeenInput {
 
 export interface CreateMessageInput {
   content: string
-  recipientId: string
-  conversationId?: string
+  recipientId: number
+  conversationId?: number
 }
 
 // Chat
