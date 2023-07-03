@@ -36,6 +36,12 @@ describe('LoginForm', () => {
       expect(screen.queryByText('Actualiza tu contraseña')).toBeNull() // Login button should disappear after submission
       expect(screen.queryByLabelText('Email')).toBeNull() // Email input should disappear after submission
       expect(screen.queryByLabelText('Password')).toBeNull() // Password input should disappear after submission
+      expect(screen.queryByText('Contraseña')).toBeNull()
+      expect(screen.queryByText('Actualiza tu contraseña')).toBeNull()
+      expect(screen.queryByLabelText('Nueva contraseña')).toBeNull()
+      expect(screen.queryByLabelText('Confirmar contraseña')).toBeNull()
+      expect(screen.queryByText('Actualizar contraseña')).toBeInTheDocument
+      expect(screen.queryByText('Error')).toBeNull
     })
   })
 })

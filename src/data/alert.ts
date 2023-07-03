@@ -8,7 +8,7 @@ import { API_ENDPOINTS } from './client/api-endpoints'
 
 export const useAlertsQuery = (options: Partial<QueryOptionsType>) => {
   const { data, isLoading, error } = useQuery<AlertResponse, Error>(
-    [API_ENDPOINTS.ALERTS, options],
+    [API_ENDPOINTS, options],
     () => alertClient.paginated(options),
     {
       keepPreviousData: true,
