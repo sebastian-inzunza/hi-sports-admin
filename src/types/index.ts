@@ -37,12 +37,25 @@ export interface Environment {
   active: boolean
   primary_color: string
   secondary_color: string
-  Segment: {
+  Segment?: {
     id: number
     name: string
     environmentId: number
   }
 }
+
+export type EnvironmentPagination = {
+  environments: Environment[]
+  total: number
+  totalPages: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+}
+
+export interface EnvironmentQueryOptions extends QueryOptions {
+  search: string
+}
+
 export enum StoreStatus {
   HIGHT = 'HIGHT',
   MEDIUM = 'MEDIUM',

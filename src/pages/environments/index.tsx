@@ -6,16 +6,36 @@ import Card from '@/components/common/card'
 import Layout from '@/components/layout/admin'
 import Search from '@/components/common/search'
 import LinkButton from '@/components/ui/link-button'
+import { useEnviromentQuery } from '@/data/enviroment'
+import EnviromentList from '@/components/environments/environment-list'
+import Loader from '@/components/ui/loader/loader'
+import ErrorMessage from '@/components/ui/error-message'
 
 export default function Environments() {
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
+  const { enviroments, loading, error, paginatorInfo } = useEnviromentQuery({
+    limit: 15,
+    page,
+    search: searchTerm,
+  })
+
+  console.log('Enviroments data =>==>=>', enviroments)
+
+  if (loading) return <Loader text="Cargando enviroments..." />
+
+  if (error) return <ErrorMessage message={error.message} />
 
   function handleSearch({ searchText }: { searchText: string }) {
     setSearchTerm(searchText)
     setPage(1)
   }
+
+  function handlePagination(current: number) {
+    setPage(current)
+  }
+
   return (
     <>
       <Card className="mb-8 flex flex-col items-center md:flex-row">
@@ -38,6 +58,14 @@ export default function Environments() {
           </LinkButton>
         </div>
       </Card>
+
+      {loading ? null : (
+        <EnviromentList
+          environments={enviroments ?? []}
+          paginatorInfo={paginatorInfo}
+          onPagination={handlePagination}
+        />
+      )}
     </>
   )
 }

@@ -7,11 +7,15 @@ import { SuggestionsResponse, User } from '@/types/suggestions'
 import TitleWithSort from '../ui/title-with-sort'
 import LanguageSwitcher from '../ui/lang-action/action'
 import { Routes } from '@/config/routes'
+import Pagination from '../ui/pagination'
 
 type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
+  // paginatorInfo: MappedPaginatorInfo | null
+  // onPagination: (current: number) => void
 }
 const SuggestionList = ({ suggestions }: SuggestionListProps) => {
+  console.log('suggestions', suggestions)
   const columns = [
     {
       title: 'Avatar',
@@ -58,7 +62,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
           <div className="flex items-center">
             <div className="flex flex-col">
               {/* Add text overlow */}
-              <span className="text-sm font-semibold text-heading text-ellipsis">
+              <span className="text-ellipsis text-sm font-semibold text-heading">
                 {suggestion}
               </span>
             </div>
@@ -122,10 +126,16 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
         />
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-end">
-        <p>Pagination</p>
-      </div>
+      {/* {!!paginatorInfo?.total && (
+        <div className="flex items-center justify-end">
+          <Pagination
+            total={paginatorInfo.total}
+            current={paginatorInfo.currentPage}
+            pageSize={paginatorInfo.perPage}
+            onChange={onPagination}
+          />
+        </div>
+      )} */}
     </>
   )
 }

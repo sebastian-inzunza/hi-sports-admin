@@ -28,4 +28,5 @@ export const API_ENDPOINTS = {
 
   CHANGE_PASSWORD: 'change-password',
   FORGET_PASSWORD: 'forget-password',
+  ENVIRONMENTS: 'configuration/environments',
 }

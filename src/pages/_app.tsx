@@ -41,6 +41,7 @@ const AppSettings: React.FC<{ children?: React.ReactNode }> = (props) => {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
+
 const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = (Component as any).Layout || Noop
   const authProps = (Component as any).authenticate

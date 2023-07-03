@@ -1,24 +1,17 @@
-import { GetServerSideProps } from "next";
-import {
-  allowedRoles,
-  getAuthCredentials,
-  hasAccess,
-  isAuthenticated,
-} from "@/utils/auth-utils";
-import { Routes } from "@/config/routes";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import Card from "@/components/common/card";
-import Layout from "@/components/layout/admin";
-import SuggestionList from "@/components/suggestions/suggestions-list";
-import { useSuggestionsQuery } from "@/data/suggestions";
-import Loader from "@/components/ui/loader/loader";
-import { Error } from "@/components/ui/error-message";
+import Card from '@/components/common/card'
+import Layout from '@/components/layout/admin'
+import SuggestionList from '@/components/suggestions/suggestions-list'
+import { useSuggestionsQuery } from '@/data/suggestions'
+import Loader from '@/components/ui/loader/loader'
+import { Error } from '@/components/ui/error-message'
 
 export default function Suggestions() {
-  const { suggestions, loading, error } = useSuggestionsQuery();
+  const { suggestions, loading, error } = useSuggestionsQuery()
 
-  if (loading) return <Loader />;
-  if (error) return <Error />;
+  if (loading) return <Loader />
+  if (error) return <Error />
 
   return (
     <>
@@ -29,27 +22,13 @@ export default function Suggestions() {
       </Card>
       <SuggestionList suggestions={suggestions} />
     </>
-  );
+  )
 }
 
-Suggestions.Layout = Layout;
+Suggestions.Layout = Layout
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { token, permissions } = getAuthCredentials(ctx);
-  if (
-    !isAuthenticated({ token, permissions }) ||
-    !hasAccess(allowedRoles, permissions)
-  ) {
-    return {
-      redirect: {
-        destination: Routes.login,
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {
-      userPermissions: permissions,
-    },
-  };
-};
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['table', 'common', 'form'])),
+  },
+})
