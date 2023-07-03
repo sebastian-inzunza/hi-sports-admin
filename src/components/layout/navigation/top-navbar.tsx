@@ -40,7 +40,7 @@ const Navbar = () => {
         <div className="flex items-center space-s-8">
           {hasAccess(adminAndOwnerOnly, permissions) && (
             <LinkButton href={'/'} className="ms-4 md:ms-6" size="small">
-              {t('common:text-create-shop')}
+              {t('common:text-create-environment')}
             </LinkButton>
           )}
           {enableMultiLang ? <LanguageSwitcher /> : null}
