@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -25,16 +25,10 @@ interface Props {
 }
 
 const CreateMessageForm = ({ className, user, ...rest }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    setFocus,
-    reset,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: yupResolver(messageSchema),
-  })
+  const { register, handleSubmit, getValues, setFocus, reset } =
+    useForm<FormValues>({
+      resolver: yupResolver(messageSchema),
+    })
 
   const router = useRouter()
   const { query } = router

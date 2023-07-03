@@ -12,6 +12,9 @@ export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
     get() {
       return HttpClient.get<Type>(`${endpoint}`)
     },
+    bySlug({ slug }: { slug?: string }) {
+      return HttpClient.get<Type>(`${endpoint}/${slug}`)
+    },
     create(data: InputType) {
       return HttpClient.post<Type>(endpoint, data)
     },

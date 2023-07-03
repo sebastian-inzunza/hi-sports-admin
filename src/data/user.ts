@@ -43,13 +43,13 @@ export const useUpdateUserMutation = () => {
 }
 
 export const useForgetPasswordMutation = () => {
-  return 'useMutation(userClient.forgetPassword)'
+  return useMutation(userClient.forgetPassword)
 }
 
 export const useResetPasswordMutation = () => {
-  return 'useMutation(userClient.resetPassword)'
+  return useMutation(userClient.resetPassword)
 }
 
 export const useVerifyForgetPasswordTokenMutation = () => {
-  return 'useVerifyForgetPasswordTokenMutation'
+  return useMutation(userClient.verifyForgetPasswordToken)
 }

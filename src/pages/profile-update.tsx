@@ -1,15 +1,17 @@
-import Layout from "@/components/layout/app";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import ErrorMessage from "@/components/ui/error-message";
-import { useMeQuery } from "@/data/users";
-import ChangePasswordForm from "@/components/auth/change-password-form";
-import Loader from "@/components/ui/loader/loader";
-import ProfileUpdateForm from "@/components/auth/profile-update-form";
+import Layout from '@/components/layout/app'
+import ErrorMessage from '@/components/ui/error-message'
+import ChangePasswordForm from '@/components/auth/change-password-form'
+import Loader from '@/components/ui/loader/loader'
+import ProfileUpdateForm from '@/components/auth/profile-update-form'
+
+import { useMeQuery } from '@/data/users'
 
 export default function ProfilePage() {
-  const { data, isLoading: loading, error } = useMeQuery();
-  if (loading) return <Loader text={"Cargando perfil..."} />;
-  if (error) return <ErrorMessage message={error.message} />;
+  const { data, isLoading: loading, error } = useMeQuery()
+  if (loading) return <Loader text={'Cargando perfil...'} />
+  if (error) return <ErrorMessage message={error.message} />
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
@@ -20,7 +22,13 @@ export default function ProfilePage() {
       <ProfileUpdateForm me={data} />
       <ChangePasswordForm />
     </>
-  );
+  )
 }
 
-ProfilePage.Layout = Layout;
+ProfilePage.Layout = Layout
+
+export const getStaticProps = async ({ locale }: any) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['form', 'common'])),
+  },
+})

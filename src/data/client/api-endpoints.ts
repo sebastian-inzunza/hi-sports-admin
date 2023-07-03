@@ -25,4 +25,7 @@ export const API_ENDPOINTS = {
   CREATE_MESSAGE: '/chat/message',
   MESSAGE_SEEN: '/chat/message/seen',
   CREATE_CONVERSION: '/chat/conversation',
+
+  CHANGE_PASSWORD: 'change-password',
+  FORGET_PASSWORD: 'forget-password',
 }

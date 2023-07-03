@@ -181,6 +181,20 @@ export interface Chat {
   success: boolean
   data: DataChat[]
 }
+export interface VerifyForgetPasswordTokenInput {
+  token: string
+  email: string
+}
+
+export interface ForgetPasswordInput {
+  email: string
+}
+
+export interface ResetPasswordInput {
+  token: string
+  email: string
+  password: string
+}
 
 export interface DataChat {
   id: number | string

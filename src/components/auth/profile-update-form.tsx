@@ -42,7 +42,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
         <Description
           title="Avatar"
           details="Actualiza tu foto de perfil"
-          className="sm:pe-4 md:pe-5 w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <FileInput name="image" control={control} />
@@ -52,7 +52,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
         <Description
           title="Nombre"
           details="Actualiza tu nombre"
-          className="sm:pe-4 md:pe-5 w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="mb-5 w-full sm:w-8/12 md:w-2/3">
           <Input
@@ -102,6 +102,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             {...register('role')}
             variant="outline"
             className="mb-5"
+            disabled={true}
           />
 
           <Input
@@ -109,9 +110,10 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             {...register('username')}
             variant="outline"
             className="mb-5"
+            disabled={true}
           />
         </Card>
-        <div className="text-end w-full">
+        <div className="w-full text-end">
           <Button loading={loading} disabled={loading}>
             Actualizar
           </Button>
