@@ -8,50 +8,20 @@ import TitleWithSort from '../ui/title-with-sort'
 import LanguageSwitcher from '../ui/lang-action/action'
 import { Routes } from '@/config/routes'
 import Pagination from '../ui/pagination'
+import { MappedPaginatorInfo } from '@/types'
 
 type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
-  // paginatorInfo: MappedPaginatorInfo | null
-  // onPagination: (current: number) => void
+  paginatorInfo: MappedPaginatorInfo | null
+  onPagination: (current: number) => void
 }
-const SuggestionList = ({ suggestions }: SuggestionListProps) => {
+const SuggestionList = ({
+  suggestions,
+  paginatorInfo,
+  onPagination,
+}: SuggestionListProps) => {
   console.log('suggestions', suggestions)
   const columns = [
-    {
-      title: 'Avatar',
-      dataIndex: 'user',
-      key: 'user',
-      width: 120,
-      render: (user: User) => {
-        return (
-          <Image
-            src={user?.image ?? siteSettings.logo.url}
-            alt={user?.name ?? 'Avatar'}
-            width={60}
-            height={60}
-            className="overflow-hidden rounded"
-          />
-        )
-      },
-    },
-    {
-      title: 'Nombre',
-      dataIndex: 'user',
-      key: 'user',
-      width: 300,
-      render: (record: User) => {
-        return (
-          <div className="flex items-center">
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold text-heading">
-                {record?.name}
-              </span>
-              <span className="text-xs text-gray-500">{record?.email}</span>
-            </div>
-          </div>
-        )
-      },
-    },
     {
       title: 'Sugerencia',
       dataIndex: 'content',
@@ -99,6 +69,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
       dataIndex: 'id',
       key: 'id',
       width: 100,
+
       render: (id: string, record: any) => {
         console.log('record', record)
         return (
@@ -126,7 +97,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
         />
       </div>
 
-      {/* {!!paginatorInfo?.total && (
+      {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination
             total={paginatorInfo.total}
@@ -135,7 +106,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
             onChange={onPagination}
           />
         </div>
-      )} */}
+      )}
     </>
   )
 }
