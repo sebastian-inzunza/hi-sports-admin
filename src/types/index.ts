@@ -52,6 +52,10 @@ export type EnvironmentPagination = {
   hasPreviousPage: boolean
 }
 
+export interface suggestionsQueryOptions extends QueryOptions {
+  search: string
+}
+
 export interface EnvironmentQueryOptions extends QueryOptions {
   search: string
 }

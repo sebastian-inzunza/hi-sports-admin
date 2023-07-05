@@ -1,3 +1,13 @@
+import { Suggestion } from '@testing-library/react'
+
+export type suggestionsPagination = {
+  suggestions: Suggestion[]
+  total: number
+  totalPages: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+}
+
 export interface SuggestionsResponse {
   id: number
   slug: string
