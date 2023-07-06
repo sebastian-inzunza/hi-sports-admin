@@ -49,12 +49,8 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
     },
   })
 
-  const noticeType = watch('type')
   const [effectiveFrom, expiredAt] = watch(['effectiveFrom', 'expiredAt'])
   // effectiveForm change date forma
-
-  console.log('effectiveFrom', effectiveFrom)
-  console.log('expiredAt', expiredAt)
 
   return (
     <form>

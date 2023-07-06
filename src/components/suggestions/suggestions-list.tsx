@@ -8,55 +8,30 @@ import TitleWithSort from '../ui/title-with-sort'
 import LanguageSwitcher from '../ui/lang-action/action'
 import { Routes } from '@/config/routes'
 import Pagination from '../ui/pagination'
+import { MappedPaginatorInfo } from '@/types'
+import { AlignType } from 'rc-table/lib/interface'
+import ActionButtons from '../ui/action-buttons'
 
 type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
-  // paginatorInfo: MappedPaginatorInfo | null
-  // onPagination: (current: number) => void
+  paginatorInfo: MappedPaginatorInfo | null
+  onPagination: (current: number) => void
 }
-const SuggestionList = ({ suggestions }: SuggestionListProps) => {
-  console.log('suggestions', suggestions)
+const SuggestionList = ({
+  suggestions,
+  paginatorInfo,
+  onPagination,
+}: SuggestionListProps) => {
   const columns = [
     {
-      title: 'Avatar',
-      dataIndex: 'user',
-      key: 'user',
-      width: 120,
-      render: (user: User) => {
-        return (
-          <Image
-            src={user?.image ?? siteSettings.logo.url}
-            alt={user?.name ?? 'Avatar'}
-            width={60}
-            height={60}
-            className="overflow-hidden rounded"
-          />
-        )
-      },
-    },
-    {
-      title: 'Nombre',
-      dataIndex: 'user',
-      key: 'user',
-      width: 300,
-      render: (record: User) => {
-        return (
-          <div className="flex items-center">
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold text-heading">
-                {record?.name}
-              </span>
-              <span className="text-xs text-gray-500">{record?.email}</span>
-            </div>
-          </div>
-        )
-      },
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: 'Sugerencia',
       dataIndex: 'content',
       key: 'content',
-      width: 350,
       render: (suggestion: string) => {
         return (
           <div className="flex items-center">
@@ -81,11 +56,11 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
       className: 'cursor-pointer',
       dataIndex: 'user',
       key: 'user',
-      width: 200,
-      render: (registration: User) => {
+      render: (registration: SuggestionsResponse) => {
         return (
+          // Format like 2023-07-06T00:02:15.622Z
           <span>
-            {new Date(registration?.registration).toLocaleDateString('es-ES', {
+            {new Date(registration.createdAt).toLocaleDateString('es-ES', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -98,16 +73,14 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
-      width: 100,
-      render: (id: string, record: any) => {
-        console.log('record', record)
+      align: 'center' as AlignType,
+      render: (id: string) => {
         return (
-          <LanguageSwitcher
+          <ActionButtons
             id={id}
-            slug={record.slug}
-            record={record}
-            routes={Routes.suggestions}
-            deleteModalView="DELETE_SUGGESTION"
+            userStatus={true}
+            showMakeAdminButton={true}
+            showContact={true}
           />
         )
       },
@@ -126,7 +99,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
         />
       </div>
 
-      {/* {!!paginatorInfo?.total && (
+      {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
           <Pagination
             total={paginatorInfo.total}
@@ -135,7 +108,7 @@ const SuggestionList = ({ suggestions }: SuggestionListProps) => {
             onChange={onPagination}
           />
         </div>
-      )} */}
+      )}
     </>
   )
 }

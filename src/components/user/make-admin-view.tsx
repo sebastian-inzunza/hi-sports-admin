@@ -11,7 +11,6 @@ const CustomerBanView = () => {
 
   // TODO: Create a mutation to make or revoke admin
   async function handleMakeAdmin() {
-    console.log('make admin', data)
     // makeOrRevokeAdmin({ user_id: data });
     closeModal()
   }

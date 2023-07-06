@@ -12,14 +12,6 @@ export const useEnviromentQuery = (params: Partial<QueryOptionsType>) => {
       keepPreviousData: true,
     }
   )
-  console.log(
-    '===================== | useEnviromentQuery | ====================='
-  )
-  console.log(data?.environments)
-  console.log(
-    '===================== | useEnviromentQuery | ====================='
-  )
-
   return {
     enviroments: data?.environments,
     loading: isLoading,

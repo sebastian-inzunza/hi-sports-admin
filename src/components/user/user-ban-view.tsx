@@ -16,7 +16,6 @@ const UserBanView = () => {
         banned: !data.banned,
       })
     } else {
-      console.log('banear!')
       blockUser({
         id: data.id,
         banned: !data.banned,

@@ -39,7 +39,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       })
 
       socket.on('new_alert', (alert: Alert) => {
-        console.log('new_alert', alert)
         toast.info(alert.content, {
           position: 'top-right',
           autoClose: 5000,

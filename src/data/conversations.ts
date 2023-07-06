@@ -59,9 +59,6 @@ export const useCreateConversations = () => {
         // router.push(`${routes}`)
         closeModal()
       } else {
-        console.log('====== This is error ======')
-        console.log(data)
-        console.log('====== This is error ======')
         toast.error('Something went wrong, please try again later')
       }
     },
@@ -71,9 +68,6 @@ export const useCreateConversations = () => {
       queryClient.invalidateQueries(API_ENDPOINTS.CONVERSIONS)
     },
     onError: (error) => {
-      console.log('===== error ====')
-      console.log(error)
-      console.log('===== error ====')
       toast.error('Something went wrong')
     },
   })

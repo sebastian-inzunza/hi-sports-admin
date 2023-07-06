@@ -6,10 +6,6 @@ const useSocket = (url: string) => {
   const { token } = getAuthCredentials()
   const [socket, setSocket] = useState<Socket | null>(null)
 
-  console.log('==== useSocket read token ====')
-  console.log(token)
-  console.log('==== useSocket read token ====')
-
   useEffect(() => {
     const socketInstance = io(url, {
       auth: {

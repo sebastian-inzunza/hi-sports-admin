@@ -16,7 +16,6 @@ const EnviromentList = ({
   paginatorInfo,
   onPagination,
 }: EnviromentListProps) => {
-  console.log('EnviromentList', environments)
   const columns: any = [
     {
       title: 'Logo',
