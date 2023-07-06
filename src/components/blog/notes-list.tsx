@@ -61,16 +61,6 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       align: 'center' as AlignType,
 
       render: function Render(is_approved: boolean, record: any) {
-        // const { mutate: updateNote } = useUpdateNoteMutation()
-        // function handleChange() {
-        //   console.log('Updated', record)
-        //   updateNote({
-        //     ...record,
-        //     id: record.id,
-        //     is_approved: !is_approved,
-        //   })
-        // }
-
         return (
           <Switch
             checked={is_approved}

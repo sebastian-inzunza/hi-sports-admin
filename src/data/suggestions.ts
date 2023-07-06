@@ -1,6 +1,5 @@
 import { QueryOptionsType } from '@/types'
-import { SuggestionsResponse, suggestionsPagination } from '@/types/suggestions'
-import { UserPagination } from '@/types/users'
+import { suggestionsPagination } from '@/types/suggestions'
 import { useQuery } from 'react-query'
 import { API_ENDPOINTS } from './client/api-endpoints'
 import { mapPaginatorData } from '@/utils/data-mappers'

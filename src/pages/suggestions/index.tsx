@@ -39,10 +39,7 @@ export default function Suggestions() {
     <>
       <Card className="mb-8 flex flex-col">
         <div className="flex w-full flex-col items-center md:flex-row">
-          <h1 className="text-xl font-semibold text-heading">
-            Sugerencias
-            {t('form:input-label-customers')}
-          </h1>
+          <h1 className="text-xl font-semibold text-heading">Sugerencias</h1>
         </div>
         <div className="flex w-full items-center ms-auto md:w-3/4">
           <Search onSearch={handleSearch} />
@@ -50,7 +47,7 @@ export default function Suggestions() {
             href={`${Routes.suggestions.create}`}
             className="h-12 ms-4 md:ms-6"
           >
-            <span>+ {t('form:button-label-add-customer')}</span>
+            <span>+ Agregar</span>
           </LinkButton>
         </div>
       </Card>

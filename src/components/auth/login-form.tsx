@@ -1,34 +1,30 @@
-import { useTranslation } from "next-i18next";
-import * as yup from "yup";
+import { useTranslation } from 'next-i18next'
+import * as yup from 'yup'
 
-import Input from "@/components/ui/input";
-import Form from "@/components/ui/forms/form";
-import { Routes } from "@/config/routes";
-import { useLogin } from "@/data/user";
-import { useState } from "react";
-import Alert from "@/components/ui/alert";
-import Router from "next/router";
-import {
-  allowedRoles,
-  hasAccess,
-  setAuthCredentials,
-} from "@/utils/auth-utils";
-import PasswordInput from "../ui/password-input";
-import Button from "../ui/button";
-import { LoginInput } from "@/types";
+import Input from '@/components/ui/input'
+import Form from '@/components/ui/forms/form'
+import { Routes } from '@/config/routes'
+import { useLogin } from '@/data/user'
+import { useState } from 'react'
+import Alert from '@/components/ui/alert'
+import Router from 'next/router'
+import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
+import PasswordInput from '../ui/password-input'
+import Button from '../ui/button'
+import { LoginInput } from '@/types'
 
 const loginFormSchema = yup.object().shape({
   identifier: yup
     .string()
-    .email("form:error-email-format")
-    .required("form:error-email-required"),
-  password: yup.string().required("form:error-password-required"),
-});
+    .email('form:error-email-format')
+    .required('form:error-email-required'),
+  password: yup.string().required('form:error-password-required'),
+})
 
 const LoginForm = () => {
-  const { t } = useTranslation();
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { mutate: login, isLoading, error } = useLogin();
+  const { t } = useTranslation()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const { mutate: login, isLoading, error } = useLogin()
 
   function onSubmit({ identifier, password }: LoginInput) {
     login(
@@ -39,29 +35,27 @@ const LoginForm = () => {
       {
         onSuccess: (data: any) => {
           if (data?.jwt) {
-            const role = data?.role;
+            const role = data?.role
             if (hasAccess(allowedRoles, role)) {
-              setAuthCredentials(data.jwt, data.role);
-              Router.push(Routes.dashboard);
-              return;
+              setAuthCredentials(data.jwt, data.role)
+              Router.push(Routes.dashboard)
+              return
             }
-            setErrorMessage("form:error-enough-permission");
+            setErrorMessage('form:error-enough-permission')
           } else {
-            setErrorMessage("form:error-credential-wrong");
+            setErrorMessage('form:error-credential-wrong')
           }
         },
         onError: () => {
-          console.log("====== error ======");
-          const messages = error as any;
+          const messages = error as any
           if (messages?.response?.data?.message) {
-            setErrorMessage(messages?.response?.data?.message[0]);
+            setErrorMessage(messages?.response?.data?.message[0])
           } else {
-            setErrorMessage("form:error-credential-wrong");
+            setErrorMessage('form:error-credential-wrong')
           }
-          console.log("====== error ======");
         },
       }
-    );
+    )
   }
 
   return (
@@ -70,24 +64,24 @@ const LoginForm = () => {
         {({ register, formState: { errors } }) => (
           <>
             <Input
-              label={t("form:input-label-email") ?? ""}
-              {...register("identifier")}
+              label={t('form:input-label-email') ?? ''}
+              {...register('identifier')}
               type="email"
               variant="outline"
               className="mb-4"
-              error={t(errors?.identifier?.message!) ?? ""}
+              error={t(errors?.identifier?.message!) ?? ''}
             />
             <PasswordInput
-              label={t("form:input-label-password")}
-              forgotPassHelpText={t("form:input-forgot-password-label") ?? ""}
-              {...register("password")}
-              error={t(errors?.password?.message!) ?? ""}
+              label={t('form:input-label-password')}
+              forgotPassHelpText={t('form:input-forgot-password-label') ?? ''}
+              {...register('password')}
+              error={t(errors?.password?.message!) ?? ''}
               variant="outline"
               className="mb-4"
               forgotPageLink={Routes.forgotPassword}
             />
             <Button className="w-full" loading={isLoading} disabled={isLoading}>
-              {t("form:button-label-login")}
+              {t('form:button-label-login')}
             </Button>
           </>
         )}
@@ -102,7 +96,7 @@ const LoginForm = () => {
         />
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

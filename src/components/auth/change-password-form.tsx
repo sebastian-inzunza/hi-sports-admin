@@ -45,7 +45,6 @@ const ChangePasswordForm = () => {
       },
       {
         onSuccess: (data: any) => {
-          console.log(data)
           reset()
         },
         onError: (error: any) => {
@@ -65,7 +64,7 @@ const ChangePasswordForm = () => {
         <Description
           title="Contraseña"
           details="Actualiza tu contraseña"
-          className="sm:pe-4 md:pe-5 w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="mb-5 w-full sm:w-8/12 md:w-2/3">
           <PasswordInput
@@ -92,7 +91,7 @@ const ChangePasswordForm = () => {
             error={errors.passwordConfirmation?.message}
           />
         </Card>
-        <div className="text-end w-full">
+        <div className="w-full text-end">
           <Button loading={loading} disabled={loading}>
             Actualizar contraseña
           </Button>

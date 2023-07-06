@@ -21,8 +21,6 @@ export default function Environments() {
     search: searchTerm,
   })
 
-  console.log('Enviroments data =>==>=>', enviroments)
-
   if (loading) return <Loader text="Cargando enviroments..." />
 
   if (error) return <ErrorMessage message={error.message} />

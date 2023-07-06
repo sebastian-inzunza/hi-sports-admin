@@ -9,6 +9,8 @@ import LanguageSwitcher from '../ui/lang-action/action'
 import { Routes } from '@/config/routes'
 import Pagination from '../ui/pagination'
 import { MappedPaginatorInfo } from '@/types'
+import { AlignType } from 'rc-table/lib/interface'
+import ActionButtons from '../ui/action-buttons'
 
 type SuggestionListProps = {
   suggestions: SuggestionsResponse[]
@@ -20,13 +22,16 @@ const SuggestionList = ({
   paginatorInfo,
   onPagination,
 }: SuggestionListProps) => {
-  console.log('suggestions', suggestions)
   const columns = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
     {
       title: 'Sugerencia',
       dataIndex: 'content',
       key: 'content',
-      width: 350,
       render: (suggestion: string) => {
         return (
           <div className="flex items-center">
@@ -51,11 +56,11 @@ const SuggestionList = ({
       className: 'cursor-pointer',
       dataIndex: 'user',
       key: 'user',
-      width: 200,
-      render: (registration: User) => {
+      render: (registration: SuggestionsResponse) => {
         return (
+          // Format like 2023-07-06T00:02:15.622Z
           <span>
-            {new Date(registration?.registration).toLocaleDateString('es-ES', {
+            {new Date(registration.createdAt).toLocaleDateString('es-ES', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
@@ -68,17 +73,14 @@ const SuggestionList = ({
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
-      width: 100,
-
-      render: (id: string, record: any) => {
-        console.log('record', record)
+      align: 'center' as AlignType,
+      render: (id: string) => {
         return (
-          <LanguageSwitcher
+          <ActionButtons
             id={id}
-            slug={record.slug}
-            record={record}
-            routes={Routes.suggestions}
-            deleteModalView="DELETE_SUGGESTION"
+            userStatus={true}
+            showMakeAdminButton={true}
+            showContact={true}
           />
         )
       },
