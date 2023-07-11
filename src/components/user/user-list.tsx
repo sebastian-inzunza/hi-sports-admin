@@ -8,7 +8,6 @@ import Badge from '../ui/badge/badge'
 import { AlignType, Table } from '../ui/table'
 import ActionButtons from '../common/action-buttons'
 import Pagination from '../ui/pagination'
-import { Routes } from '@/config/routes'
 import { useRouter } from 'next/router'
 
 type UserListProps = {
