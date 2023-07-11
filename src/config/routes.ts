@@ -15,6 +15,9 @@ export const Routes = {
   blog: {
     ...routesFactory('/blog'),
   },
+  cateogires: {
+    ...routesFactory('/categories'),
+  },
   storeNotice: {
     ...routesFactory('/notices'),
   },

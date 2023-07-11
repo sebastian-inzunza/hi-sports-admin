@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCreateNoteMutation, useUpdateNoteMutation } from '@/data/blog'
 import { useMeQuery } from '@/data/users'
 import { Note } from '@/types/blog'
@@ -15,6 +13,7 @@ import FileInput from '../ui/file-input'
 import Input from '../ui/input'
 import TextArea from '../ui/text-area'
 import { noteValidationSchema } from './note-validation-schema'
+import { slugglify } from '@/utils/slugglify'
 
 type FormValues = {
   id: number
@@ -22,7 +21,7 @@ type FormValues = {
   content: string
   createdBy: number
   is_approved: boolean
-  slug: string
+  slug?: string
   image?: string
 }
 
@@ -54,17 +53,18 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
 
   const onSubmit = async (values: FormValues) => {
-    const { title, content, slug, image } = values
-
+    const { title, content, image } = values
     const input = {
       title,
       content,
-      slug,
+      slug: slugglify(title),
       image: image ?? initialValues?.image ?? '',
       createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
     }
+
     try {
       if (!initialValues) {
+        console.log('create', input)
         createNote({
           ...input,
           createdAt: new Date().toISOString(),
@@ -77,6 +77,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         })
       }
     } catch (error) {
+      console.log('error', error)
       const serverErrors = getErrorMessage(error)
       Object.keys(serverErrors?.validation).forEach((field: any) => {
         setError(field.split('.')[1], {
@@ -104,7 +105,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="image" control={control} />
+          <FileInput name="image" control={control} multiple={false} />
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -118,13 +119,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
           <Input
             {...register('title')}
             label="Titulo"
-            variant="outline"
-            className="mb-5"
-            error={errors?.title?.message}
-          />
-          <Input
-            {...register('slug')}
-            label="Slug"
             variant="outline"
             className="mb-5"
             error={errors?.title?.message}
@@ -150,8 +144,8 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             Atrás
           </Button>
         )}
-        <Button loading={updating || creating}>
-          {initialValues ? 'Actualizar' : 'Crear'}
+        <Button loading={updating || creating} disabled={updating || creating}>
+          {initialValues ? 'Actualizar Nota' : 'Crear Nota'}
         </Button>
       </div>
     </form>

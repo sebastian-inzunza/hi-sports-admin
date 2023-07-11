@@ -76,7 +76,7 @@ const StoreNoticeList = ({
     {
       title: (
         <TitleWithSort
-          title={t('table:table-item-notice')}
+          title={'Titulo'}
           ascending={
             sortingObj?.sort === SortOrder?.Asc &&
             sortingObj?.column === 'notice'

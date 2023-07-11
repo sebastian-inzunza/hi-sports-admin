@@ -8,6 +8,8 @@ import Badge from '../ui/badge/badge'
 import { AlignType, Table } from '../ui/table'
 import ActionButtons from '../common/action-buttons'
 import Pagination from '../ui/pagination'
+import { Routes } from '@/config/routes'
+import { useRouter } from 'next/router'
 
 type UserListProps = {
   users: UsersResponse[]
@@ -15,6 +17,8 @@ type UserListProps = {
   onPagination: (current: number) => void
 }
 const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
+  const router = useRouter()
+
   const columns = [
     {
       title: 'Avatar',
@@ -73,7 +77,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             userStatus={true}
             isUserActive={!banned}
             showMakeAdminButton={true}
-            showContact={true}
+            detailsUrl={`${router.asPath}/${id}`}
             role={role}
           />
         )

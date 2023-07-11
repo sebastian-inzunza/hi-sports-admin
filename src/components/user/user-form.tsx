@@ -12,6 +12,7 @@ import { userValidationSchema } from './user-validation-schema'
 import { useEnviromentQuery } from '@/data/enviroment'
 import Select from '../select/select'
 import Loader from '../ui/loader/loader'
+import Label from '../ui/label'
 
 type FormValues = {
   firstName: string
@@ -20,6 +21,7 @@ type FormValues = {
   password: string
   middleName?: string
   username: string
+  enviroment?: any
 }
 
 const defaultValues: FormValues = {
@@ -29,6 +31,7 @@ const defaultValues: FormValues = {
   password: '',
   middleName: '',
   username: '',
+  enviroment: null,
 }
 
 const UserCreateForm = () => {
@@ -137,13 +140,14 @@ const UserCreateForm = () => {
             error={errors.username?.message?.toString()}
           />
 
+          <Label className="mb-4">Selecciona el Ambiente</Label>
           <Select
             options={enviroments ?? []}
             isLoading={loading}
             getOptionLabel={(option: any) => option?.name ?? ''}
             getOptionValue={(option: any) => option?.id ?? ''}
             placeholder="Encuentra a un usuario"
-            // onChange={onTypeFilter as any}
+            onChange={(value: any) => console.log(value)}
             isClearable={true}
           />
         </Card>

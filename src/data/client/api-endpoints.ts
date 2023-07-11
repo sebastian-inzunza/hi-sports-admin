@@ -1,6 +1,5 @@
 export const API_ENDPOINTS = {
   REGISTER: '/auth/signup',
-  ATTACHMENTS: 'attachments',
   LOGOUT: '/auth/logout',
   LOGIN: '/auth/login',
   ME: '/users/me',
@@ -29,4 +28,5 @@ export const API_ENDPOINTS = {
   CHANGE_PASSWORD: 'change-password',
   FORGET_PASSWORD: 'forget-password',
   ENVIRONMENTS: 'configuration/environments',
+  CATEGORY: 'category',
 }

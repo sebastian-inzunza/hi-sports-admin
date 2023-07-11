@@ -9,6 +9,7 @@ import { Routes } from '@/config/routes'
 
 import CreateOrUpdateNoteForm from '@/components/blog/note-form'
 import Layout from '@/components/layout/admin'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function CreateNotePage() {
   return (
@@ -25,6 +26,7 @@ CreateNotePage.Layout = Layout
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { token, permissions } = getAuthCredentials(ctx)
+  const locale = ctx.locale || 'es'
   if (
     !isAuthenticated({ token, permissions }) ||
     !hasAccess(allowedRoles, permissions)
@@ -39,6 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       userPermissions: permissions,
+      ...(await serverSideTranslations(locale, ['table', 'common', 'form'])),
     },
   }
 }

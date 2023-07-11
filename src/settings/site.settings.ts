@@ -61,6 +61,11 @@ export const siteSettings = {
         icon: 'ProductsIcon',
       },
       {
+        href: Routes.cateogires.list,
+        label: 'Categorías de Notas',
+        icon: 'ProductsIcon',
+      },
+      {
         href: Routes.tracker.list,
         label: 'Tracker',
         icon: 'Pin',

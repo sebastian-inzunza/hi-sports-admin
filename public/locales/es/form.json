@@ -339,5 +339,7 @@
   "input-notification-email": "Correo electrónico de notificación",
   "input-enable-notification": "Habilitar la notificación",
   "input-label-enable-open-ai": "Habilitar OpenAI",
-  "input-label-select-ai": "Seleccionar IA"
+  "input-label-select-ai": "Seleccionar IA",
+  "input-label-store-notices": "Avisos",
+  "button-label-add-store-notice": "Agregar aviso"
 }

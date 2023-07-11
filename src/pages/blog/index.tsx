@@ -1,47 +1,48 @@
-import { useState } from "react";
-import { GetServerSideProps } from "next";
+import { useState } from 'react'
+import { GetServerSideProps } from 'next'
 import {
   allowedRoles,
   getAuthCredentials,
   hasAccess,
   isAuthenticated,
-} from "@/utils/auth-utils";
+} from '@/utils/auth-utils'
 
-import Layout from "@/components/layout/admin";
-import Card from "@/components/common/card";
-import Search from "@/components/common/search";
-import LinkButton from "@/components/ui/link-button";
-import { Routes } from "@/config/routes";
-import { useNotesQuery } from "@/data/blog";
-import NotesList from "@/components/blog/notes-list";
-import ErrorMessage from "@/components/ui/error-message";
-import Loader from "@/components/ui/loader/loader";
+import Layout from '@/components/layout/admin'
+import Card from '@/components/common/card'
+import Search from '@/components/common/search'
+import LinkButton from '@/components/ui/link-button'
+import { Routes } from '@/config/routes'
+import { useNotesQuery } from '@/data/blog'
+import NotesList from '@/components/blog/notes-list'
+import ErrorMessage from '@/components/ui/error-message'
+import Loader from '@/components/ui/loader/loader'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function Notes() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState('')
+  const [page, setPage] = useState(1)
 
   const { notes, error, loading, paginatorInfo } = useNotesQuery({
     limit: 5,
     page,
     search: searchTerm,
-  });
+  })
 
   if (loading) {
-    return <Loader text="Cargando..." />;
+    return <Loader text="Cargando..." />
   }
 
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return <ErrorMessage message={error.message} />
   }
 
   function handleSearch({ searchText }: { searchText: string }) {
-    setSearchTerm(searchText);
-    setPage(1);
+    setSearchTerm(searchText)
+    setPage(1)
   }
 
   function handlePagination(current: number) {
-    setPage(current);
+    setPage(current)
   }
 
   return (
@@ -68,13 +69,14 @@ export default function Notes() {
         onPagination={handlePagination}
       />
     </>
-  );
+  )
 }
 
-Notes.Layout = Layout;
+Notes.Layout = Layout
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { token, permissions } = getAuthCredentials(ctx);
+  const { token, permissions } = getAuthCredentials(ctx)
+  const locale = ctx.locale || 'es'
   if (
     !isAuthenticated({ token, permissions }) ||
     !hasAccess(allowedRoles, permissions)
@@ -84,11 +86,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         destination: Routes.login,
         permanent: false,
       },
-    };
+    }
   }
   return {
     props: {
       userPermissions: permissions,
+      ...(await serverSideTranslations(locale, ['table', 'common', 'form'])),
     },
-  };
-};
+  }
+}
