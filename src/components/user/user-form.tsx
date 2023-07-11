@@ -9,6 +9,9 @@ import Description from '../ui/description'
 import Input from '../ui/input'
 import PasswordInput from '../ui/password-input'
 import { userValidationSchema } from './user-validation-schema'
+import { useEnviromentQuery } from '@/data/enviroment'
+import Select from '../select/select'
+import Loader from '../ui/loader/loader'
 
 type FormValues = {
   firstName: string
@@ -30,6 +33,12 @@ const defaultValues: FormValues = {
 
 const UserCreateForm = () => {
   const { mutate: registerUser, isLoading: loading } = useRegisterMutation()
+  const { enviroments, loading: loadEnviroment } = useEnviromentQuery({
+    limit: 15,
+    page: 1,
+    search: '',
+  })
+
   const {
     register,
     handleSubmit,
@@ -71,13 +80,17 @@ const UserCreateForm = () => {
       }
     )
   }
+
+  if (loadEnviroment) {
+    return <Loader />
+  }
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title="Usuario"
           details="Llena todos los campos para crear un nuevo usuario"
-          className="sm:pe-4 md:pe-5 w-full px-0 pb-5 sm:w-4/12 sm:py-8 md:w-1/3"
+          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
@@ -123,9 +136,19 @@ const UserCreateForm = () => {
             {...register('username')}
             error={errors.username?.message?.toString()}
           />
+
+          <Select
+            options={enviroments ?? []}
+            isLoading={loading}
+            getOptionLabel={(option: any) => option?.name ?? ''}
+            getOptionValue={(option: any) => option?.id ?? ''}
+            placeholder="Encuentra a un usuario"
+            // onChange={onTypeFilter as any}
+            isClearable={true}
+          />
         </Card>
       </div>
-      <div className="text-end mb-4 sm:mb-8">
+      <div className="mb-4 text-end sm:mb-8">
         <Button disabled={loading} loading={loading}>
           Crear
         </Button>

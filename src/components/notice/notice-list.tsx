@@ -67,7 +67,7 @@ const StoreNoticeList = ({
 
   const columns = [
     {
-      title: t('table:table-item-id'),
+      title: 'ID',
       dataIndex: 'id',
       key: 'id',
       align: 'center',
