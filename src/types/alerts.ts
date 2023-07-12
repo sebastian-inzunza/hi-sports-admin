@@ -25,7 +25,7 @@ export enum AlertStatus {
 }
 
 export interface AlertResponse {
-  alerts: Alert[]
+  data: Alert[]
   total: number
   totalPages: number
   currentPage: number

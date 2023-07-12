@@ -50,18 +50,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         socketContext.online = false
       })
 
-      socket.emit('user_connect', () => {})
-
-      socket.emit('alerts', {
-        page,
-        limit,
-      })
-
-      socket.on('all_alerts', (alerts: AlertPaginator) => {
-        socketContext.alerts = alerts.data
-        socketContext.paginatorInfo = alerts
-      })
-
       socket.on('new_alert', (alert: Alert) => {
         audio.play()
         toast.error(alert.content, {

@@ -23,7 +23,9 @@ const AlertList = ({
   onPagination,
   seletedAlert,
 }: AlertListProps) => {
-  // const [play] = useSound(require('./sounds/notification.mp3'))
+  console.log('==== Getting alerts ====')
+  console.log(alerts)
+  console.log('==== Getting alerts ====')
 
   const columns: any = [
     {
@@ -96,20 +98,11 @@ const AlertList = ({
       },
     },
   ]
+
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-        <Table
-          columns={columns}
-          data={alerts ?? []}
-          rowKey={'id'}
-          rowClassName={(data) => {
-            if (data.status != AlertStatus.Solved) {
-              return 'table-row bg-red-400'
-            }
-            return ''
-          }}
-        />
+        <Table columns={columns} data={alerts ?? []} rowKey={'id'} />
       </div>
       {!!paginatorInfo && (
         <div>

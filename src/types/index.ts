@@ -147,6 +147,9 @@ export interface UserQueryOptions extends QueryOptions {
   search: string
 }
 
+export interface GenericQueryOptions extends QueryOptions {
+  search: string
+}
 export interface PaginatorInfo<T> {
   data: T[]
   totalPages: number

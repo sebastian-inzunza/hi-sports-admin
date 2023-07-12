@@ -29,4 +29,5 @@ export const API_ENDPOINTS = {
   FORGET_PASSWORD: 'forget-password',
   ENVIRONMENTS: 'configuration/environments',
   CATEGORY: 'category',
+  ALERTS: 'alerts',
 }

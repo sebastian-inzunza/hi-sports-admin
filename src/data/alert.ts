@@ -3,7 +3,7 @@ import { Alert, AlertResponse } from '@/types/alerts'
 import { mapPaginatorData } from '@/utils/data-mappers'
 import { useQuery } from 'react-query'
 import { QueryOptionsType } from '../types'
-import { alertClient } from './client/alerts'
+import { alertClient } from './client/alert'
 import { API_ENDPOINTS } from './client/api-endpoints'
 
 export const useAlertsQuery = (options: Partial<QueryOptionsType>) => {
@@ -16,7 +16,7 @@ export const useAlertsQuery = (options: Partial<QueryOptionsType>) => {
   )
 
   return {
-    alerts: data?.alerts as Alert[],
+    alerts: data?.data as Alert[],
     loading: isLoading,
     paginatorInfo: mapPaginatorData(data as any),
     error,
