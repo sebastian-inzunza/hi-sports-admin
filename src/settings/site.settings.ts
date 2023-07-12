@@ -48,7 +48,7 @@ export const siteSettings = {
       {
         href: Routes.environments.list,
         label: 'Entornos',
-        icon: 'UsersIcon',
+        icon: 'EnvironmentsIcon',
       },
       {
         href: Routes.storeNotice.list,
@@ -63,7 +63,7 @@ export const siteSettings = {
       {
         href: Routes.cateogires.list,
         label: 'Categorías de Notas',
-        icon: 'ProductsIcon',
+        icon: 'CategoriesIcon',
       },
       {
         href: Routes.tracker.list,
