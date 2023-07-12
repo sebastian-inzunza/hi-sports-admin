@@ -37,7 +37,7 @@ export const siteSettings = {
       },
       {
         href: Routes.conversations.list,
-        label: 'Conversaciones',
+        label: 'Chat',
         icon: 'ChatIcon',
       },
       {
@@ -62,13 +62,8 @@ export const siteSettings = {
       },
       {
         href: Routes.cateogires.list,
-        label: 'Categorías de Notas',
+        label: 'Categorías',
         icon: 'CategoriesIcon',
-      },
-      {
-        href: Routes.tracker.list,
-        label: 'Tracker',
-        icon: 'Pin',
       },
       {
         href: Routes.alerts.list,
