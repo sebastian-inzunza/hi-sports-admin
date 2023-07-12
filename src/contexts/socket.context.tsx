@@ -1,11 +1,10 @@
-import React, { createContext, useContext, useEffect } from 'react'
-import useSound from 'use-sound'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import useSocket from '@/hooks/useSocket'
 import { Alert } from '@/types/alerts'
 import { AlertPaginator, MappedPaginatorInfo } from '@/types'
-import useAudio from '@/hooks/useAudio'
+import useSound from 'use-sound'
 
 interface SocketContextType {
   online: boolean
@@ -14,24 +13,33 @@ interface SocketContextType {
   setPage: React.Dispatch<React.SetStateAction<number>>
   limit: number
   paginatorInfo: MappedPaginatorInfo | null
+  setPaginatorInfo: React.Dispatch<
+    React.SetStateAction<MappedPaginatorInfo | null>
+  >
 }
 
 const SocketContext = createContext<SocketContextType>({
   online: false,
   alerts: [],
-  paginatorInfo: null,
   page: 1,
-  limit: 15,
   setPage: () => {},
+  limit: 10,
+  paginatorInfo: null,
+  setPaginatorInfo: () => {},
 })
 
 const URL = process.env.NEXT_PUBLIC_REST_API_ENDPOINT || 'http://localhost:1337'
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const { audio, ready } = useAudio({ src: '/sounds/notification.mp3' })
-
+  const audio = new Audio('./sounds/notification.mp3')
   const socketContext = useContext(SocketContext)
   const socket = useSocket(URL) // Replace with your Socket.io server URL
+
+  const [page, setPage] = useState(1)
+
+  const { limit } = socketContext
+
+  socketContext.setPage = setPage
 
   useEffect(() => {
     if (socket) {
@@ -45,8 +53,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       socket.emit('user_connect', () => {})
 
       socket.emit('alerts', {
-        page: socketContext.page,
-        limit: socketContext.limit,
+        page,
+        limit,
       })
 
       socket.on('all_alerts', (alerts: AlertPaginator) => {
@@ -55,14 +63,14 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       })
 
       socket.on('new_alert', (alert: Alert) => {
-        toast.info(alert.content, {
+        audio.play()
+        toast.error(alert.content, {
           position: 'top-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
         })
-        if (ready) audio.play()
       })
     }
   }, [socket])
@@ -78,9 +86,9 @@ export const useSocketContext = (): SocketContextType =>
   useContext(SocketContext)
 
 export const useSockets = () => {
-  const context = React.useContext(SocketContext)
+  const context = useContext(SocketContext)
   if (context === undefined) {
-    throw new Error(`useSettings must be used within a SettingsProvider`)
+    throw new Error(`useSockets must be used within a SocketProvider`)
   }
   return context
 }

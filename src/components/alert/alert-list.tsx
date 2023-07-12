@@ -6,6 +6,7 @@ import Badge from '../ui/badge/badge'
 import Pagination from '../ui/pagination'
 import colorBadge from '@/utils/colorBadge'
 import textAlertBadge from '@/utils/textAlertBadge'
+import useSound from 'use-sound'
 
 type AlertListProps = {
   alerts: Alert[] | null | undefined
@@ -20,9 +21,9 @@ const AlertList = ({
   onPagination,
   seletedAlert,
 }: AlertListProps) => {
-  function selectAlert(alert: Alert) {
-    // seletedAlert(alert)
-  }
+  // const [play] = useSound(require('./sounds/notification.mp3'))
+
+  function selectAlert(alert: Alert) {}
 
   return (
     <>

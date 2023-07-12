@@ -21,6 +21,15 @@ module.exports = withPWA({
       'localhost',
     ],
   },
+  webpack(config, _options) {
+    config.module.rules.push({
+      test: /\.mp3$/,
+      use: {
+        loader: 'file-loader',
+      },
+    })
+    return config
+  },
   ...(process.env.APPLICATION_MODE === 'production' && {
     typescript: {
       ignoreBuildErrors: true,
