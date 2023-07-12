@@ -12,6 +12,7 @@ import {
 } from '@/utils/auth-utils'
 import LanguageSwitcher from './language-switcher'
 import { Config } from '@/config'
+import { Routes } from '@/config/routes'
 
 const Navbar = () => {
   const { t } = useTranslation()
@@ -39,7 +40,11 @@ const Navbar = () => {
 
         <div className="flex items-center space-s-8">
           {hasAccess(adminAndOwnerOnly, permissions) && (
-            <LinkButton href={'/'} className="ms-4 md:ms-6" size="small">
+            <LinkButton
+              href={Routes.environments.create}
+              className="ms-4 md:ms-6"
+              size="small"
+            >
               {t('common:text-create-environment')}
             </LinkButton>
           )}

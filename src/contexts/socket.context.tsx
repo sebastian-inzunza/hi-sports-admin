@@ -71,6 +71,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           closeOnClick: true,
           pauseOnHover: true,
         })
+        socketContext.alerts.unshift(alert)
       })
     }
   }, [socket])

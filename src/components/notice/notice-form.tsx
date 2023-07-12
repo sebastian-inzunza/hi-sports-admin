@@ -23,7 +23,6 @@ const priorityType = [
 ]
 
 export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
-  const { t } = useTranslation()
   const { openModal } = useModalAction()
   let noticeTypes: any = []
 
@@ -52,22 +51,25 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
   const [effectiveFrom, expiredAt] = watch(['effectiveFrom', 'expiredAt'])
   // effectiveForm change date forma
 
+  function onSubmit(data: Notice) {
+    console.log(data)
+  }
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title={t('form:input-label-description') ?? ''}
+          title={'Avisos'}
           details={`${
             initialValues
-              ? t('form:item-description-edit')
-              : t('form:item-description-add')
-          } ${t('form:store-notice-form-info-help-text')}`}
+              ? 'Editar avisos de ambiente'
+              : 'Crear avisos de ambiente'
+          } Este aviso se mostrará en la página de inicio de la app.`}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <div className="mb-5">
-            <Label>{t('form:input-label-priority')}</Label>
+            <Label>Prioridad</Label>
             <SelectInput
               name="priority"
               getOptionLabel={(option: any) => option.name}
@@ -75,13 +77,10 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
               control={control}
               options={priorityType}
             />
-            <ValidationError
-              //@ts-ignore
-              message={t(errors.priority?.message!)}
-            />
+            <ValidationError message={errors.priority?.message} />
           </div>
           <Input
-            label={`${t('form:input-title')}*`}
+            label={`Título*`}
             {...register('notice')}
             error={errors.notice?.message ?? ''}
             variant="outline"
@@ -91,7 +90,7 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
 
           <div className="relative">
             <TextArea
-              label={`${t('form:input-label-description')}*`}
+              label={`Descripción*`}
               {...register('description')}
               error={errors.description?.message ?? ''}
               variant="outline"
@@ -101,9 +100,9 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
 
           <div className="mb-4 flex flex-col sm:flex-row">
             <div className="mb-5 w-full p-0 sm:mb-0 sm:w-1/2 sm:pe-2">
-              <Label>{`${t('form:store-notice-active-from')}*`}</Label>
+              <Label>{`Fecha de activación *`}</Label>
 
-              {/* <Controller
+              <Controller
                 control={control}
                 name="effectiveFrom"
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -118,14 +117,14 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
                     maxDate={expiredAt}
                     startDate={effectiveFrom}
                     endDate={expiredAt}
-                    className="border border-border-base"
+                    className="flex h-12 w-full appearance-none items-center rounded-md px-4 text-sm text-heading transition duration-300 ease-in-out focus:border-accent focus:outline-none"
                   />
                 )}
-              /> */}
+              />
               <ValidationError message={errors.effectiveFrom?.message ?? ''} />
             </div>
             <div className="w-full p-0 sm:w-1/2 sm:ps-2">
-              <Label>{`${t('form:store-notice-expire-at')}*`}</Label>
+              <Label>{`Fecha de desactivación *`}</Label>
 
               <Controller
                 control={control}
@@ -141,7 +140,7 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
                     startDate={effectiveFrom}
                     endDate={expiredAt}
                     minDate={effectiveFrom}
-                    className="border border-border-base"
+                    className="flex h-12 w-full appearance-none items-center rounded-md px-4 text-sm text-heading transition duration-300 ease-in-out focus:border-accent focus:outline-none"
                   />
                 )}
               />
@@ -150,7 +149,7 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
           </div>
           <>
             <div className="mb-0">
-              <Label>{t('form:input-label-type')}</Label>
+              <Label>{'Ambientes'}</Label>
               <SelectInput
                 name="type"
                 control={control}
@@ -160,21 +159,8 @@ export default function CreateOrUpdateNoticeForm({ initialValues }: Props) {
                 defaultValue={noticeTypes[0]}
               />
 
-              <ValidationError //@ts-ignore
-                message={t(errors.type?.message)}
-              />
+              <ValidationError message={errors.type?.message} />
             </div>
-            {/* {noticeType &&
-              (noticeType == StoreNoticeType.specific_vendor ||
-                noticeType == StoreNoticeType.specific_shop) && (
-                <NoticeReceivedByInput
-                  className="mt-5"
-                  control={control}
-                  setValue={setValue}
-                  //@ts-ignore
-                  error={t(errors.received_by?.message!)}
-                />
-              )} */}
           </>
         </Card>
       </div>

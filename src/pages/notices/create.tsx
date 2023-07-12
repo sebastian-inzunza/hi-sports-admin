@@ -10,9 +10,7 @@ export default function CreateNotice() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">
-          {t('form:form-title-create-store-notice')}
-        </h1>
+        <h1 className="text-lg font-semibold text-heading">Avisos</h1>
       </div>
       <CreateOrUpdateNoticeForm />
     </>

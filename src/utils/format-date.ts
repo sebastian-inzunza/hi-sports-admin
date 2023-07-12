@@ -1,8 +1,11 @@
 export function formatDate(date: Date | string): string {
-  const d = new Date(date)
-  const year = d.getFullYear()
-  const month = d.getMonth() + 1
-  const day = d.getDate()
+  // Format date like Mayo 5, 2021 12:00 AM
 
-  return `${year}-${month}-${day}`
+  return new Intl.DateTimeFormat('es-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  }).format(new Date(date))
 }
