@@ -8,9 +8,12 @@ import { CoinIcon } from '@/components/icons/coin-icon'
 import StickerCard from '@/components/widgets/sticker-card'
 import ErrorMessage from '@/components/ui/error-message'
 import Loader from '@/components/ui/loader/loader'
-import { DollarIcon } from '@/components/icons/shops/dollar'
+import { Bell } from '@/components/icons/sidebar/bell'
+import { NotesIcon } from '@/components/icons/notes-icon'
+
 import { useAnalyticsQuery } from '@/data/analytics'
 import Card from '../common/card'
+import { UserIcon } from '../icons/user-icon'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -48,8 +51,8 @@ export default function Dashboard() {
           <StickerCard
             titleTransKey="sticker-card-title-rev"
             subtitleTransKey="sticker-card-subtitle-rev"
-            icon={<DollarIcon className="h-7 w-7" color="#047857" />}
-            iconBgStyle={{ backgroundColor: '#A7F3D0' }}
+            icon={<Bell className="h-7 w-7" color="#d60000" />}
+            iconBgStyle={{ backgroundColor: '#ffafaf' }}
             price={analytics.alertsCount}
           />
         </div>
@@ -57,14 +60,14 @@ export default function Dashboard() {
           <StickerCard
             titleTransKey="sticker-card-title-order"
             subtitleTransKey="sticker-card-subtitle-order"
-            icon={<CartIconBig />}
+            icon={<NotesIcon />}
             price={analytics?.notesCount}
           />
         </div>
         <div className="w-full">
           <StickerCard
             titleTransKey="sticker-card-title-today-rev"
-            icon={<CoinIcon />}
+            icon={<UserIcon />}
             price={analytics.usersCount}
           />
         </div>
