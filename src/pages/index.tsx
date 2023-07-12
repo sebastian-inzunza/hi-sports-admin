@@ -14,7 +14,11 @@ import AppLayout from '@/components/layout/app'
 
 const AdminDashboard = dynamic(() => import('@/components/dashboard/admin'))
 
-export default function Dashboard() {
+export default function Dashboard({
+  userPermissions,
+}: {
+  userPermissions: string
+}) {
   return <AdminDashboard />
   // if (userPermissions === SUPER_ADMIN) {
   //   // return <AdminDashboard />

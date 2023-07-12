@@ -10,6 +10,7 @@ import { useEnviromentQuery } from '@/data/enviroment'
 import EnviromentList from '@/components/environments/environment-list'
 import Loader from '@/components/ui/loader/loader'
 import ErrorMessage from '@/components/ui/error-message'
+import { Routes } from '@/config/routes'
 
 export default function Environments() {
   const { t } = useTranslation()
@@ -46,7 +47,7 @@ export default function Environments() {
           <Search onSearch={handleSearch} />
 
           <LinkButton
-            href="/notices/create"
+            href={Routes.environments.create}
             className="h-12 w-full md:w-auto md:ms-6"
           >
             <span className="hidden xl:block">

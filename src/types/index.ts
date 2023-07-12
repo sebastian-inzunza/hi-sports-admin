@@ -52,6 +52,13 @@ export type EnvironmentPagination = {
   hasPreviousPage: boolean
 }
 
+export type EnvironmentInput = {
+  name: string
+  users: []
+  primary_color: string
+  secondary_color: string
+}
+
 export interface suggestionsQueryOptions extends QueryOptions {
   search: string
 }

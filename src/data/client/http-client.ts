@@ -1,3 +1,4 @@
+import { AUTH_CRED } from '@/utils/constants'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
@@ -15,7 +16,7 @@ const Axios = axios.create({
   },
 })
 // Change request data/error
-const AUTH_TOKEN_KEY = process.env.NEXT_PUBLIC_AUTH_TOKEN_KEY ?? 'authToken'
+const AUTH_TOKEN_KEY = process.env.NEXT_PUBLIC_AUTH_TOKEN_KEY ?? AUTH_CRED
 Axios.interceptors.request.use((config: any) => {
   const cookies = Cookies.get(AUTH_TOKEN_KEY)
   let token = ''
@@ -37,11 +38,11 @@ Axios.interceptors.response.use(
     if (
       (error.response && error.response.status === 401) ||
       (error.response && error.response.status === 403) ||
-      (error.response &&
-        error.response.data.message === 'KALI_ERROR_ERROR.NOT_AUTHORIZED')
+      (error.response && error.response.data.message === 'Unauthorized')
     ) {
+      console.log('erorr', error.response.data.message)
       Cookies.remove(AUTH_TOKEN_KEY)
-      Router.reload()
+      // Router.reload()
     }
     return Promise.reject(error)
   }
