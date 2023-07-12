@@ -16,6 +16,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <MakeAdminView />
     case 'COMPOSE_MESSAGE':
       return <ComposerMessage />
+    case 'LOCATE_USER':
+      return <div>Locate User</div>
     default:
       return null
   }

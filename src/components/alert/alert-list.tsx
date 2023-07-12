@@ -9,6 +9,7 @@ import ActionButtons from '../ui/action-buttons'
 import { AlignType } from 'rc-table/lib/interface'
 import { formatDate } from '@/utils/format-date'
 import colorBadge from '@/utils/colorBadge'
+import { Routes } from '@/config/routes'
 
 type AlertListProps = {
   alerts: Alert[] | null | undefined
@@ -92,7 +93,7 @@ const AlertList = ({
             id={id}
             editModalView={'ALERT_EDIT'}
             deleteModalView={'ALERT_DELETE'}
-            detailsUrl="/alerts"
+            detailsUrl={Routes.alerts.details({ id })}
           />
         )
       },

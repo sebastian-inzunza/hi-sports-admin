@@ -28,10 +28,6 @@ export default function Alerts() {
     setPage(1)
   }
 
-  console.log('==== Getting alerts ====')
-  console.log(alerts)
-  console.log('==== Getting alerts ====')
-
   function handlePagination(current: number) {
     setPage(current)
   }

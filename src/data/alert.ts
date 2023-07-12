@@ -22,3 +22,13 @@ export const useAlertsQuery = (options: Partial<QueryOptionsType>) => {
     error,
   }
 }
+
+export type AlerResponse = {
+  alert: Alert
+  message: string
+}
+export const useAlertQuery = ({ id }: { id: number }) => {
+  return useQuery<AlerResponse, Error>([API_ENDPOINTS.BLOG, id], () =>
+    alertClient.byId({ id })
+  )
+}
