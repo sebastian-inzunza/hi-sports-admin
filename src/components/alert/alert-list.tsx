@@ -11,7 +11,7 @@ type AlertListProps = {
   alerts: Alert[] | null | undefined
   paginatorInfo: MappedPaginatorInfo | null
   onPagination: (page: number) => void
-  seletedAlert: (alert: Alert) => void
+  seletedAlert?: (alert: Alert) => void
 }
 
 const AlertList = ({
@@ -21,7 +21,7 @@ const AlertList = ({
   seletedAlert,
 }: AlertListProps) => {
   function selectAlert(alert: Alert) {
-    seletedAlert(alert)
+    // seletedAlert(alert)
   }
 
   return (

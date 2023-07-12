@@ -60,6 +60,7 @@
     "@testing-library/user-event": "14.4.3",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/cookie": "0.5.1",
+    "@types/howler": "^2.2.7",
     "@types/js-cookie": "3.0.3",
     "@types/react": "18.0.28",
     "@types/react-datepicker": "4.10.0",

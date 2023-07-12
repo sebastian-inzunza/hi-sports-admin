@@ -4,21 +4,31 @@ import { toast } from 'react-toastify'
 
 import useSocket from '@/hooks/useSocket'
 import { Alert } from '@/types/alerts'
+import { AlertPaginator, MappedPaginatorInfo } from '@/types'
+import useAudio from '@/hooks/useAudio'
 
 interface SocketContextType {
   online: boolean
   alerts: any[]
+  page: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  limit: number
+  paginatorInfo: MappedPaginatorInfo | null
 }
 
 const SocketContext = createContext<SocketContextType>({
   online: false,
   alerts: [],
+  paginatorInfo: null,
+  page: 1,
+  limit: 15,
+  setPage: () => {},
 })
 
 const URL = process.env.NEXT_PUBLIC_REST_API_ENDPOINT || 'http://localhost:1337'
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const [play] = useSound('/sounds/notification.mp3')
+  const { audio, ready } = useAudio({ src: '/sounds/notification.mp3' })
 
   const socketContext = useContext(SocketContext)
   const socket = useSocket(URL) // Replace with your Socket.io server URL
@@ -34,8 +44,14 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
       socket.emit('user_connect', () => {})
 
-      socket.on('all_alerts', (alert) => {
-        socketContext.alerts = alert
+      socket.emit('alerts', {
+        page: socketContext.page,
+        limit: socketContext.limit,
+      })
+
+      socket.on('all_alerts', (alerts: AlertPaginator) => {
+        socketContext.alerts = alerts.data
+        socketContext.paginatorInfo = alerts
       })
 
       socket.on('new_alert', (alert: Alert) => {
@@ -46,7 +62,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
           closeOnClick: true,
           pauseOnHover: true,
         })
-        play()
+        if (ready) audio.play()
       })
     }
   }, [socket])

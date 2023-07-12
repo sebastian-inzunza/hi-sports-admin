@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import AppLayout from '@/components/layout/app'
 
 // import AdminLayout from "@/components/layouts/admin";
 import { adminOnly } from '@/utils/auth-utils'
@@ -24,10 +25,7 @@ export default function Settings() {
     </>
   )
 }
-Settings.authenticate = {
-  permissions: adminOnly,
-}
-// Settings.Layout = AdminLayout;
+Settings.Layout = AppLayout
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
