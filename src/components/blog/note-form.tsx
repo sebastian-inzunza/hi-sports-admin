@@ -64,7 +64,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
 
     try {
       if (!initialValues) {
-        console.log('create', input)
+        //console.log('create', input)
         createNote({
           ...input,
           createdAt: new Date().toISOString(),
@@ -77,7 +77,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         })
       }
     } catch (error) {
-      console.log('error', error)
+      //console.log('error', error)
       const serverErrors = getErrorMessage(error)
       Object.keys(serverErrors?.validation).forEach((field: any) => {
         setError(field.split('.')[1], {

@@ -9,7 +9,6 @@ const SuggestionDeleteView = () => {
   const { closeModal } = useModalAction()
 
   function handleDelete() {
-    console.log('delete', modalData)
     closeModal()
   }
 

@@ -13,10 +13,6 @@ export default function Alerts() {
   function handlePagination(current: number) {
     setPage(current)
   }
-
-  console.log('===== alerts =====')
-  console.log(alerts)
-  console.log('===== alerts =====')
   return (
     <>
       <Card className="mb-8 flex flex-col items-center md:flex-row">
