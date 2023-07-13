@@ -19,6 +19,7 @@ import { useTrackingUserQuery } from '@/data/tracker'
 import GoogleMap from '@/components/map/googlemap'
 import { useState } from 'react'
 import Label from '@/components/ui/label'
+import { Routes } from '@/config/routes'
 
 export default function AlertDetail() {
   const router = useRouter()
@@ -100,6 +101,10 @@ export default function AlertDetail() {
               iconBgStyle={{ backgroundColor: '#ffafaf' }}
               price={alert?.user?.name}
               className="w-full border-2 border-gray-200"
+              link={Routes.users.details({
+                id: alert?.user?.id?.toString() ?? '',
+              })}
+              linkText="Ver información del usuario"
             />
           </div>
         </div>
