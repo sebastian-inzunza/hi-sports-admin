@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from 'next/image'
 import { siteSettings } from '@/settings/site.settings'
-import { UsersResponse } from '@/types/users'
+import { Role, UsersResponse } from '@/types/users'
 import { MappedPaginatorInfo } from '@/types/index'
 import StatusColor from './user-role-status-color'
 import Badge from '../ui/badge/badge'
@@ -12,8 +12,8 @@ import { useRouter } from 'next/router'
 
 type UserListProps = {
   users: UsersResponse[]
-  paginatorInfo: MappedPaginatorInfo | null
-  onPagination: (current: number) => void
+  paginatorInfo?: MappedPaginatorInfo | null
+  onPagination?: (current: number) => void
 }
 const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
   const router = useRouter()
@@ -77,7 +77,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             isUserActive={!banned}
             showMakeAdminButton={true}
             detailsUrl={`${router.asPath}/${id}`}
-            role={role}
+            role={role as Role}
           />
         )
       },

@@ -64,4 +64,7 @@ export const userClient = {
   forgetPassword: (variables: ForgetPasswordInput) => {
     return HttpClient.post<any>(API_ENDPOINTS.FORGET_PASSWORD, variables)
   },
+  get: ({ id }: { id: number }) => {
+    return HttpClient.get<UsersResponse>(`${API_ENDPOINTS.USERS}/${id}`)
+  },
 }

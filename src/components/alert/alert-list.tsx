@@ -13,17 +13,12 @@ import { Routes } from '@/config/routes'
 
 type AlertListProps = {
   alerts: Alert[] | null | undefined
-  paginatorInfo: MappedPaginatorInfo | null
-  onPagination: (page: number) => void
+  paginatorInfo?: MappedPaginatorInfo | null
+  onPagination?: (page: number) => void
   seletedAlert?: (alert: Alert) => void
 }
 
-const AlertList = ({
-  alerts,
-  paginatorInfo,
-  onPagination,
-  seletedAlert,
-}: AlertListProps) => {
+const AlertList = ({ alerts, paginatorInfo, onPagination }: AlertListProps) => {
   console.log('==== Getting alerts ====')
   console.log(alerts)
   console.log('==== Getting alerts ====')
