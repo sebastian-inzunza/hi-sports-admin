@@ -3,8 +3,6 @@ import { useTranslation } from 'next-i18next'
 import Datepicker from 'react-tailwindcss-datepicker'
 import dayjs from 'dayjs'
 
-import { CartIconBig } from '@/components/icons/cart-icon-bag'
-import { CoinIcon } from '@/components/icons/coin-icon'
 import StickerCard from '@/components/widgets/sticker-card'
 import ErrorMessage from '@/components/ui/error-message'
 import Loader from '@/components/ui/loader/loader'

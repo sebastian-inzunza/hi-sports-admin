@@ -14,10 +14,14 @@ const StickerCard = ({
   note,
   link,
   linkText,
+  className,
 }: any) => {
   const { t } = useTranslation('widgets')
   return (
-    <div className="flex h-full w-full flex-col rounded bg-light p-7">
+    <div
+      className="flex h-full w-full flex-col rounded bg-light p-7"
+      {...className}
+    >
       <div className="mb-auto flex w-full justify-between pb-8">
         <div className="flex w-full flex-col">
           <span className="mb-1 text-base font-semibold text-heading">

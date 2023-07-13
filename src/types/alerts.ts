@@ -8,6 +8,15 @@ export interface Alert {
   longitude: number
   createdAt: string
   updatedAt: string
+  user?: {
+    email: string
+    id: number
+    name: string
+    latestLocation: {
+      latitude: number
+      longitude: number
+    }
+  }
 }
 
 export interface CreateAlert {

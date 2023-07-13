@@ -30,4 +30,7 @@ export const API_ENDPOINTS = {
   ENVIRONMENTS: 'configuration/environments',
   CATEGORY: 'category',
   ALERTS: 'alerts',
+
+  TRACKER: 'tracker',
+  TRACK_USER: 'tracker/user',
 }
