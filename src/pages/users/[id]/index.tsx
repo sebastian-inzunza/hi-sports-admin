@@ -22,8 +22,6 @@ export default function UserPage() {
 
   if (error) return <ErrorMessage message={error.message} />
 
-  console.log(user)
-
   return (
     <>
       <div className="mb-10 flex w-full flex-wrap space-y-6 rtl:space-x-reverse xl:flex-nowrap xl:space-x-5 xl:space-y-0">
