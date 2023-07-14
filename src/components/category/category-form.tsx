@@ -41,7 +41,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       title: values.title,
       slug: slugglify(values.title),
       content: values.content,
-      image: values.image,
+      thumbnail: values.image,
       is_approved: values.is_approved,
     }
     createCategory(body)
