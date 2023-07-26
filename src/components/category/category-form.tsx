@@ -3,7 +3,6 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useCreateCategoryMutation } from '@/data/category'
 import TextArea from '../ui/text-area'
 import Label from '../ui/label'
@@ -11,37 +10,36 @@ import FileInput from '../ui/file-input'
 import { slugglify } from '@/utils/slugglify'
 import SwitchInput from '../ui/switch-input copy'
 import { CreateCategoryInput } from '@/types/category'
+import Image from 'next/image'
 
-type FormValues = {
-  title: string
-  slug: string
-  content: string
-  image?: string | null
-  is_approved: boolean
-}
 const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
-  const {
-    mutate: createCategory,
-    isLoading: creating,
-    error,
-  } = useCreateCategoryMutation()
+  console.log('===== CategoryForm =====')
+  console.log('defaultValues', defaultValues)
+  console.log('===== CategoryForm =====')
+  const { mutate: createCategory, isLoading: creating } =
+    useCreateCategoryMutation()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<FormValues>({
-    defaultValues,
+  } = useForm<CreateCategoryInput>({
+    defaultValues: defaultValues ?? {
+      name: '',
+      content: '',
+      image: '',
+      is_approved: false,
+    },
   })
 
-  async function onSubmit(values: FormValues) {
+  async function onSubmit(values: CreateCategoryInput) {
     const body: any = {
-      name: values.title,
-      title: values.title,
-      slug: slugglify(values.title),
+      name: values.name,
+      slug: slugglify(values.name),
       content: values.content,
       thumbnail: values.image,
+      image: values.image,
       is_approved: values.is_approved,
     }
     createCategory(body)
@@ -57,6 +55,14 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <FileInput name="image" control={control} multiple={false} />
+          {defaultValues?.image && (
+            <Image
+              src={defaultValues?.image}
+              alt="Category Image"
+              width={100}
+              height={100}
+            />
+          )}
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -69,18 +75,11 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
             label="Título"
-            {...register('title')}
+            {...register('name')}
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.title?.message?.toString()}
-          />
-          <TextArea
-            label="Contenido"
-            className="mb-4"
-            variant="outline"
-            {...register('content')}
-            error={errors.content?.message?.toString()}
+            error={errors.name?.message?.toString()}
           />
 
           <div className="flex items-center gap-x-4">

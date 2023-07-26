@@ -5,7 +5,7 @@ export type Category = {
   slug: string
   image: string | null
   content: string | null
-  title: string
+  name: string
   createdAt: Date
   updatedAt: Date
   createdBy: number
@@ -16,7 +16,7 @@ export type CreateCategoryInput = {
   slug: string
   image?: string | null
   content: string | null
-  title: string
+  name: string
   is_approved?: boolean
 }
 export interface CategoryQueryOptions extends QueryOptions {

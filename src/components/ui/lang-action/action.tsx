@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import ActionButtons from '@/components/common/action-buttons'
+import { Config } from '@/config'
+import LanguageAction from './language-switcher'
 import { useRouter } from 'next/router'
-import ActionButtons from '../action-buttons'
 
 export type LanguageSwitcherProps = {
-  id: string
   record: any
   slug: string
   deleteModalView?: string | any
@@ -13,18 +13,32 @@ export type LanguageSwitcherProps = {
 
 export default function LanguageSwitcher({
   record,
-  id,
+  slug,
   deleteModalView,
   routes,
+  className,
 }: LanguageSwitcherProps) {
+  const { enableMultiLang } = Config
   const {
-    query: { suggestions },
+    query: { shop },
   } = useRouter()
   return (
-    <ActionButtons
-      id={record?.id}
-      editUrl={routes.editWithoutLang(id, suggestions)}
-      deleteModalView={deleteModalView}
-    />
+    <>
+      {enableMultiLang ? (
+        <LanguageAction
+          slug={slug}
+          record={record}
+          deleteModalView={deleteModalView}
+          routes={routes}
+          className={className}
+        />
+      ) : (
+        <ActionButtons
+          id={record?.id}
+          editUrl={routes.editWithoutLang(slug, shop)}
+          deleteModalView={deleteModalView}
+        />
+      )}
+    </>
   )
 }

@@ -76,7 +76,7 @@ const StoreNoticeList = ({
     {
       title: (
         <TitleWithSort
-          title={'Titulo'}
+          title={'Title'}
           ascending={
             sortingObj?.sort === SortOrder?.Asc &&
             sortingObj?.column === 'notice'

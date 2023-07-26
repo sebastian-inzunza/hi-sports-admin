@@ -2,13 +2,12 @@ import Image from 'next/image'
 import { Table } from '../ui/table'
 import Pagination from '../ui/pagination'
 
-import { Alert, AlertStatus } from '@/types/alerts'
+import { Alert } from '@/types/alerts'
 import { MappedPaginatorInfo } from '@/types/index'
 import { siteSettings } from '@/settings/site.settings'
 import ActionButtons from '../ui/action-buttons'
 import { AlignType } from 'rc-table/lib/interface'
 import { formatDate } from '@/utils/format-date'
-import colorBadge from '@/utils/colorBadge'
 import { Routes } from '@/config/routes'
 
 type AlertListProps = {
@@ -19,10 +18,6 @@ type AlertListProps = {
 }
 
 const AlertList = ({ alerts, paginatorInfo, onPagination }: AlertListProps) => {
-  console.log('==== Getting alerts ====')
-  console.log(alerts)
-  console.log('==== Getting alerts ====')
-
   const columns: any = [
     {
       title: 'ID',

@@ -72,8 +72,10 @@ const ComposeMessageModal = () => {
 
   async function onSubmit() {
     if (user || !Boolean(active)) {
+      console.log('Create conversation', user)
       createConversation({
         recipientId: user?.id,
+        content: '',
       })
     }
   }

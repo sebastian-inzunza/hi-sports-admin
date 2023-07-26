@@ -64,13 +64,18 @@ export const useUpdateStoreNoticeMutation = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation(storeNoticeClient.update, {
-    onSuccess: async (data) => {
+    onSuccess: async (data: any) => {
+      console.log('data', data.data)
       const generateRedirectUrl = router.query.shop
-        ? `/${router.query.shop}${Routes.storeNotice.list}`
+        ? `/${router.query.id}${Routes.storeNotice.list}`
         : Routes.storeNotice.list
-      await router.push(`${generateRedirectUrl}/${data?.id}/edit`, undefined, {
-        locale: Config.defaultLanguage,
-      })
+      await router.push(
+        `${generateRedirectUrl}/${data?.data?.id}/edit`,
+        undefined,
+        {
+          locale: Config.defaultLanguage,
+        }
+      )
       toast.success(t('common:successfully-updated'))
     },
     // Always refetch after error or success:

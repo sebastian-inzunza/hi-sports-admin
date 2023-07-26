@@ -6,12 +6,15 @@ import { toast } from 'react-toastify'
 import { QueryOptionsType } from '../types'
 import { API_ENDPOINTS } from './client/api-endpoints'
 import { blogClient } from './client/blog'
+import { useRouter } from 'next/router'
 
 export const useCreateNoteMutation = () => {
   const queryClient = useQueryClient()
+  const router = useRouter()
   return useMutation(blogClient.create, {
     onSuccess: () => {
       toast.success('Note created successfully')
+      router.back()
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.BLOG)

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AlignType, Table } from '@/components/ui/table'
 import { Routes } from '@/config/routes'
-// import { useUpdateNoteMutation } from '@/data/blog'
+import { useUpdateNoteMutation } from '@/data/blog'
 import { Note } from '@/types/blog'
 import { MappedPaginatorInfo } from '@/types/index'
 import { Switch } from '@headlessui/react'
@@ -9,6 +9,9 @@ import Image from 'next/image'
 import LanguageSwitcher from '../ui/lang-action/action'
 import Pagination from '../ui/pagination'
 import TitleWithSort from '../ui/title-with-sort'
+import ActionButtons from '../common/action-buttons'
+import { useMeQuery } from '@/data/user'
+import { useTranslation } from 'react-i18next'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
@@ -17,7 +20,16 @@ type NotesListProps = {
 }
 
 const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
-  const columns = [
+  const { t } = useTranslation()
+  const { mutate: update, isLoading } = useUpdateNoteMutation()
+  function changeStatus(note: Note, status: boolean) {
+    update({
+      id: note.id.toString(),
+      is_approved: status,
+    })
+  }
+
+  const columns: any = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -33,7 +45,7 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       width: 74,
       render: (image: string) => (
         <Image
-          src={image}
+          src={image ?? '/images/placeholder.png'}
           alt="artile"
           className="overflow-hidden rounded"
           width={42}
@@ -64,12 +76,12 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
         return (
           <Switch
             checked={is_approved}
-            onChange={() => console.log('Updated', record)}
+            onChange={(value) => changeStatus(record, value)}
+            disabled={isLoading}
             className={`${
               is_approved ? 'bg-accent' : 'bg-gray-300'
             } relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none`}
           >
-            <span className="sr-only">Enable</span>
             <span
               className={`${
                 is_approved ? 'translate-x-6' : 'translate-x-1'
@@ -80,20 +92,25 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       },
     },
     {
-      title: 'Acciones',
+      title: t('table:table-item-actions'),
       dataIndex: 'id',
-      key: 'id',
-      align: 'center' as AlignType,
-      width: 64,
-      render: (id: string, record: any) => (
-        <LanguageSwitcher
-          id={id}
-          slug={record.slug}
-          record={record}
-          routes={Routes.blog}
-          deleteModalView="DELETE_NOTE"
-        />
-      ),
+      key: 'actions',
+      align: 'center',
+      render: function Render(id: string, note: Note) {
+        const { data } = useMeQuery()
+        return (
+          <>
+            {data?.id.toString() != id && (
+              <ActionButtons
+                id={id}
+                editModalView={'NOTE_EDIT'}
+                deleteModalView={'DELETE_NOTE'}
+                detailsUrl={Routes.blog.details({ id: note.slug })}
+              />
+            )}
+          </>
+        )
+      },
     },
   ]
 

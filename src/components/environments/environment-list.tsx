@@ -4,6 +4,8 @@ import { Environment, MappedPaginatorInfo } from '@/types'
 import { AlignType, Table } from '../ui/table'
 import Pagination from '../ui/pagination'
 import { siteSettings } from '@/settings/site.settings'
+import ActionButtons from '../ui/action-buttons'
+import { useRouter } from 'next/router'
 
 type EnviromentListProps = {
   environments: Environment[]
@@ -16,10 +18,12 @@ const EnviromentList = ({
   paginatorInfo,
   onPagination,
 }: EnviromentListProps) => {
+  const router = useRouter()
+
   const columns: any = [
     {
       title: 'Logo',
-      dataIndex: 'environemnts',
+      dataIndex: 'logo',
       key: 'logo',
       align: 'center' as AlignType,
       render: (image: string) => (
@@ -49,6 +53,35 @@ const EnviromentList = ({
       dataIndex: 'secondary_color',
       key: 'secondary_color',
       align: 'center' as AlignType,
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      align: 'center' as AlignType,
+      render: (date: string) => new Date(date).toLocaleDateString(),
+    },
+    {
+      title: 'Updated At',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
+      align: 'center' as AlignType,
+      render: (date: string) => new Date(date).toLocaleDateString(),
+    },
+    {
+      title: 'Acciones',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center' as AlignType,
+      render: (id: string) => {
+        return (
+          <ActionButtons
+            id={id}
+            detailsUrl={`${router.asPath}/${id}`}
+            deleteModalView={'DELETE_ENVIRONMENT'}
+          />
+        )
+      },
     },
   ]
 

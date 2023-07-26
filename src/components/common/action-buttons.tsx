@@ -1,35 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BanUser } from "@/components/icons/ban-user";
-import { EditIcon } from "@/components/icons/edit";
-import { TrashIcon } from "@/components/icons/trash";
-import { Eye } from "@/components/icons/eye-icon";
-import { CheckMarkCircle } from "@/components/icons/checkmark-circle";
-import { useModalAction } from "@/components/ui/modal/modal.context";
-import { CloseFillIcon } from "@/components/icons/close-fill";
-import { AdminIcon } from "@/components/icons/admin-icon";
-import Link from "next/link";
-import { Role } from "@/types/users";
-import { ChatIcon } from "../icons/sidebar";
+import { BanUser } from '@/components/icons/ban-user'
+import { EditIcon } from '@/components/icons/edit'
+import { TrashIcon } from '@/components/icons/trash'
+import { Eye } from '@/components/icons/eye-icon'
+import { CheckMarkCircle } from '@/components/icons/checkmark-circle'
+import { useModalAction } from '@/components/ui/modal/modal.context'
+import { CloseFillIcon } from '@/components/icons/close-fill'
+import { AdminIcon } from '@/components/icons/admin-icon'
+import Link from 'next/link'
+import { Role } from '@/types/users'
+import { ChatIcon } from '../icons/sidebar'
 
 type Props = {
-  id: string;
-  editModalView?: string | any;
-  deleteModalView?: string | any;
-  editUrl?: string;
-  detailsUrl?: string;
-  isUserActive?: boolean;
-  userStatus?: boolean;
-  isShopActive?: boolean;
-  approveButton?: boolean;
-  //show contact with user
-  showContact?: boolean;
-  showAddWalletPoints?: boolean;
-  changeRefundStatus?: boolean;
-  showMakeAdminButton?: boolean;
-  showReplyQuestion?: boolean;
-  customLocale?: string;
-  role?: Role;
-};
+  id: string
+  editModalView?: string | any
+  deleteModalView?: string | any
+  editUrl?: string
+  detailsUrl?: string
+  isUserActive?: boolean
+  userStatus?: boolean
+  isShopActive?: boolean
+  approveButton?: boolean
+  showContact?: boolean
+  changeRefundStatus?: boolean
+  showMakeAdminButton?: boolean
+  showReplyQuestion?: boolean
+  customLocale?: string
+  role?: Role
+}
 
 const ActionButtons = ({
   id,
@@ -47,22 +45,22 @@ const ActionButtons = ({
   customLocale,
   role,
 }: Props) => {
-  const { openModal } = useModalAction();
+  const { openModal } = useModalAction()
 
   function handleDelete() {
-    openModal(deleteModalView, id);
+    openModal(deleteModalView, id)
   }
 
   function handleEditModal() {
-    openModal(editModalView, id);
+    openModal(editModalView, id)
   }
 
   function handleUserStatus(banned: boolean) {
-    openModal("BAN_CUSTOMER", { id, banned });
+    openModal('BAN_CUSTOMER', { id, banned })
   }
 
   function handleMakeAdmin() {
-    openModal("MAKE_ADMIN", { id, role });
+    openModal('MAKE_ADMIN', { id, role })
   }
 
   function handleShopStatus(status: boolean) {
@@ -74,11 +72,11 @@ const ActionButtons = ({
   }
 
   function handleShowContact() {
-    openModal("SHOW_CONTACT", id);
+    openModal('SHOW_CONTACT', id)
   }
 
   function handleReplyQuestion() {
-    openModal("REPLY_QUESTION", id);
+    openModal('REPLY_QUESTION', id)
   }
 
   return (
@@ -95,7 +93,7 @@ const ActionButtons = ({
         <button
           onClick={handleMakeAdmin}
           className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-          title={"Cambiar a operador"}
+          title={'Cambiar a operador'}
         >
           <AdminIcon width={18} />
         </button>
@@ -104,7 +102,7 @@ const ActionButtons = ({
         <button
           onClick={handleDelete}
           className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
-          title={"Eliminar"}
+          title={'Eliminar'}
         >
           <TrashIcon width={16} />
         </button>
@@ -113,7 +111,7 @@ const ActionButtons = ({
         <button
           onClick={handleEditModal}
           className="text-body transition duration-200 hover:text-heading focus:outline-none"
-          title={"Editar"}
+          title={'Editar'}
         >
           <EditIcon width={16} />
         </button>
@@ -123,7 +121,7 @@ const ActionButtons = ({
           <button
             onClick={() => handleShopStatus(true)}
             className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-            title={"Aprobar"}
+            title={'Aprobar'}
           >
             <CheckMarkCircle width={20} />
           </button>
@@ -131,7 +129,7 @@ const ActionButtons = ({
           <button
             onClick={() => handleShopStatus(false)}
             className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
-            title={"Desaprobar"}
+            title={'Desaprobar'}
           >
             <CloseFillIcon width={20} />
           </button>
@@ -142,7 +140,7 @@ const ActionButtons = ({
             <button
               onClick={() => handleUserStatus(false)}
               className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
-              title={"Bloquear"}
+              title={'Bloquear'}
             >
               <BanUser width={20} />
             </button>
@@ -150,7 +148,7 @@ const ActionButtons = ({
             <button
               onClick={() => handleUserStatus(true)}
               className="text-accent transition duration-200 hover:text-accent focus:outline-none"
-              title={"Activar"}
+              title={'Activar'}
             >
               <CheckMarkCircle width={20} />
             </button>
@@ -161,7 +159,7 @@ const ActionButtons = ({
         <Link
           href={editUrl}
           className="text-base transition duration-200 hover:text-heading"
-          title={"Editar"}
+          title={'Editar'}
         >
           <EditIcon width={16} />
         </Link>
@@ -170,7 +168,7 @@ const ActionButtons = ({
         <Link
           href={detailsUrl}
           className="ml-2 text-base transition duration-200 hover:text-heading"
-          title={"Detalles"}
+          title={'Detalles'}
           locale={customLocale}
         >
           <Eye width={24} />
@@ -188,7 +186,7 @@ const ActionButtons = ({
         )
       }
     </div>
-  );
-};
+  )
+}
 
-export default ActionButtons;
+export default ActionButtons

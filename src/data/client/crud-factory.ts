@@ -9,8 +9,8 @@ export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
     paginated(params: QueryParams) {
       return HttpClient.get<PaginatorInfo<Type>>(endpoint, params)
     },
-    get() {
-      return HttpClient.get<Type>(`${endpoint}`)
+    get({ id }: { id?: string }) {
+      return HttpClient.get<Type>(`${endpoint}/${id}`)
     },
     bySlug({ slug }: { slug?: string }) {
       return HttpClient.get<Type>(`${endpoint}/${slug}`)

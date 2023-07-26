@@ -15,10 +15,31 @@ export const useUpdateSettingsMutation = () => {
       console.log(error)
     },
     onSuccess: (data) => {
-      updateSettings(data?.options)
+      updateSettings(data)
       toast.success(t('common:successfully-updated'))
     },
-    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.SETTINGS)
+    },
+  })
+}
+
+export const useCreateSettingsMutation = () => {
+  const { t } = useTranslation()
+  const queryClient = useQueryClient()
+  const { updateSettings } = useSettings()
+
+  return useMutation(settingsClient.create, {
+    onError: (error) => {
+      console.log(error)
+    },
+    onSuccess: (data) => {
+      // updateSettings(data?.options)
+      console.log('==== data ====')
+      console.log(data)
+      console.log('==== data ====')
+      toast.success(t('common:successfully-created'))
+    },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.SETTINGS)
     },
@@ -28,7 +49,7 @@ export const useUpdateSettingsMutation = () => {
 export const useSettingsQuery = () => {
   const { data, error, isLoading } = useQuery<any, Error>(
     API_ENDPOINTS.SETTINGS,
-    settingsClient.get,
+    settingsClient.getSettings,
     {
       onError: (error) => {
         console.log(error)

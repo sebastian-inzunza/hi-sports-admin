@@ -40,35 +40,60 @@ export const useSendMessage = () => {
   })
 }
 
+// export const useCreateConversations = () => {
+//   const { t } = useTranslation()
+//   const router = useRouter()
+//   const { closeModal } = useModalAction()
+//   const queryClient = useQueryClient()
+
+//   return useMutation(conversationsClient.createConversation, {
+//     onSuccess: (data: any) => {
+//       if (!data.success) {
+//         toast.warning('Something went wrong')
+//         closeModal()
+//         return
+//       }
+//       if (data?.id) {
+//         // const routes = Routes?.message?.details(data?.id)
+//         toast.success(t('common:successfully-created'))
+//         // router.push(`${routes}`)
+//         closeModal()
+//       } else {
+//         toast.error('Something went wrong, please try again later')
+//       }
+//     },
+//     // Always refetch after error or success:
+//     onSettled: () => {
+
+//     },
+//     onError: (error) => {
+//       toast.error('Something went wrong')
+//     },
+//   })
+// }
+
 export const useCreateConversations = () => {
   const { t } = useTranslation()
   const router = useRouter()
   const { closeModal } = useModalAction()
   const queryClient = useQueryClient()
-
-  return useMutation(conversationsClient.createConversation, {
+  return useMutation(conversationsClient.create, {
     onSuccess: (data: any) => {
-      if (!data.success) {
-        toast.warning('Something went wrong')
-        closeModal()
-        return
-      }
-      if (data?.id) {
-        // const routes = Routes?.message?.details(data?.id)
+      if (data?.data?.id && data.success) {
+        console.log(data)
+        const routes = Routes?.message?.details({ id: data.id ?? '' })
         toast.success(t('common:successfully-created'))
-        // router.push(`${routes}`)
+        router.push(`${routes}`)
         closeModal()
       } else {
-        toast.error('Something went wrong, please try again later')
+        // @ts-ignore
+        toast.error(t(data?.errors[0]?.message))
       }
     },
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.MESSAGE)
       queryClient.invalidateQueries(API_ENDPOINTS.CONVERSIONS)
-    },
-    onError: (error) => {
-      toast.error('Something went wrong')
     },
   })
 }

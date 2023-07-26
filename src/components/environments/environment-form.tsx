@@ -1,46 +1,50 @@
 import { useState } from 'react'
-import { Environment } from '@/types'
+import { Environment, EnvironmentInput } from '@/types'
 import Description from '../ui/description'
-import { HexColorPicker } from 'react-colorful'
 import Card from '../common/card'
 import Input from '../ui/input'
 import Button from '../ui/button'
 import FileInput from '../ui/file-input'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { environmentValidationSchema } from './environment-validation-schema'
+import { useCreateEnvMutation, useUpdateEnvMutation } from '@/data/enviroment'
+import TextArea from '../ui/text-area'
 
 type Props = {
   initialValues?: Environment
 }
-type FormValues = {
-  id?: number
-  name: string
-  logo: string
-  active: boolean
-  primaryColor: string
-  secondaryColor: string
-}
+
 export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
-  const [primaryColor, setPrimaryColor] = useState('#aabbcc')
-  const [secondaryColor, setSecondaryColor] = useState('#1c2e41')
+  const { mutate: create, isLoading: creating } = useCreateEnvMutation()
+  const { mutate: update, isLoading: updating } = useUpdateEnvMutation()
+
   const {
     register,
     handleSubmit,
     control,
-    setError,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<EnvironmentInput>({
     shouldUnregister: true,
-    resolver: yupResolver(environmentValidationSchema),
+    // resolver: yupResolver(environmentValidationSchema),
     ...(Boolean(initialValues) && {
       defaultValues: {
         ...initialValues,
       },
     }),
   })
+
+  const onSubmit = async (values: EnvironmentInput) => {
+    if (initialValues) {
+      update({
+        ...initialValues,
+        ...values,
+      })
+    } else {
+      create(values)
+    }
+  }
+
   return (
-    <form noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
           title="Imágen"
@@ -50,16 +54,16 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="image" control={control} multiple={false} />
+          <FileInput name="logo" control={control} multiple={false} />
         </Card>
       </div>
 
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title={'Entornos'}
+          title={'Información del entorno'}
           details={`${
-            initialValues ? 'Editar Entorno' : 'Crear Entorno'
-          } El entorno que crearás se podrá asignar a los usuarios y así identificarlos.`}
+            initialValues ? 'Editar' : 'Crear'
+          } el entorno de tu aplicación, puedes crear varios entornos para tu aplicación y así poder cambiar el logo, colores y descripción de tu aplicación`}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
         />
 
@@ -70,6 +74,16 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
             variant="outline"
             className="mb-5"
             disabled={false}
+            error={errors.name?.message}
+          />
+
+          <TextArea
+            label={`Descripción del entorno *`}
+            {...register('description')}
+            variant="outline"
+            className="mb-5"
+            disabled={false}
+            error={errors.description?.message}
           />
 
           {/* Create two columns */}
@@ -82,6 +96,9 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
                     {...register('primaryColor')}
                     className="mb-5"
                     type="color"
+                    variant="outline"
+                    disabled={false}
+                    error={errors.primaryColor?.message}
                   />
                 </div>
               </div>
@@ -95,6 +112,7 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
                   className="mb-5"
                   disabled={false}
                   type="color"
+                  error={errors.secondaryColor?.message}
                 />
               </div>
             </div>
@@ -103,7 +121,11 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
       </div>
 
       <div className="mb-4 text-end sm:mb-8">
-        <Button>
+        <Button
+          type="submit"
+          disabled={creating || updating}
+          loading={creating || updating}
+        >
           {initialValues ? 'Actualizar Entorno' : 'Crear Entorno'}
         </Button>
       </div>

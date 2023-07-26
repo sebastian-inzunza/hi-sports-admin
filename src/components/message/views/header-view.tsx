@@ -71,17 +71,14 @@ const HeaderView = ({ className, user, ...rest }: Props) => {
             className="!h-auto w-full !justify-start !py-1 px-2 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
             variant="custom"
             onClick={() =>
-              router.push(`${Routes.users.details({ id: userId })}}`)
+              router.push(
+                `${Routes.users.details({
+                  id: decodeURIComponent(userId.toString()),
+                })}`
+              )
             }
           >
             See Profile
-          </Button>
-
-          <Button
-            className="!h-auto w-full !justify-start !py-1 px-2 text-sm leading-6 hover:bg-gray-50 hover:text-accent"
-            variant="custom"
-          >
-            Set As Default
           </Button>
 
           <Button

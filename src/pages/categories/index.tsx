@@ -20,6 +20,8 @@ export default function Categories() {
     search: searchTerm,
   })
 
+  console.log(categories)
+
   if (loading) return <Loader text="Cargando categorías..." />
 
   if (error) return <ErrorMessage message={error.message} />
@@ -42,7 +44,7 @@ export default function Categories() {
         <div className="flex w-full items-center ms-auto md:w-3/4">
           <Search onSearch={handleSearch} />
           <LinkButton
-            href={`${Routes.cateogires.create}`}
+            href={`${Routes.categories.create}`}
             className="h-12 ms-4 md:ms-6"
           >
             <span>+ Crear</span>

@@ -61,7 +61,7 @@ export const siteSettings = {
         icon: 'ProductsIcon',
       },
       {
-        href: Routes.cateogires.list,
+        href: Routes.categories.list,
         label: 'Categorías',
         icon: 'CategoriesIcon',
       },

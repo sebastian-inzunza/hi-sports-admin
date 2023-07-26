@@ -3,8 +3,7 @@ import { toast } from 'react-toastify'
 
 import useSocket from '@/hooks/useSocket'
 import { Alert } from '@/types/alerts'
-import { AlertPaginator, MappedPaginatorInfo } from '@/types'
-import useSound from 'use-sound'
+import { MappedPaginatorInfo } from '@/types'
 
 interface SocketContextType {
   online: boolean
@@ -36,8 +35,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const socket = useSocket(URL) // Replace with your Socket.io server URL
 
   const [page, setPage] = useState(1)
-
-  const { limit } = socketContext
 
   socketContext.setPage = setPage
 

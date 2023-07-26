@@ -49,7 +49,7 @@ const UserListIndex = ({ className, ...rest }: Props) => {
         {adminPermission ? (
           <div className="mx-6 block">
             <Button onClick={handleComposeClick} className="w-full">
-              {t('text-compose')}
+              {t('common:text-compose')}
             </Button>
           </div>
         ) : (

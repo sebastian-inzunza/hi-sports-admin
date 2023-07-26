@@ -12,6 +12,7 @@ import { NotesIcon } from '@/components/icons/notes-icon'
 import { useAnalyticsQuery } from '@/data/analytics'
 import Card from '../common/card'
 import { UserIcon } from '../icons/user-icon'
+import ColumnChart from '../widgets/column-chart'
 
 export default function Dashboard() {
   const { t } = useTranslation()
@@ -42,13 +43,18 @@ export default function Dashboard() {
     return dayjs(date).format('DD MMMM, YYYY')
   }
 
+  let salesByYear: number[] = Array.from({ length: 12 }, (_) => 0)
+  if (!!analytics.alertsByYear.data.length) {
+    salesByYear = analytics.alertsByYear.data.map((item: any) => item)
+  }
+
   return (
     <>
       <div className="mb-6 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
         <div className="w-full">
           <StickerCard
-            titleTransKey="sticker-card-title-rev"
-            subtitleTransKey="sticker-card-subtitle-rev"
+            titleTransKey={t('common:sticker-card-title-alerts')}
+            subtitleTransKey={t('common:sticker-card-subtitle-alerts')}
             icon={<Bell className="h-7 w-7" color="#d60000" />}
             iconBgStyle={{ backgroundColor: '#ffafaf' }}
             price={analytics.alertsCount}
@@ -56,19 +62,42 @@ export default function Dashboard() {
         </div>
         <div className="w-full">
           <StickerCard
-            titleTransKey="sticker-card-title-order"
-            subtitleTransKey="sticker-card-subtitle-order"
+            titleTransKey={t('common:sticker-card-title-notes')}
+            subtitleTransKey={t('common:sticker-card-subtitle-notes')}
             icon={<NotesIcon />}
             price={analytics?.notesCount}
           />
         </div>
         <div className="w-full">
           <StickerCard
-            titleTransKey="sticker-card-title-today-rev"
+            titleTransKey={t('common:sticker-card-title-users')}
+            subtitleTransKey={t('common:sticker-card-subtitle-users')}
             icon={<UserIcon />}
             price={analytics.usersCount}
           />
         </div>
+      </div>
+
+      <div className="mb-6 flex w-full flex-wrap md:flex-nowrap">
+        <ColumnChart
+          widgetTitle={t('common:alerts-history')}
+          colors={['#0f7ebf']}
+          series={salesByYear}
+          categories={[
+            t('common:january'),
+            t('common:february'),
+            t('common:march'),
+            t('common:april'),
+            t('common:may'),
+            t('common:june'),
+            t('common:july'),
+            t('common:august'),
+            t('common:september'),
+            t('common:october'),
+            t('common:november'),
+            t('common:december'),
+          ]}
+        />
       </div>
 
       <Card className="mb-6 w-full xl:mb-0">

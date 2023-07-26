@@ -21,6 +21,8 @@ const NoteDeleteView = () => {
     <ConfirmationCard
       onCancel={closeModal}
       deleteBtnLoading={loading}
+      title="Estás seguro de eliminar esta nota?"
+      description="Esta acción no se puede deshacer. Esta eliminará permanentemente la nota."
       deleteBtnText="Delete"
       onDelete={handleDelete}
     />

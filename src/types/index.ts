@@ -31,7 +31,7 @@ export interface StoreNoticeQueryOptions extends QueryOptions {
 ]
 
 export interface Environment {
-  id: number
+  id: string
   name: string
   logo?: string
   active: boolean
@@ -53,10 +53,14 @@ export type EnvironmentPagination = {
 }
 
 export type EnvironmentInput = {
+  id?: string
   name: string
-  users: []
-  primary_color: string
-  secondary_color: string
+  logo: string
+  users?: []
+  active: boolean
+  primaryColor: string
+  secondaryColor: string
+  description?: string
 }
 
 export interface suggestionsQueryOptions extends QueryOptions {
@@ -83,8 +87,8 @@ export interface NoticeCreateInput {
   creator: string
   notice: string
   description?: string | null
-  effectiveFrom: string
-  expiredAt: string
+  effectiveFrom: string | null | undefined | Date
+  expiredAt: string | null | undefined | Date
   type?: string | null
   updatedBy: number
   is_approved?: boolean | null
@@ -96,13 +100,14 @@ export interface EnvironmentQueryOptions extends QueryOptions {
 }
 
 export interface StoreNoticeInput {
-  priority: string
+  priority: string | null
   notice: string
   description?: string
-  effective_from?: string
-  expired_at: string
+  effectiveFrom?: string
+  expiredAt: string
   type: string
   received_by?: string[]
+  environmentId: any
 }
 
 export enum SortOrder {

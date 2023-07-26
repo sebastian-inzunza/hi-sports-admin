@@ -1,13 +1,11 @@
 import { GetStaticPaths } from 'next'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import AppLayout from '@/components/layout/app'
 import { useAlertQuery } from '@/data/alert'
 import Loader from '@/components/ui/loader/loader'
 import ErrorMessage from '@/components/ui/error-message'
-import { siteSettings } from '@/settings/site.settings'
 import Card from '@/components/common/card'
 
 import { useForm } from 'react-hook-form'
@@ -15,10 +13,8 @@ import StickerCard from '@/components/widgets/sticker-card'
 import { PinMap } from '@/components/icons/sidebar/pin-map-icon'
 import { UsersIcon } from '@/components/icons/sidebar'
 import { Bell } from '@/components/icons/sidebar/bell'
-import { useTrackingUserQuery } from '@/data/tracker'
 import GoogleMap from '@/components/map/googlemap'
 import { useState } from 'react'
-import Label from '@/components/ui/label'
 import { Routes } from '@/config/routes'
 
 export default function AlertDetail() {
@@ -41,17 +37,12 @@ export default function AlertDetail() {
   const {
     handleSubmit,
     control,
-
     formState: { errors },
   } = useForm<any>({
     defaultValues: {
       ...alert,
     },
   })
-
-  console.log('======== ALERT INFORMATION ===== ')
-  console.log(alert)
-  console.log('======== ALERT INFORMATION ===== ')
 
   if (loading) return <Loader />
 

@@ -21,7 +21,6 @@ import PageLoader from '@/components/ui/page-loader/page-loader'
 import { ModalProvider } from '@/components/ui/modal/modal.context'
 import DefaultSeo from '@/components/ui/default-seo'
 import ManagedModal from '@/components/ui/modal/managed-modal'
-
 import PrivateRoute from '@/utils/private-route'
 import { Config } from '@/config'
 import type { NextPageWithLayout } from '@/types'

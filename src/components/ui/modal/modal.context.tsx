@@ -16,6 +16,9 @@ export type MODAL_VIEWS =
   | 'SHOW_CONTACT'
   | 'COMPOSE_MESSAGE'
   | 'LOCATE_USER'
+  | 'MODAL_DELETE_CATEGORY_VIEW'
+  | 'DELETE_ENVIRONMENT'
+  | 'NOTE_EDIT'
 
 interface State {
   view?: MODAL_VIEWS

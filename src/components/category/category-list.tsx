@@ -6,6 +6,8 @@ import { siteSettings } from '@/settings/site.settings'
 import { MappedPaginatorInfo } from '@/types'
 import { Category } from '@/types/category'
 import { formatDate } from '@/utils/format-date'
+import ActionButtons from '../ui/action-buttons'
+import { Routes } from '@/config/routes'
 
 type CategoryListProps = {
   categories: Category[]
@@ -17,6 +19,8 @@ const CategoryList = ({
   paginatorInfo,
   onPagination,
 }: CategoryListProps) => {
+  console.log('categories', categories)
+
   const columns: any = [
     {
       title: 'ID',
@@ -38,8 +42,8 @@ const CategoryList = ({
     },
     {
       title: 'Título',
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: 'name',
+      key: 'name',
       align: 'center',
     },
     {
@@ -55,6 +59,22 @@ const CategoryList = ({
       key: 'updatedAt',
       align: 'center',
       render: (date: string) => <span>{formatDate(date)}</span>,
+    },
+    {
+      title: 'Acciones',
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      render: (id: string) => {
+        return (
+          <ActionButtons
+            id={id}
+            editUrl={Routes.categories.edit({ id })}
+            deleteModalView={'MODAL_DELETE_CATEGORY_VIEW'}
+            detailsUrl={Routes.categories.details({ id })}
+          />
+        )
+      },
     },
   ]
 

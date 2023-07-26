@@ -7,24 +7,18 @@ export interface BlogResponse {
 }
 
 export interface Note {
-  id: number
+  id: number | string
   image: string
   content: string
   title: string
-  createdAt: Date
-  updatedAt: Date
   createdBy: number
   is_approved: boolean
+  categoryId?: number
   slug: string
-}
-
-export interface CreateNote {
-  noteId?: number
-  image: string
-  title: string
-  content: string
-  createdBy: number
   createdAt: string
   updatedAt: string
-  slug: string
+}
+
+export interface CreateInputNote extends Note {
+  noteId?: number
 }

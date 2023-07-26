@@ -1,7 +1,6 @@
 import { useCreateNoteMutation, useUpdateNoteMutation } from '@/data/blog'
 import { useMeQuery } from '@/data/users'
 import { Note } from '@/types/blog'
-import { getErrorMessage } from '@/utils/form-error'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -14,6 +13,10 @@ import Input from '../ui/input'
 import TextArea from '../ui/text-area'
 import { noteValidationSchema } from './note-validation-schema'
 import { slugglify } from '@/utils/slugglify'
+import { useCategoryQuery } from '@/data/category'
+import Label from '../ui/label'
+import SelectInput from '../ui/select-input'
+import { getErrorMessage } from '@/utils/form-error'
 
 type FormValues = {
   id: number
@@ -23,6 +26,7 @@ type FormValues = {
   is_approved: boolean
   slug?: string
   image?: string
+  categoryId?: any
 }
 
 type IProps = {
@@ -30,6 +34,11 @@ type IProps = {
 }
 
 export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
+  const { categories, loading } = useCategoryQuery({
+    limit: 25,
+    page: 1,
+  })
+
   const router = useRouter()
   const { data } = useMeQuery()
 
@@ -53,18 +62,18 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
 
   const onSubmit = async (values: FormValues) => {
-    const { title, content, image } = values
+    const { title, content, image, categoryId } = values
     const input = {
       title,
       content,
       slug: slugglify(title),
-      image: image ?? initialValues?.image ?? '',
+      image: image?.toString() ?? initialValues?.image ?? '',
       createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
+      categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
     }
 
     try {
       if (!initialValues) {
-        //console.log('create', input)
         createNote({
           ...input,
           createdAt: new Date().toISOString(),
@@ -77,7 +86,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         })
       }
     } catch (error) {
-      //console.log('error', error)
       const serverErrors = getErrorMessage(error)
       Object.keys(serverErrors?.validation).forEach((field: any) => {
         setError(field.split('.')[1], {
@@ -131,6 +139,19 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             className="mb-5"
             error={errors?.content?.message}
           />
+
+          <div className="mb-0">
+            <Label>Categoría</Label>
+            <SelectInput
+              name="categoryId"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.id}
+              placeholder="Selecciona una categoría"
+              options={categories ?? []}
+              isLoading={loading}
+            />
+          </div>
         </Card>
       </div>
       <div className="mb-4 text-end">
