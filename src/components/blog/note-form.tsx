@@ -78,6 +78,8 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
           ...input,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
+          id: '',
+          is_approved: false,
         })
       } else {
         updateNote({

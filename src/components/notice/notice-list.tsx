@@ -245,6 +245,7 @@ const StoreNoticeList = ({
               editUrl={Routes?.storeNotice?.edit({
                 id: data?.id?.toString() ?? '',
               })}
+              deleteModalView={'DELETE_NOTICE'}
               customLocale={router?.locale}
             />
           </>

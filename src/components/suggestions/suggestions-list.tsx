@@ -27,11 +27,13 @@ const SuggestionList = ({
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      align: 'center' as AlignType,
     },
     {
       title: 'Sugerencia',
       dataIndex: 'content',
       key: 'content',
+      align: 'center' as AlignType,
       render: (suggestion: string) => {
         return (
           <div className="flex items-center">
@@ -48,26 +50,16 @@ const SuggestionList = ({
     {
       title: (
         <TitleWithSort
-          title="Miembro desde"
+          title="Fecha de creación"
           ascending={true}
           isActive={false}
         />
       ),
       className: 'cursor-pointer',
-      dataIndex: 'user',
-      key: 'user',
-      render: (registration: SuggestionsResponse) => {
-        return (
-          // Format like 2023-07-06T00:02:15.622Z
-          <span>
-            {new Date(registration.createdAt).toLocaleDateString('es-ES', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </span>
-        )
-      },
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      align: 'center' as AlignType,
+      render: (date: string) => new Date(date).toLocaleDateString(),
     },
     {
       title: 'Acciones',
@@ -78,9 +70,8 @@ const SuggestionList = ({
         return (
           <ActionButtons
             id={id}
-            userStatus={true}
-            showMakeAdminButton={true}
-            showContact={true}
+            detailsUrl={`${Routes.suggestions.details({ id })}`}
+            deleteModalView={'DELETE_SUGGESTION'}
           />
         )
       },

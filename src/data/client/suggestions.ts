@@ -1,10 +1,13 @@
 import { API_ENDPOINTS } from './api-endpoints'
 import { HttpClient } from './http-client'
-import { UserPagination } from '@/types/users'
-import { suggestionsQueryOptions } from '@/types'
-import { suggestionsPagination } from '@/types/suggestions'
+import { QueryOptions, suggestionsQueryOptions } from '@/types'
+import { SuggestionsResponse, suggestionsPagination } from '@/types/suggestions'
+import { crudFactory } from './crud-factory'
 
 export const suggestionClient = {
+  ...crudFactory<SuggestionsResponse, QueryOptions, any>(
+    API_ENDPOINTS.SUGGESTIONS
+  ),
   fetchsuggestions: ({
     search,
     ...params

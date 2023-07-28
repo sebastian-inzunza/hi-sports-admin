@@ -36,6 +36,7 @@ const UserList = ({ className, filterText, permission, ...rest }: Props) => {
     sortedBy: SortOrder.Desc,
     orderBy: 'updated_at',
   })
+
   let filterTimeout: any
   useEffect(() => {
     // filter text

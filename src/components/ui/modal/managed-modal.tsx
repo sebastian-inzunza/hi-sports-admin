@@ -4,6 +4,9 @@ import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context'
 import MakeAdminView from '@/components/user/make-admin-view'
 import NoteDeleteView from '@/components/blog/note-delete-view'
 import DeleteEnvironmentView from '@/components/environments/environment-delete-view'
+import AlertDelete from '@/components/alert/alert-delete'
+import SuggestionDeleteView from '@/components/suggestions/suggestion-delete-view'
+import NoticeDeleteView from '@/components/notice/notice-delete-view'
 const BanCustomerView = dynamic(() => import('@/components/user/user-ban-view'))
 const CategoryDeleteView = dynamic(
   () => import('@/components/category/category-delete-view')
@@ -28,6 +31,12 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <NoteDeleteView />
     case 'DELETE_ENVIRONMENT':
       return <DeleteEnvironmentView />
+    case 'ALERT_DELETE':
+      return <AlertDelete />
+    case 'DELETE_SUGGESTION':
+      return <SuggestionDeleteView />
+    case 'DELETE_NOTICE':
+      return <NoticeDeleteView />
     default:
       return null
   }

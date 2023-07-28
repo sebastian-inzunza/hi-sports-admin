@@ -1,3 +1,5 @@
+import { useSuggestionDeleteMutation } from '@/data/suggestions'
+
 import ConfirmationCard from '@/components/common/confirmation-card'
 import {
   useModalAction,
@@ -5,18 +7,21 @@ import {
 } from '@/components/ui/modal/modal.context'
 
 const SuggestionDeleteView = () => {
-  const { data: modalData } = useModalState()
+  const { data } = useModalState()
   const { closeModal } = useModalAction()
+  const { mutate: deleteMutation, isLoading: loading } =
+    useSuggestionDeleteMutation()
 
   function handleDelete() {
+    deleteMutation({ id: data })
     closeModal()
   }
 
   return (
     <ConfirmationCard
       onCancel={closeModal}
-      deleteBtnLoading={false}
-      deleteBtnText="Delete"
+      deleteBtnLoading={loading}
+      deleteBtnText="Eliminar"
       onDelete={handleDelete}
     />
   )

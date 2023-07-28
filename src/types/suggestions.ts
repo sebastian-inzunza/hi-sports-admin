@@ -15,12 +15,15 @@ export interface SuggestionsResponse {
   userId: number
   createdAt: Date
   user: User
+  rating: number
 }
 
 export interface User {
   id: number
   name: string
   username: string
+  firstName: string
+  lastName: string
   email: string
   image: null
   registration: Date

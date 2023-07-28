@@ -3,12 +3,11 @@ import { useRouter } from 'next/router'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import AppLayout from '@/components/layout/app'
-import { useAlertQuery } from '@/data/alert'
+import { useAlertEditMutation, useAlertQuery } from '@/data/alert'
 import Loader from '@/components/ui/loader/loader'
 import ErrorMessage from '@/components/ui/error-message'
 import Card from '@/components/common/card'
 
-import { useForm } from 'react-hook-form'
 import StickerCard from '@/components/widgets/sticker-card'
 import { PinMap } from '@/components/icons/sidebar/pin-map-icon'
 import { UsersIcon } from '@/components/icons/sidebar'
@@ -16,9 +15,18 @@ import { Bell } from '@/components/icons/sidebar/bell'
 import GoogleMap from '@/components/map/googlemap'
 import { useState } from 'react'
 import { Routes } from '@/config/routes'
+import Label from '@/components/ui/label'
+import { AlertStatus, AlertStatusArray } from '@/types/alerts'
+import { useTranslation } from 'react-i18next'
+import Select from '@/components/select/select'
+import { useMeQuery } from '@/data/user'
 
 export default function AlertDetail() {
+  const { t } = useTranslation()
   const router = useRouter()
+  const { data: me, isLoading: meLoading } = useMeQuery()
+
+  const { mutate: editAlert, isLoading: editing } = useAlertEditMutation()
   const [center, setCenter] = useState<google.maps.LatLngLiteral>({
     lat: 37.78746222,
     lng: -122.412923,
@@ -32,16 +40,6 @@ export default function AlertDetail() {
 
   const { alert, error, loading } = useAlertQuery({
     id: Number(id),
-  })
-
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<any>({
-    defaultValues: {
-      ...alert,
-    },
   })
 
   if (loading) return <Loader />
@@ -62,17 +60,45 @@ export default function AlertDetail() {
     }
   }
 
+  const onSubmit = (data: any) => {
+    console.log('Status received', data)
+    editAlert({
+      id: alert?.id.toString() ?? '',
+      status: data.value,
+      attendedBy: me?.id,
+    })
+  }
+
   return (
     <>
       <Card className="mb-8">
+        {/* Put to the end of the page the select */}
+        <div className="mb-4 flex w-full flex-col sm:flex-row sm:items-center sm:justify-between">
+          <Label className="mb-2 sm:mb-0">Estatus de la alerta</Label>
+          <Select
+            name="status"
+            getOptionLabel={(option: any) => option.value}
+            getOptionValue={(option: any) => option.value}
+            options={AlertStatusArray}
+            isLoading={editing}
+            onChange={(e: any) => {
+              onSubmit(e)
+            }}
+            placeholder={'Alert status'}
+            defaultValue={
+              AlertStatusArray.find((item) => item.value === alert?.status) ??
+              ''
+            }
+          />
+        </div>
         <div className="mb-6 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <div className="w-full">
             <StickerCard
-              titleTransKey="Alerta"
-              subtitleTransKey="Estatus actual de la alerta"
+              titleTransKey="Estatus de la alerta"
+              subtitleTransKey="La alerta se encuentra en el siguiente estatus"
               icon={<Bell className="h-7 w-7" color="#ffff" />}
               iconBgStyle={{ backgroundColor: '#ffd7a3' }}
-              price={alert?.status}
+              price={t('form:' + alert?.status)}
             />
           </div>
           <div className="w-full">
@@ -123,13 +149,10 @@ export default function AlertDetail() {
   )
 }
 
-export const getStaticProps = async ({ locale }: any) => ({
+AlertDetail.Layout = AppLayout
+
+export const getServerSideProps = async ({ locale }: any) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['table', 'common', 'form'])),
+    ...(await serverSideTranslations(locale, ['common', 'form', 'table'])),
   },
 })
-export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: [], fallback: 'blocking' }
-}
-
-AlertDetail.Layout = AppLayout

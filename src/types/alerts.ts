@@ -23,6 +23,8 @@ export interface CreateAlert {
   content: string
   userId: number
   image?: string
+  status?: AlertStatus
+  attendedBy?: number
 }
 
 export enum AlertStatus {
@@ -32,7 +34,30 @@ export enum AlertStatus {
   Rejected = 'REJECTED',
   FalseAlarm = 'FALSE_ALARM',
 }
+// Array of the status
 
+export const AlertStatusArray = [
+  {
+    value: AlertStatus.Created,
+    label: AlertStatus.Created,
+  },
+  {
+    value: AlertStatus.UnderReview,
+    label: AlertStatus.UnderReview,
+  },
+  {
+    value: AlertStatus.Solved,
+    label: AlertStatus.Solved,
+  },
+  {
+    value: AlertStatus.Rejected,
+    label: AlertStatus.Rejected,
+  },
+  {
+    value: AlertStatus.FalseAlarm,
+    label: AlertStatus.FalseAlarm,
+  },
+]
 export interface AlertResponse {
   data: Alert[]
   total: number

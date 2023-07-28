@@ -43,12 +43,6 @@ export default function Suggestions() {
         </div>
         <div className="flex w-full items-center ms-auto md:w-3/4">
           <Search onSearch={handleSearch} />
-          <LinkButton
-            href={`${Routes.suggestions.create}`}
-            className="h-12 ms-4 md:ms-6"
-          >
-            <span>+ Agregar</span>
-          </LinkButton>
         </div>
       </Card>
       {loading ? null : (

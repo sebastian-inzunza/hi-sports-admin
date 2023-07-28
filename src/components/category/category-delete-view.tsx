@@ -5,11 +5,8 @@ import { useModalAction, useModalState } from '../ui/modal/modal.context'
 const CategoryDeleteView = () => {
   const { data } = useModalState()
   const { closeModal } = useModalAction()
-  const {
-    mutate: deleteCategory,
-    isLoading: loading,
-    error,
-  } = useCategoryDeleteMutation()
+  const { mutate: deleteCategory, isLoading: loading } =
+    useCategoryDeleteMutation()
 
   async function handleDelete() {
     if (data) {
@@ -24,7 +21,7 @@ const CategoryDeleteView = () => {
       title="Eliminar Categoría"
       description="¿Estás seguro de que quieres eliminar esta categoría?"
       deleteBtnText="Eliminar"
-      deleteBtnLoading={false}
+      deleteBtnLoading={loading}
     />
   )
 }

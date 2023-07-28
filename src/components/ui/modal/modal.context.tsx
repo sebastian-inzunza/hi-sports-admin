@@ -19,6 +19,9 @@ export type MODAL_VIEWS =
   | 'MODAL_DELETE_CATEGORY_VIEW'
   | 'DELETE_ENVIRONMENT'
   | 'NOTE_EDIT'
+  | 'ALERT_EDIT'
+  | 'ALERT_DELETE'
+  | 'DELETE_NOTICE'
 
 interface State {
   view?: MODAL_VIEWS

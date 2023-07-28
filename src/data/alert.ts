@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Alert, AlertResponse } from '@/types/alerts'
 import { mapPaginatorData } from '@/utils/data-mappers'
-import { useQuery } from 'react-query'
 import { QueryOptionsType } from '../types'
 import { alertClient } from './client/alert'
 import { API_ENDPOINTS } from './client/api-endpoints'
-import { trackerClient } from './client/tracker'
+import { toast } from 'react-toastify'
 
 export const useAlertsQuery = (options: Partial<QueryOptionsType>) => {
   const { data, isLoading, error } = useQuery<AlertResponse, Error>(
@@ -42,4 +41,40 @@ export const useAlertQuery = ({ id }: { id: number }) => {
     loading: isLoading,
     error,
   }
+}
+
+export const useAlertDeleteMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(alertClient.delete, {
+    onSuccess() {
+      toast.success('Alert deleted successfully')
+      queryClient.invalidateQueries(API_ENDPOINTS.ALERTS)
+    },
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.ALERTS)
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data.message)
+    },
+  })
+}
+
+export const useAlertEditMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(alertClient.update, {
+    onSuccess() {
+      toast.success('Alert updated successfully')
+      queryClient.invalidateQueries(API_ENDPOINTS.ALERTS)
+    },
+    // Always refetch after error or success:
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.ALERTS)
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data.message)
+    },
+  })
 }

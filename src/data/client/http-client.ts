@@ -42,7 +42,7 @@ Axios.interceptors.response.use(
     ) {
       console.log('erorr', error.response.data.message)
       Cookies.remove(AUTH_TOKEN_KEY)
-      // Router.reload()
+      Router.reload()
     }
     return Promise.reject(error)
   }
