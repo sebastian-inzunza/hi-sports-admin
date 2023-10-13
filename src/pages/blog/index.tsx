@@ -52,14 +52,14 @@ export default function Notes() {
           <h1 className="text-xl font-semibold text-heading">Notas</h1>
         </div>
 
-        <div className="flex w-full flex-col items-center space-y-4 ms-auto md:flex-row md:space-y-0 xl:w-2/3">
+        <div className="ms-auto flex w-full flex-col items-center space-y-4 md:flex-row md:space-y-0 xl:w-2/3">
           <Search onSearch={handleSearch} />
 
           <LinkButton
-            className="h-12 w-full md:w-auto md:ms-6"
+            className="h-12 w-full bg-purple-900 hover:bg-purple-300 md:ms-6 md:w-auto"
             href={`${Routes.blog.create}`}
           >
-            <span>+ Crear nota</span>
+            <span>+ Crear Blog</span>
           </LinkButton>
         </div>
       </Card>

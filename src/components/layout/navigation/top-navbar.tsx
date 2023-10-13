@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <header className="fixed z-40 w-full bg-white shadow">
-      <nav className="flex items-center justify-between px-5 py-4 md:px-8">
+      <nav className="flex items-center justify-between bg-header px-5 py-4 md:px-8">
         {/* <!-- Mobile menu button --> */}
         <motion.button
           whileTap={{ scale: 0.88 }}
@@ -34,20 +34,21 @@ const Navbar = () => {
           <NavbarIcon />
         </motion.button>
 
-        <div className="hidden ms-5 me-auto md:flex">
+        <div className="me-auto ms-5 hidden md:flex">
           <Logo />
         </div>
 
         <div className="flex items-center space-s-8">
-          {hasAccess(adminAndOwnerOnly, permissions) && (
-            <LinkButton
-              href={Routes.environments.create}
-              className="ms-4 md:ms-6"
-              size="small"
-            >
-              {t('common:text-create-environment')}
-            </LinkButton>
-          )}
+          {
+            hasAccess(adminAndOwnerOnly, permissions) && null
+            // <LinkButton
+            //   href={Routes.environments.create}
+            //   className="ms-4 md:ms-6"
+            //   size="small"
+            // >
+            //   {t('common:text-create-environment')}
+            // </LinkButton>
+          }
           {enableMultiLang ? <LanguageSwitcher /> : null}
           <AuthorizedMenu />
         </div>

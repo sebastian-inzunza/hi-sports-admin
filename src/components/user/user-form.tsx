@@ -140,7 +140,7 @@ const UserCreateForm = () => {
             error={errors.username?.message?.toString()}
           />
 
-          <Label className="mb-4">Selecciona el Ambiente</Label>
+          {/* <Label className="mb-4">Selecciona el Ambiente</Label>
           <Select
             options={enviroments ?? []}
             isLoading={loading}
@@ -149,7 +149,7 @@ const UserCreateForm = () => {
             placeholder="Encuentra a un usuario"
             onChange={(value: any) => console.log(value)}
             isClearable={true}
-          />
+          /> */}
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">

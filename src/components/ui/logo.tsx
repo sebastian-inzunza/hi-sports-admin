@@ -10,11 +10,12 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
 }) => {
   const { logo, siteTitle } = useSettings()
   return (
-    <Link
+    <>
+      {/* <Link
       href={siteSettings.logo.href}
       className={cn('inline-flex', className)}
       {...props}
-    >
+    > */}
       <span
         className="relative overflow-hidden"
         style={{
@@ -31,7 +32,8 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
           loading="eager"
         />
       </span>
-    </Link>
+      {/* </Link> */}
+    </>
   )
 }
 

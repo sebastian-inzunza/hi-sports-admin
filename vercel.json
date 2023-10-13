@@ -1,22 +1,22 @@
 {
   "env": {
-    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://kali-connect-api.herokuapp.com",
+    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-fecdbeff6cd3.herokuapp.com",
     "NEXT_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyDbQ0EYliA5mpyqIwU9RfohMU5cVUHs6Hc",
     "NEXT_PUBLIC_AUTH_TOKEN_KEY": "AUTH_CRED",
     "APPLICATION_MODE": "production",
-    "NEXT_PUBLIC_DEFAULT_LANGUAGE": "en",
+    "NEXT_PUBLIC_DEFAULT_LANGUAGE": "es",
     "NEXT_PUBLIC_ENABLE_MULTI_LANG": "false",
-    "NEXT_PUBLIC_AVAILABLE_LANGUAGES": "en"
+    "NEXT_PUBLIC_AVAILABLE_LANGUAGES": "es"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://kali-connect-api.herokuapp.com",
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-fecdbeff6cd3.herokuapp.com",
       "NEXT_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyDbQ0EYliA5mpyqIwU9RfohMU5cVUHs6Hc",
       "NEXT_PUBLIC_AUTH_TOKEN_KEY": "AUTH_CRED",
       "APPLICATION_MODE": "production",
-      "NEXT_PUBLIC_DEFAULT_LANGUAGE": "en",
+      "NEXT_PUBLIC_DEFAULT_LANGUAGE": "es",
       "NEXT_PUBLIC_ENABLE_MULTI_LANG": "false",
-      "NEXT_PUBLIC_AVAILABLE_LANGUAGES": "en"
+      "NEXT_PUBLIC_AVAILABLE_LANGUAGES": "es"
     }
   }
 }

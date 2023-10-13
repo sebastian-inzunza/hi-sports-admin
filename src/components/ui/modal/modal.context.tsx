@@ -22,6 +22,7 @@ export type MODAL_VIEWS =
   | 'ALERT_EDIT'
   | 'ALERT_DELETE'
   | 'DELETE_NOTICE'
+  | 'DELETE_VIDEO'
 
 interface State {
   view?: MODAL_VIEWS

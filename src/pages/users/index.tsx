@@ -44,11 +44,11 @@ export default function Users() {
           </h1>
         </div>
 
-        <div className="flex w-full items-center ms-auto md:w-3/4">
+        <div className="ms-auto flex w-full items-center md:w-3/4">
           <Search onSearch={handleSearch} />
           <LinkButton
             href={`${Routes.users.create}`}
-            className="h-12 ms-4 md:ms-6"
+            className="ms-4 h-12  bg-purple-900 hover:bg-purple-300  md:ms-6"
           >
             <span>+ {t('form:button-label-add-customer')}</span>
           </LinkButton>

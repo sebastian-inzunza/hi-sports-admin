@@ -1,16 +1,16 @@
 import { Routes } from '@/config/routes'
 
 export const siteSettings = {
-  name: 'Kali Connect',
-  description: 'Kali Connect Admin Panel',
+  name: 'Hi Sports',
+  description: 'Hi Sports Connect Admin Panel',
   logo: {
     url: '/images/logo.png',
-    alt: 'KaliConnect',
+    alt: 'HiSport',
     href: '/',
     width: 128,
     height: 40,
   },
-  defaultLanguage: 'en',
+  defaultLanguage: 'es',
   author: {
     name: 'SISSA Digital',
     websiteUrl: 'https://sissadigital.com',
@@ -30,34 +30,34 @@ export const siteSettings = {
   currencyCode: 'USD',
   sidebarLinks: {
     admin: [
-      {
-        href: Routes.dashboard,
-        label: 'Dashboard',
-        icon: 'DashboardIcon',
-      },
-      {
-        href: Routes.conversations.list,
-        label: 'Chat',
-        icon: 'ChatIcon',
-      },
+      // {
+      //   href: Routes.dashboard,
+      //   label: 'Dashboard',
+      //   icon: 'DashboardIcon',
+      // },
+      // {
+      //   href: Routes.conversations.list,
+      //   label: 'Chat',
+      //   icon: 'ChatIcon',
+      // },
       {
         href: Routes.users.list,
         label: 'Usuarios',
         icon: 'UsersIcon',
       },
-      {
-        href: Routes.environments.list,
-        label: 'Entornos',
-        icon: 'EnvironmentsIcon',
-      },
-      {
-        href: Routes.storeNotice.list,
-        label: 'sidebar-nav-item-store-notice',
-        icon: 'StoreNoticeIcon',
-      },
+      // {
+      //   href: Routes.environments.list,
+      //   label: 'Entornos',
+      //   icon: 'EnvironmentsIcon',
+      // },
+      // {
+      //   href: Routes.storeNotice.list,
+      //   label: 'sidebar-nav-item-store-notice',
+      //   icon: 'StoreNoticeIcon',
+      // },
       {
         href: Routes.blog.list,
-        label: 'Notas',
+        label: 'Blogs',
         icon: 'ProductsIcon',
       },
       {
@@ -65,21 +65,21 @@ export const siteSettings = {
         label: 'Categorías',
         icon: 'CategoriesIcon',
       },
-      {
-        href: Routes.alerts.list,
-        label: 'Alertas',
-        icon: 'Bell',
-      },
-      {
-        href: Routes.suggestions.list,
-        label: 'Sugerencias',
-        icon: 'ReviewIcon',
-      },
-      {
-        href: Routes.settings,
-        label: 'Configuración',
-        icon: 'SettingsIcon',
-      },
+      // {
+      //   href: Routes.alerts.list,
+      //   label: 'Alertas',
+      //   icon: 'Bell',
+      // },
+      // {
+      //   href: Routes.suggestions.list,
+      //   label: 'Sugerencias',
+      //   icon: 'ReviewIcon',
+      // },
+      // {
+      //   href: Routes.settings,
+      //   label: 'Configuración',
+      //   icon: 'SettingsIcon',
+      // },
     ],
   },
   avatar: {

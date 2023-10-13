@@ -71,7 +71,7 @@ const CategoryList = ({
             id={id}
             editUrl={Routes.categories.edit({ id })}
             deleteModalView={'MODAL_DELETE_CATEGORY_VIEW'}
-            detailsUrl={Routes.categories.details({ id })}
+            // detailsUrl={Routes.categories.details({ id })}
           />
         )
       },

@@ -66,31 +66,31 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       key: 'content',
       align: 'center' as AlignType,
     },
-    {
-      title: 'Aprobado',
-      dataIndex: 'is_approved',
-      key: 'is_approved',
-      align: 'center' as AlignType,
+    // {
+    //   title: 'Aprobado',
+    //   dataIndex: 'is_approved',
+    //   key: 'is_approved',
+    //   align: 'center' as AlignType,
 
-      render: function Render(is_approved: boolean, record: any) {
-        return (
-          <Switch
-            checked={is_approved}
-            onChange={(value) => changeStatus(record, value)}
-            disabled={isLoading}
-            className={`${
-              is_approved ? 'bg-accent' : 'bg-gray-300'
-            } relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none`}
-          >
-            <span
-              className={`${
-                is_approved ? 'translate-x-6' : 'translate-x-1'
-              } inline-block h-4 w-4 transform rounded-full bg-light`}
-            />
-          </Switch>
-        )
-      },
-    },
+    //   render: function Render(is_approved: boolean, record: any) {
+    //     return (
+    //       <Switch
+    //         checked={is_approved}
+    //         onChange={(value) => changeStatus(record, value)}
+    //         disabled={isLoading}
+    //         className={`${
+    //           is_approved ? 'bg-accent' : 'bg-gray-300'
+    //         } relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none`}
+    //       >
+    //         <span
+    //           className={`${
+    //             is_approved ? 'translate-x-6' : 'translate-x-1'
+    //           } inline-block h-4 w-4 transform rounded-full bg-light`}
+    //         />
+    //       </Switch>
+    //     )
+    //   },
+    //},
     {
       title: t('table:table-item-actions'),
       dataIndex: 'id',
@@ -103,7 +103,7 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
             {data?.id.toString() != id && (
               <ActionButtons
                 id={id}
-                editModalView={'NOTE_EDIT'}
+                // editModalView={'NOTE_EDIT'}
                 deleteModalView={'DELETE_NOTE'}
                 detailsUrl={Routes.blog.details({ id: note.slug })}
               />

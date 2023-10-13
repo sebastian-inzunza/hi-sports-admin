@@ -171,7 +171,7 @@ const ActionButtons = ({
           title={'Detalles'}
           locale={customLocale}
         >
-          <Eye width={24} />
+          <EditIcon width={24} />
         </Link>
       )}
       {

@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import Logo from "@/components/ui/logo";
-import React from "react";
+import { useRouter } from 'next/router'
+import Logo from '@/components/ui/logo'
+import React from 'react'
 
 export default function AuthPageLayout({
   children,
@@ -20,5 +20,5 @@ export default function AuthPageLayout({
         {children}
       </div>
     </div>
-  );
+  )
 }

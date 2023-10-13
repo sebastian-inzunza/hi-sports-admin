@@ -31,6 +31,8 @@ module.exports = {
         ],
       },
       colors: {
+        sidebar: '#400e33',
+        header: '#b18cba',
         light: withOpacity('--color-light'),
         dark: withOpacity('--color-dark'),
         accent: withOpacity('--color-accent'),

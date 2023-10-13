@@ -38,7 +38,7 @@ const LoginForm = () => {
             const role = data?.role
             if (hasAccess(allowedRoles, role)) {
               setAuthCredentials(data.jwt, data.role)
-              Router.push(Routes.dashboard)
+              Router.push(Routes.users.list)
               return
             }
             setErrorMessage('form:error-enough-permission')
@@ -80,7 +80,11 @@ const LoginForm = () => {
               className="mb-4"
               forgotPageLink={Routes.forgotPassword}
             />
-            <Button className="w-full" loading={isLoading} disabled={isLoading}>
+            <Button
+              className="w-full bg-purple-900 hover:bg-purple-300"
+              loading={isLoading}
+              disabled={isLoading}
+            >
               {t('form:button-label-login')}
             </Button>
           </>

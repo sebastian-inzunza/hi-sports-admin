@@ -17,6 +17,8 @@ const ComposerMessage = dynamic(
 
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
+    case 'DELETE_VIDEO':
+      return <BanCustomerView /> //Cambiar a mi vista
     case 'BAN_CUSTOMER':
       return <BanCustomerView />
     case 'MAKE_ADMIN':
