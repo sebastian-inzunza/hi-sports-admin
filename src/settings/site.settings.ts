@@ -30,31 +30,12 @@ export const siteSettings = {
   currencyCode: 'USD',
   sidebarLinks: {
     admin: [
-      // {
-      //   href: Routes.dashboard,
-      //   label: 'Dashboard',
-      //   icon: 'DashboardIcon',
-      // },
-      // {
-      //   href: Routes.conversations.list,
-      //   label: 'Chat',
-      //   icon: 'ChatIcon',
-      // },
       {
         href: Routes.users.list,
         label: 'Usuarios',
         icon: 'UsersIcon',
       },
-      // {
-      //   href: Routes.environments.list,
-      //   label: 'Entornos',
-      //   icon: 'EnvironmentsIcon',
-      // },
-      // {
-      //   href: Routes.storeNotice.list,
-      //   label: 'sidebar-nav-item-store-notice',
-      //   icon: 'StoreNoticeIcon',
-      // },
+
       {
         href: Routes.blog.list,
         label: 'Blogs',
@@ -65,21 +46,48 @@ export const siteSettings = {
         label: 'Categorías',
         icon: 'CategoriesIcon',
       },
-      // {
-      //   href: Routes.alerts.list,
-      //   label: 'Alertas',
-      //   icon: 'Bell',
-      // },
-      // {
-      //   href: Routes.suggestions.list,
-      //   label: 'Sugerencias',
-      //   icon: 'ReviewIcon',
-      // },
-      // {
-      //   href: Routes.settings,
-      //   label: 'Configuración',
-      //   icon: 'SettingsIcon',
-      // },
+      {
+        href: Routes.videoteca.list,
+        label: 'Videoteca',
+        icon: 'DashboardIcon',
+      },
+      {
+        href: Routes.menu.list,
+        label: 'Menu',
+        icon: 'ReviewIcon',
+      },
+      {
+        href: Routes.presentadores.list,
+        label: 'Presentadores',
+        icon: 'CouponsIcon',
+      },
+    ],
+    users: [
+      {
+        href: Routes.blog.list,
+        label: 'Blogs',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.categories.list,
+        label: 'Categorías',
+        icon: 'CategoriesIcon',
+      },
+      {
+        href: Routes.videoteca.list,
+        label: 'Videoteca',
+        icon: 'DashboardIcon',
+      },
+      {
+        href: Routes.menu.list,
+        label: 'Menu',
+        icon: 'ReviewIcon',
+      },
+      {
+        href: Routes.presentadores.list,
+        label: 'Presentadores',
+        icon: 'CouponsIcon',
+      },
     ],
   },
   avatar: {

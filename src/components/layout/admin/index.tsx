@@ -5,17 +5,30 @@ import { useTranslation } from 'next-i18next'
 import SidebarItem from '@/components/layout/navigation/sidebar-item'
 import logo from '../../../assets/placeholders/logo-His.png'
 import Image from 'next/image'
+import { useMeQuery } from '@/data/user'
+import { SUPER_ADMIN } from '@/utils/constants'
 
 const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   const { t } = useTranslation()
+  const { data, isLoading: loading, error } = useMeQuery()
 
   const SidebarItemMap = () => (
     <>
-      {siteSettings.sidebarLinks.admin.map(({ href, label, icon }) => (
-        <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
-      ))}
+      {data?.role !== SUPER_ADMIN ? (
+        <>
+          {siteSettings.sidebarLinks.users.map(({ href, label, icon }) => (
+            <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
+          ))}
+        </>
+      ) : (
+        <>
+          {siteSettings.sidebarLinks.admin.map(({ href, label, icon }) => (
+            <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
+          ))}
+        </>
+      )}
     </>
   )
 

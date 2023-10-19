@@ -9,6 +9,7 @@ import Description from '../ui/description'
 import FileInput from '../ui/file-input'
 import Input from '../ui/input'
 import Button from '../ui/button'
+import { useRouter } from 'next/router'
 
 export default function ProfileUpdateForm({ me }: UsersResponse | any) {
   const { mutate: updateUser, isLoading: loading } = useUpdateUserMutation()
@@ -36,6 +37,9 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
       })
     }
   }
+
+  const router = useRouter()
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
@@ -114,6 +118,15 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
           />
         </Card>
         <div className="w-full text-end">
+          <Button
+            variant="outline"
+            onClick={router.back}
+            className="me-4"
+            type="button"
+          >
+            Atrás
+          </Button>
+
           <Button loading={loading} disabled={loading}>
             Actualizar
           </Button>

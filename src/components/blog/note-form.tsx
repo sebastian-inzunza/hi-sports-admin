@@ -17,6 +17,7 @@ import { useCategoryQuery } from '@/data/category'
 import Label from '../ui/label'
 import SelectInput from '../ui/select-input'
 import { getErrorMessage } from '@/utils/form-error'
+import { useState } from 'react'
 
 type FormValues = {
   id: number
@@ -60,41 +61,55 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
 
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
+  const [erorSelect, setErrorSelect] = useState<string>('')
 
   const onSubmit = async (values: FormValues) => {
     const { title, content, image, categoryId } = values
-    const input = {
-      title,
-      content,
-      slug: slugglify(title),
-      image: image?.toString() ?? initialValues?.image ?? '',
-      createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
-      categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
-    }
+    if (!categoryId) {
+      setErrorSelect('Es obligatorio el campo')
+    } else {
+      setErrorSelect('')
+      const input = {
+        title,
+        content,
+        slug: slugglify(title),
+        image: image?.toString() ?? initialValues?.image ?? '',
+        createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
+        categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
+      }
 
-    try {
-      if (!initialValues) {
-        createNote({
-          ...input,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          id: '',
-          is_approved: false,
-        })
-      } else {
-        updateNote({
-          id: initialValues?.id.toString() ?? '0',
-          ...input,
+      try {
+        if (!initialValues) {
+          createNote({
+            ...input,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            id: '',
+            is_approved: false,
+          })
+        } else {
+          const input2 = {
+            title,
+            content,
+            slug: slugglify(title),
+            image: image?.toString() ?? initialValues?.image ?? '',
+            updatedAt: new Date().toISOString(),
+          }
+
+          updateNote({
+            id: initialValues?.id.toString() ?? '0',
+            ...input2,
+          })
+        }
+      } catch (error) {
+        const serverErrors = getErrorMessage(error)
+        Object.keys(serverErrors?.validation).forEach((field: any) => {
+          setError(field.split('.')[1], {
+            type: 'manual',
+            message: serverErrors?.validation[field][0],
+          })
         })
       }
-    } catch (error) {
-      const serverErrors = getErrorMessage(error)
-      Object.keys(serverErrors?.validation).forEach((field: any) => {
-        setError(field.split('.')[1], {
-          type: 'manual',
-          message: serverErrors?.validation[field][0],
-        })
-      })
     }
   }
 
@@ -152,6 +167,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
               placeholder="Selecciona una categoría"
               options={categories ?? []}
               isLoading={loading}
+              error={erorSelect}
             />
           </div>
         </Card>

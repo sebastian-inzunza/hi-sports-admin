@@ -18,7 +18,7 @@ export default function LoginPage() {
   const router = useRouter()
   const { token, permissions } = getAuthCredentials()
   if (isAuthenticated({ token, permissions })) {
-    router.replace(Routes.users.list)
+    router.replace(Routes.blog.list)
   }
   const { t } = useTranslation('common')
 

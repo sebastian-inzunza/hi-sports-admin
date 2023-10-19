@@ -1,4 +1,7 @@
 export const API_ENDPOINTS = {
+  VIDEOTECA: 'videoteca',
+  MENU: 'menu',
+  PRESENTADOR: 'presentador',
   REGISTER: '/auth/signup',
   LOGOUT: '/auth/logout',
   LOGIN: '/auth/login',

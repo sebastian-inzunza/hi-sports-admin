@@ -7,4 +7,6 @@ export const PERMISSIONS = 'permissions'
 export const SUPER_ADMIN = 'SUPER_ADMIN'
 export const ENVIRONMENT_OWNER = 'ENVIRONMENT_OWNER'
 export const STAFF = 'STAFF'
+export const USER = 'USER'
+export const ADMIN = 'ADMIN'
 export const RESPONSIVE_WIDTH = 659 as number

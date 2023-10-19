@@ -42,6 +42,15 @@ export const Routes = {
   conversations: {
     ...routesFactory('/message'),
   },
+  videoteca: {
+    ...routesFactory('/videoteca'),
+  },
+  menu: {
+    ...routesFactory('/menu'),
+  },
+  presentadores: {
+    ...routesFactory('/presentadores'),
+  },
 }
 
 function routesFactory(endpoint: string) {

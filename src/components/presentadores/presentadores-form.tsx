@@ -3,58 +3,44 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import {
-  useCreateCategoryMutation,
-  useUpdateCategoryMutation,
-} from '@/data/category'
+import { useCreatePresentadorMutation } from '@/data/presentador'
+
 import TextArea from '../ui/text-area'
 import Label from '../ui/label'
 import FileInput from '../ui/file-input'
 import { slugglify } from '@/utils/slugglify'
 import SwitchInput from '../ui/switch-input copy'
-import { CreateCategoryInput } from '@/types/category'
+import { CreatePresentadorInput } from '@/types/presentador'
 import Image from 'next/image'
 
-const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
-  console.log('===== CategoryForm =====')
+const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
+  console.log('===== PresentadorForm =====')
   console.log('defaultValues', defaultValues)
-  console.log('===== CategoryForm =====')
-  const { mutate: createCategory, isLoading: creating } =
-    useCreateCategoryMutation()
-  const { mutate: updateCategory, isLoading: updating } =
-    useUpdateCategoryMutation()
+  console.log('===== PresentadorForm =====')
+
+  const { mutate: createPresentador, isLoading: creating } =
+    useCreatePresentadorMutation()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<CreateCategoryInput>({
+  } = useForm<CreatePresentadorInput>({
     defaultValues: defaultValues ?? {
-      id: '',
+      source: '',
       name: '',
-      content: '',
       image: '',
-      is_approved: false,
     },
   })
 
-  async function onSubmit(values: CreateCategoryInput) {
+  async function onSubmit(values: CreatePresentadorInput) {
     const body: any = {
+      source: values.source,
       name: values.name,
-      slug: slugglify(values.name),
-      thumbnail: values.image,
       image: values.image,
-      is_approved: values.is_approved,
     }
-    if (!defaultValues) {
-      createCategory(body)
-    } else {
-      updateCategory({
-        id: defaultValues?.id.toString(),
-        ...body,
-      })
-    }
+    createPresentador(body)
   }
 
   return (
@@ -62,7 +48,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
           title="Imágen"
-          details={'Sube una imágen para la categoría.'}
+          details={'Sube una imágen para los videos en vivo.'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
@@ -70,7 +56,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
           {defaultValues?.image && (
             <Image
               src={defaultValues?.image}
-              alt="Category Image"
+              alt="Videoteca Image"
               width={100}
               height={100}
             />
@@ -79,34 +65,37 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title="Categoría"
-          details="Esta categoría podrá ser utilizada para clasificar los articulos de tu blog."
+          title="Informacion"
+          details="Esta sección es para colocar el nombre del presentador y su redireccionamiento, ya que podra ser presionado el presentador."
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
-            label="Título"
-            {...register('name')}
+            label="Nombre del presentador"
+            // {...register('source')}
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.name?.message?.toString()}
+            // error={errors.name?.message?.toString()}
           />
 
-          <div className="flex items-center gap-x-4">
-            {/* <SwitchInput name="is_approved" control={control} />
-            <Label className="mb-0">Publicar</Label> */}
-          </div>
+          <Input
+            label="Ruta del presentador"
+            // {...register('source')}
+            type="text"
+            variant="outline"
+            className="mb-4"
+            // error={errors.name?.message?.toString()}
+          />
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">
-        <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar Nota' : 'Crear Nota'}
-        </Button>
+        {/* <Button disabled={creating} loading={creating}> */}
+        <Button>Crear</Button>
       </div>
     </form>
   )
 }
 
-export default CategoryForm
+export default PresentadorForm

@@ -2,6 +2,7 @@
 import { useRegisterMutation } from '@/data/users'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 
 import Card from '../common/card'
 import Button from '../ui/button'
@@ -87,6 +88,9 @@ const UserCreateForm = () => {
   if (loadEnviroment) {
     return <Loader />
   }
+
+  const router = useRouter()
+
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -152,7 +156,17 @@ const UserCreateForm = () => {
           /> */}
         </Card>
       </div>
+
       <div className="mb-4 text-end sm:mb-8">
+        <Button
+          variant="outline"
+          onClick={router.back}
+          className="me-4"
+          type="button"
+        >
+          Atrás
+        </Button>
+
         <Button disabled={loading} loading={loading}>
           Crear
         </Button>

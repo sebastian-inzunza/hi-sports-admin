@@ -75,7 +75,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             id={id}
             userStatus={true}
             isUserActive={!banned}
-            showMakeAdminButton={true}
+            // showMakeAdminButton={true}
             detailsUrl={`${router.asPath}/${id}`}
             role={role as Role}
           />
@@ -85,7 +85,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
   ]
   return (
     <>
-      <div className="mb-6 overflow-hidden rounded shadow">
+      <div className="overflow-scroll-x mb-6 overflow-x-auto rounded shadow">
         <Table columns={columns} data={users} rowKey={'id'} />
       </div>
       {!!paginatorInfo?.total && (

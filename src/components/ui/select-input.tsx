@@ -1,20 +1,21 @@
-import Select from '@/components/ui/select/select';
-import { Controller } from 'react-hook-form';
-import { GetOptionLabel } from 'react-select';
+import Select from '@/components/ui/select/select'
+import { Controller } from 'react-hook-form'
+import { GetOptionLabel } from 'react-select'
 
 interface SelectInputProps {
-  control: any;
-  rules?: any;
-  name: string;
-  options: object[];
-  getOptionLabel?: GetOptionLabel<unknown>;
-  getOptionValue?: GetOptionLabel<unknown>;
-  isMulti?: boolean;
-  isClearable?: boolean;
-  disabled?: boolean;
-  isLoading?: boolean;
-  [key: string]: unknown;
-  placeholder?: string;
+  control: any
+  rules?: any
+  name: string
+  options: object[]
+  getOptionLabel?: GetOptionLabel<unknown>
+  getOptionValue?: GetOptionLabel<unknown>
+  isMulti?: boolean
+  isClearable?: boolean
+  disabled?: boolean
+  isLoading?: boolean
+  [key: string]: unknown
+  placeholder?: string
+  error: string
 }
 
 const SelectInput = ({
@@ -29,6 +30,7 @@ const SelectInput = ({
   isClearable,
   isLoading,
   placeholder,
+  error, // Nuevo prop para manejar errores
   ...rest
 }: SelectInputProps) => {
   return (
@@ -38,20 +40,25 @@ const SelectInput = ({
       rules={rules}
       {...rest}
       render={({ field }) => (
-        <Select
-          {...field}
-          getOptionLabel={getOptionLabel}
-          getOptionValue={getOptionValue}
-          placeholder={placeholder}
-          isMulti={isMulti}
-          isClearable={isClearable}
-          isLoading={isLoading}
-          options={options}
-          isDisabled={disabled as boolean}
-        />
+        <div>
+          <Select
+            {...field}
+            getOptionLabel={getOptionLabel}
+            getOptionValue={getOptionValue}
+            placeholder={placeholder}
+            isMulti={isMulti}
+            isClearable={isClearable}
+            isLoading={isLoading}
+            options={options}
+            isDisabled={disabled as boolean}
+          />
+          {error && (
+            <p className="my-2 text-end text-xs text-red-500">{error}</p>
+          )}
+        </div>
       )}
     />
-  );
-};
+  )
+}
 
-export default SelectInput;
+export default SelectInput

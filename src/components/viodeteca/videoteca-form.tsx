@@ -3,10 +3,7 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import {
-  useCreateCategoryMutation,
-  useUpdateCategoryMutation,
-} from '@/data/category'
+import { useCreateViodeotecaMutation } from '@/data/videoteca'
 import TextArea from '../ui/text-area'
 import Label from '../ui/label'
 import FileInput from '../ui/file-input'
@@ -14,47 +11,35 @@ import { slugglify } from '@/utils/slugglify'
 import SwitchInput from '../ui/switch-input copy'
 import { CreateCategoryInput } from '@/types/category'
 import Image from 'next/image'
+import { CreateViodetaInput } from '@/types/videoteca'
 
-const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
-  console.log('===== CategoryForm =====')
+const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
+  console.log('===== VideotecaForm =====')
   console.log('defaultValues', defaultValues)
-  console.log('===== CategoryForm =====')
-  const { mutate: createCategory, isLoading: creating } =
-    useCreateCategoryMutation()
-  const { mutate: updateCategory, isLoading: updating } =
-    useUpdateCategoryMutation()
+  console.log('===== VideotecaForm =====')
+
+  const { mutate: createVideoteca, isLoading: creating } =
+    useCreateViodeotecaMutation()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<CreateCategoryInput>({
+  } = useForm<CreateViodetaInput>({
     defaultValues: defaultValues ?? {
-      id: '',
-      name: '',
-      content: '',
+      source: '',
       image: '',
-      is_approved: false,
     },
   })
 
-  async function onSubmit(values: CreateCategoryInput) {
+  async function onSubmit(values: CreateViodetaInput) {
     const body: any = {
-      name: values.name,
-      slug: slugglify(values.name),
+      source: values.source,
       thumbnail: values.image,
       image: values.image,
-      is_approved: values.is_approved,
     }
-    if (!defaultValues) {
-      createCategory(body)
-    } else {
-      updateCategory({
-        id: defaultValues?.id.toString(),
-        ...body,
-      })
-    }
+    createVideoteca(body)
   }
 
   return (
@@ -62,7 +47,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
           title="Imágen"
-          details={'Sube una imágen para la categoría.'}
+          details={'Sube una imágen para los videos en vivo.'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
@@ -70,7 +55,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
           {defaultValues?.image && (
             <Image
               src={defaultValues?.image}
-              alt="Category Image"
+              alt="Videoteca Image"
               width={100}
               height={100}
             />
@@ -79,34 +64,29 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title="Categoría"
-          details="Esta categoría podrá ser utilizada para clasificar los articulos de tu blog."
+          title="Videoteca"
+          details="Esta sección es para subir los video en vivo del carousel"
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
-            label="Título"
-            {...register('name')}
+            label="Ruta Video"
+            {...register('source')}
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.name?.message?.toString()}
+            // error={errors.name?.message?.toString()}
           />
-
-          <div className="flex items-center gap-x-4">
-            {/* <SwitchInput name="is_approved" control={control} />
-            <Label className="mb-0">Publicar</Label> */}
-          </div>
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar Nota' : 'Crear Nota'}
+          Crear
         </Button>
       </div>
     </form>
   )
 }
 
-export default CategoryForm
+export default VideotecaForm
