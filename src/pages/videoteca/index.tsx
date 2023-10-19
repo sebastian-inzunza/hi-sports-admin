@@ -24,6 +24,8 @@ function Videoteca({}: Props) {
     setPage(current)
   }
 
+  console.log('hola')
+
   return (
     <>
       <Card className="mb-8 flex flex-col items-center md:flex-row">
