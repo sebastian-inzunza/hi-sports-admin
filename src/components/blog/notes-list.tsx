@@ -12,6 +12,7 @@ import TitleWithSort from '../ui/title-with-sort'
 import ActionButtons from '../common/action-buttons'
 import { useMeQuery } from '@/data/user'
 import { useTranslation } from 'react-i18next'
+import { format } from 'date-fns'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
@@ -66,6 +67,19 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       key: 'content',
       align: 'center' as AlignType,
     },
+
+    {
+      title: 'Fecha de creación',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      align: 'center' as AlignType,
+      render: function Render(record: any) {
+        const date = new Date(record)
+        const formateDate = format(date, 'yyyy-MM-dd HH:mm:ss.SSS')
+        return <>{formateDate}</>
+      },
+    },
+
     // {
     //   title: 'Aprobado',
     //   dataIndex: 'is_approved',
@@ -100,14 +114,13 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
         const { data } = useMeQuery()
         return (
           <>
-            {data?.id.toString() != id && (
-              <ActionButtons
-                id={id}
-                // editModalView={'NOTE_EDIT'}
-                deleteModalView={'DELETE_NOTE'}
-                detailsUrl={Routes.blog.details({ id: note.slug })}
-              />
-            )}
+            {/* {data?.id.toString() != id && ( */}
+            <ActionButtons
+              id={id}
+              deleteModalView={'DELETE_NOTE'}
+              detailsUrl={Routes.blog.details({ id: note.slug })}
+            />
+            {/* )} */}
           </>
         )
       },

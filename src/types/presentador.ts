@@ -2,17 +2,14 @@ import { PaginatorInfo, QueryOptions } from '.'
 
 export type Presentador = {
   id?: number
-  image: string | null
+  image: string
   name: String
-  source: String | null
-  createdAt: Date
-  updatedAt: Date
-  createdBy: number
+  url: String
 }
 
 export type CreatePresentadorInput = {
   image: string
-  source: String | null
+  url: String
   name: string
 }
 

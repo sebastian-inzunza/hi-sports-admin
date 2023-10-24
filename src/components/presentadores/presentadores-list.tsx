@@ -4,61 +4,56 @@ import { Table } from '../ui/table'
 
 import { siteSettings } from '@/settings/site.settings'
 import { MappedPaginatorInfo } from '@/types'
-import { Category } from '@/types/category'
+import { Presentador } from '@/types/presentador'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
 
-type CategoryListProps = {
-  categories: Category[]
+type PresentadorListProps = {
+  casts: Presentador[]
   paginatorInfo: MappedPaginatorInfo | null
   onPagination: (current: number) => void
 }
-const CategoryList = ({
-  categories,
+const PresentadorList = ({
+  casts,
   paginatorInfo,
   onPagination,
-}: CategoryListProps) => {
-  console.log('categories', categories)
+}: PresentadorListProps) => {
+  console.log('presentadores', casts)
 
   const columns: any = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      align: 'center',
     },
     {
       title: 'Imágen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (
-        <Image
-          src={image ?? siteSettings.logo.url}
-          alt="Category Image"
-          width={40}
-          height={40}
-        />
+        <div className="flex justify-center">
+          <Image
+            src={image ?? siteSettings.logo.url}
+            alt="Category Image"
+            width={40}
+            height={40}
+          />
+        </div>
       ),
     },
     {
-      title: 'Título',
+      title: 'Nombre del presentador',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
     },
     {
-      title: 'Creado',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
+      title: 'Ruta del presentador',
+      dataIndex: 'url',
+      key: 'url',
       align: 'center',
-      render: (date: string) => <span>{formatDate(date)}</span>,
-    },
-    {
-      title: 'Actualizado',
-      dataIndex: 'updatedAt',
-      key: 'updatedAt',
-      align: 'center',
-      render: (date: string) => <span>{formatDate(date)}</span>,
     },
     {
       title: 'Acciones',
@@ -69,8 +64,8 @@ const CategoryList = ({
         return (
           <ActionButtons
             id={id}
-            editUrl={Routes.categories.edit({ id })}
-            deleteModalView={'MODAL_DELETE_CATEGORY_VIEW'}
+            editUrl={Routes.presentadores.edit({ id })}
+            deleteModalView={'MODAL_CAST_BANNER'}
             // detailsUrl={Routes.categories.details({ id })}
           />
         )
@@ -81,7 +76,12 @@ const CategoryList = ({
   return (
     <>
       <div className="mb-6 overflow-hidden rounded shadow">
-        <Table columns={columns} data={categories} rowKey={'id'} />
+        <Table
+          columns={columns}
+          data={casts}
+          rowKey={'id'}
+          emptyText={'No hay presentadores que mostrar'}
+        />
       </div>
       {!!paginatorInfo?.total && (
         <div className="flex items-center justify-end">
@@ -97,4 +97,4 @@ const CategoryList = ({
   )
 }
 
-export default CategoryList
+export default PresentadorList

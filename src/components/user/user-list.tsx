@@ -75,7 +75,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
             id={id}
             userStatus={true}
             isUserActive={!banned}
-            // showMakeAdminButton={true}
+            showMakeAdminButton={true}
             detailsUrl={`${router.asPath}/${id}`}
             role={role as Role}
           />

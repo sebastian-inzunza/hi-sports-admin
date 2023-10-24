@@ -62,7 +62,6 @@ export const useCreatePresentadorMutation = () => {
   return useMutation(presentadorClient.create, {
     onSuccess: () => {
       router.back()
-      toast.success('Se ha creado el presentador de forma correctamente')
     },
     // Always refetch after error or success:
     onSettled: () => {

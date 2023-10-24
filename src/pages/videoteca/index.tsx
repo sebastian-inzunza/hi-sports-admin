@@ -3,19 +3,25 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '@/components/layout/admin'
 import Card from '@/components/common/card'
 import Search from '@/components/common/search'
-import ErrorMessage from '@/components/ui/error-message'
 import LinkButton from '@/components/ui/link-button'
+import VideotecaList from '@/components/viodeteca/viodeteca-list'
+
 import Loader from '@/components/ui/loader/loader'
 import { Routes } from '@/config/routes'
-import { useCategoryQuery } from '@/data/category'
+import { useVideotecaQuery } from '@/data/videoteca'
 
-type Props = {}
-
-function Videoteca({}: Props) {
+function Videoteca() {
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
 
+  const { videoteca, error, loading, paginatorInfo } = useVideotecaQuery({
+    limit: 1,
+    page,
+    search: searchTerm,
+  })
+
   function handleSearch({ searchText }: { searchText: string }) {
+    console.log(searchText)
     setSearchTerm(searchText)
     setPage(1)
   }
@@ -23,8 +29,6 @@ function Videoteca({}: Props) {
   function handlePagination(current: number) {
     setPage(current)
   }
-
-  console.log('hola')
 
   return (
     <>
@@ -43,6 +47,11 @@ function Videoteca({}: Props) {
           </LinkButton>
         </div>
       </Card>
+      <VideotecaList
+        videotecas={videoteca}
+        paginatorInfo={paginatorInfo}
+        onPagination={handlePagination}
+      />
     </>
   )
 }

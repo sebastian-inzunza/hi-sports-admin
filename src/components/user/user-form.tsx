@@ -109,17 +109,11 @@ const UserCreateForm = () => {
             error={errors.firstName?.message?.toString()}
           />
           <Input
-            label="Segundo nombre"
-            className="mb-4"
-            variant="outline"
-            {...register('middleName')}
-          />
-          <Input
             label="Apellido"
             className="mb-4"
             variant="outline"
             {...register('lastName')}
-            error={errors.middleName?.message?.toString()}
+            error={errors.lastName?.message?.toString()}
           />
           <Input
             label="Email"

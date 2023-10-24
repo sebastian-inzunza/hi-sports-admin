@@ -11,9 +11,9 @@ import { mapPaginatorData } from '@/utils/data-mappers'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
-export const useCategoryQuery = (options: Partial<VideotecaQueryOptions>) => {
+export const useVideotecaQuery = (options: Partial<VideotecaQueryOptions>) => {
   const { data, isLoading, error } = useQuery<VideotecaPaginator, Error>(
-    [API_ENDPOINTS.CATEGORY, options],
+    [API_ENDPOINTS.VIDEOTECA, options],
     () => videotecaClient.pagination(options),
     {
       keepPreviousData: true,
@@ -59,8 +59,8 @@ export const useCreateViodeotecaMutation = () => {
 
   return useMutation(videotecaClient.create, {
     onSuccess: () => {
+      // toast.success('Se ha creado la imagen con la ruta correctamente')
       router.back()
-      toast.success('Se ha creado la imagen con la ruta correctamente')
     },
     // Always refetch after error or success:
     onSettled: () => {

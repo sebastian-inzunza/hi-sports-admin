@@ -3,15 +3,12 @@ import { PaginatorInfo, QueryOptions } from '.'
 export type Videoteca = {
   id?: number
   image: string | null
-  source: String | null
-  createdAt: Date
-  updatedAt: Date
-  createdBy: number
+  url: String | null
 }
 
 export type CreateViodetaInput = {
   image: string | null
-  source: String | null
+  url: String | null
 }
 
 export interface VideotecaQueryOptions extends QueryOptions {

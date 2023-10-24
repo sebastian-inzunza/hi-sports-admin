@@ -7,6 +7,8 @@ import DeleteEnvironmentView from '@/components/environments/environment-delete-
 import AlertDelete from '@/components/alert/alert-delete'
 import SuggestionDeleteView from '@/components/suggestions/suggestion-delete-view'
 import NoticeDeleteView from '@/components/notice/notice-delete-view'
+import MenuDeleteView from '@/components/Menu/menu-delete-view'
+import CastDeleteView from '@/components/presentadores/presentadores-delete-view'
 const BanCustomerView = dynamic(() => import('@/components/user/user-ban-view'))
 const CategoryDeleteView = dynamic(
   () => import('@/components/category/category-delete-view')
@@ -17,8 +19,12 @@ const ComposerMessage = dynamic(
 
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
-    case 'DELETE_VIDEO':
-      return <BanCustomerView /> //Cambiar a mi vista
+    case 'MODAL_VIDEOTECA_BANNER':
+      return <DeleteBannnerView /> //Cambiar a mi vista
+    case 'MODAL_CAST_BANNER':
+      return <CastDeleteView /> //Cambiar a mi vista
+    case 'MODAL_LATERAL_MENU':
+      return <MenuDeleteView /> //Cambiar a mi vista
     case 'BAN_CUSTOMER':
       return <BanCustomerView />
     case 'MAKE_ADMIN':

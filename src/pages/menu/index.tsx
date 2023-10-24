@@ -7,13 +7,20 @@ import ErrorMessage from '@/components/ui/error-message'
 import LinkButton from '@/components/ui/link-button'
 import Loader from '@/components/ui/loader/loader'
 import { Routes } from '@/config/routes'
-import { useCategoryQuery } from '@/data/category'
+import MenuList from '@/components/Menu/menu-list'
+import { useMenuQuery } from '@/data/menu'
 
 type Props = {}
 
 function Menu({}: Props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
+
+  const { menu, error, loading, paginatorInfo } = useMenuQuery({
+    limit: 5,
+    page,
+    search: searchTerm,
+  })
 
   function handleSearch({ searchText }: { searchText: string }) {
     setSearchTerm(searchText)
@@ -41,6 +48,11 @@ function Menu({}: Props) {
           </LinkButton>
         </div>
       </Card>
+      <MenuList
+        menus={menu ?? []}
+        paginatorInfo={paginatorInfo}
+        onPagination={handlePagination}
+      />
     </>
   )
 }

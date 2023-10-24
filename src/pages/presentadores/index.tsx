@@ -7,13 +7,19 @@ import ErrorMessage from '@/components/ui/error-message'
 import LinkButton from '@/components/ui/link-button'
 import Loader from '@/components/ui/loader/loader'
 import { Routes } from '@/config/routes'
-import { useCategoryQuery } from '@/data/category'
+import { usePresentadorQuery } from '@/data/presentador'
+import CastList from '@/components/presentadores/presentadores-list'
 
 type Props = {}
 
 function Presentadores({}: Props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
+
+  const { presentador, error, loading, paginatorInfo } = usePresentadorQuery({
+    page,
+    search: searchTerm,
+  })
 
   function handleSearch({ searchText }: { searchText: string }) {
     setSearchTerm(searchText)
@@ -41,6 +47,11 @@ function Presentadores({}: Props) {
           </LinkButton>
         </div>
       </Card>
+      <CastList
+        casts={presentador ?? []}
+        paginatorInfo={paginatorInfo}
+        onPagination={handlePagination}
+      />
     </>
   )
 }

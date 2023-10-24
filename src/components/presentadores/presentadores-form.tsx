@@ -3,7 +3,11 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import { useCreatePresentadorMutation } from '@/data/presentador'
+import {
+  useCreatePresentadorMutation,
+  useUpdatePresentadorMutation,
+} from '@/data/presentador'
+import { useRouter } from 'next/router'
 
 import TextArea from '../ui/text-area'
 import Label from '../ui/label'
@@ -12,14 +16,21 @@ import { slugglify } from '@/utils/slugglify'
 import SwitchInput from '../ui/switch-input copy'
 import { CreatePresentadorInput } from '@/types/presentador'
 import Image from 'next/image'
+import { useState } from 'react'
 
 const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== PresentadorForm =====')
   console.log('defaultValues', defaultValues)
   console.log('===== PresentadorForm =====')
 
+  const router = useRouter()
+
   const { mutate: createPresentador, isLoading: creating } =
     useCreatePresentadorMutation()
+  const { mutate: updatePresentador, isLoading: updating } =
+    useUpdatePresentadorMutation()
+
+  const [error, setError] = useState<string>('')
 
   const {
     register,
@@ -28,7 +39,7 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
     control,
   } = useForm<CreatePresentadorInput>({
     defaultValues: defaultValues ?? {
-      source: '',
+      url: '',
       name: '',
       image: '',
     },
@@ -36,11 +47,23 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
 
   async function onSubmit(values: CreatePresentadorInput) {
     const body: any = {
-      source: values.source,
+      url: values.url,
       name: values.name,
       image: values.image,
     }
-    createPresentador(body)
+    // createPresentador(body)
+    if (values.name || values.url || values.image) {
+      if (!defaultValues) {
+        createPresentador(body)
+      } else {
+        updatePresentador({
+          id: defaultValues?.id.toString() ?? '0',
+          ...body,
+        })
+      }
+    } else {
+      setError('Son obligatorios los campos')
+    }
   }
 
   return (
@@ -73,26 +96,37 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
             label="Nombre del presentador"
-            // {...register('source')}
+            {...register('name')}
             type="text"
             variant="outline"
             className="mb-4"
-            // error={errors.name?.message?.toString()}
+            error={error}
           />
 
           <Input
             label="Ruta del presentador"
-            // {...register('source')}
+            {...register('url')}
             type="text"
             variant="outline"
             className="mb-4"
-            // error={errors.name?.message?.toString()}
+            error={error}
           />
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">
-        {/* <Button disabled={creating} loading={creating}> */}
-        <Button>Crear</Button>
+        {defaultValues && (
+          <Button
+            variant="outline"
+            onClick={router.back}
+            className="me-4"
+            type="button"
+          >
+            Atrás
+          </Button>
+        )}
+        <Button disabled={creating} loading={creating}>
+          {defaultValues ? 'Actualizar' : 'Crear'}
+        </Button>
       </div>
     </form>
   )

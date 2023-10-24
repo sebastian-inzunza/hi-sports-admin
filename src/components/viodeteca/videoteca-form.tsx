@@ -3,13 +3,12 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import { useCreateViodeotecaMutation } from '@/data/videoteca'
-import TextArea from '../ui/text-area'
-import Label from '../ui/label'
+import {
+  useCreateViodeotecaMutation,
+  useUpdateVideotecaMutation,
+} from '@/data/videoteca'
+import { useRouter } from 'next/router'
 import FileInput from '../ui/file-input'
-import { slugglify } from '@/utils/slugglify'
-import SwitchInput from '../ui/switch-input copy'
-import { CreateCategoryInput } from '@/types/category'
 import Image from 'next/image'
 import { CreateViodetaInput } from '@/types/videoteca'
 
@@ -18,8 +17,12 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('defaultValues', defaultValues)
   console.log('===== VideotecaForm =====')
 
+  const router = useRouter()
+
   const { mutate: createVideoteca, isLoading: creating } =
     useCreateViodeotecaMutation()
+  const { mutate: updateVideoteca, isLoading: updating } =
+    useUpdateVideotecaMutation()
 
   const {
     register,
@@ -28,18 +31,25 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
     control,
   } = useForm<CreateViodetaInput>({
     defaultValues: defaultValues ?? {
-      source: '',
+      url: '',
       image: '',
     },
   })
 
   async function onSubmit(values: CreateViodetaInput) {
     const body: any = {
-      source: values.source,
-      thumbnail: values.image,
+      url: values.url,
       image: values.image,
     }
-    createVideoteca(body)
+
+    if (!defaultValues) {
+      createVideoteca(body)
+    } else {
+      updateVideoteca({
+        id: defaultValues?.id.toString() ?? '0',
+        ...body,
+      })
+    }
   }
 
   return (
@@ -72,17 +82,27 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
             label="Ruta Video"
-            {...register('source')}
+            {...register('url')}
             type="text"
             variant="outline"
             className="mb-4"
-            // error={errors.name?.message?.toString()}
+            error={errors.url?.message?.toString()}
           />
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">
+        {defaultValues && (
+          <Button
+            variant="outline"
+            onClick={router.back}
+            className="me-4"
+            type="button"
+          >
+            Atrás
+          </Button>
+        )}
         <Button disabled={creating} loading={creating}>
-          Crear
+          {defaultValues ? 'Actualizar Banner' : 'Crear Banner'}
         </Button>
       </div>
     </form>

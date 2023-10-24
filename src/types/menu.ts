@@ -2,16 +2,13 @@ import { PaginatorInfo, QueryOptions } from '.'
 
 export type Menu = {
   id?: number
-  source: String | null
-  titulo: String | null
-  createdAt: Date
-  updatedAt: Date
-  createdBy: number
+  url: String
+  title: String
 }
 
 export type CreateMenuInput = {
-  titulo: string | null
-  source: String | null
+  title: string
+  url: String
 }
 
 export interface MenuQueryOptions extends QueryOptions {

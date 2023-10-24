@@ -1,16 +1,15 @@
-import { useCategoryDeleteMutation } from '@/data/category'
+import { useMenuDeleteMutation } from '@/data/menu'
 import ConfirmationCard from '../common/confirmation-card'
 import { useModalAction, useModalState } from '../ui/modal/modal.context'
 
-const CategoryDeleteView = () => {
+const MenuDeleteView = () => {
   const { data } = useModalState()
   const { closeModal } = useModalAction()
-  const { mutate: deleteCategory, isLoading: loading } =
-    useCategoryDeleteMutation()
+  const { mutate: deleteMenu, isLoading: loading } = useMenuDeleteMutation()
 
   async function handleDelete() {
     if (data) {
-      deleteCategory({ id: data })
+      deleteMenu({ id: data })
       closeModal()
     }
   }
@@ -18,12 +17,12 @@ const CategoryDeleteView = () => {
     <ConfirmationCard
       onCancel={closeModal}
       onDelete={handleDelete}
-      title="Eliminar Categoría"
-      description="¿Estás seguro de que quieres eliminar esta categoría?"
+      title="Eliminar Menu"
+      description="¿Estás seguro de que quieres  eliminar este elemento del menu?"
       deleteBtnText="Eliminar"
       deleteBtnLoading={loading}
     />
   )
 }
 
-export default CategoryDeleteView
+export default MenuDeleteView

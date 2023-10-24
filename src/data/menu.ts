@@ -7,9 +7,9 @@ import { mapPaginatorData } from '@/utils/data-mappers'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
-export const useCategoryQuery = (options: Partial<MenuQueryOptions>) => {
+export const useMenuQuery = (options: Partial<MenuQueryOptions>) => {
   const { data, isLoading, error } = useQuery<MenuPaginator, Error>(
-    [API_ENDPOINTS.CATEGORY, options],
+    [API_ENDPOINTS.MENU, options],
     () => menuClient.pagination(options),
     {
       keepPreviousData: true,
@@ -56,7 +56,6 @@ export const useCreateMenuMutation = () => {
   return useMutation(menuClient.create, {
     onSuccess: () => {
       router.back()
-      toast.success('Se ha creado el menu con la ruta correctamente')
     },
     // Always refetch after error or success:
     onSettled: () => {

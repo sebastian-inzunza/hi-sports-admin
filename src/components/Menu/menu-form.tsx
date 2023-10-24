@@ -3,7 +3,8 @@ import Card from '../common/card'
 import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
-import { useCreateMenuMutation } from '@/data/menu'
+import { useCreateMenuMutation, useUpdateMenuMutation } from '@/data/menu'
+import { useRouter } from 'next/router'
 
 import TextArea from '../ui/text-area'
 import Label from '../ui/label'
@@ -13,6 +14,7 @@ import SwitchInput from '../ui/switch-input copy'
 import { CreateCategoryInput } from '@/types/category'
 import Image from 'next/image'
 import { CreateMenuInput } from '@/types/menu'
+import { useState } from 'react'
 
 const MenuForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== MenuForm =====')
@@ -20,25 +22,37 @@ const MenuForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== MenuForm =====')
 
   const { mutate: createMenu, isLoading: creating } = useCreateMenuMutation()
+  const { mutate: updateMenu, isLoading: updating } = useUpdateMenuMutation()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<CreateMenuInput>({
+  const [error, setError] = useState<string>('')
+
+  const router = useRouter()
+
+  const { register, handleSubmit } = useForm<CreateMenuInput>({
     defaultValues: defaultValues ?? {
-      titulo: '',
-      source: '',
+      title: '',
+      url: '',
     },
   })
 
   async function onSubmit(values: CreateMenuInput) {
     const body: any = {
-      source: values.source,
-      titulo: values.titulo,
+      url: values.url,
+      title: values.title,
     }
-    createMenu(body)
+
+    if (values.title || values.url) {
+      if (!defaultValues) {
+        createMenu(body)
+      } else {
+        updateMenu({
+          id: defaultValues?.id.toString() ?? '0',
+          ...body,
+        })
+      }
+    } else {
+      setError('Son obligatorios los campos')
+    }
   }
 
   return (
@@ -56,20 +70,32 @@ const MenuForm = ({ defaultValues }: { defaultValues?: any }) => {
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.titulo?.message?.toString()}
+            {...register('title')}
+            error={error}
           />
           <Input
             label="Ruta o Url"
             type="text"
+            {...register('url')}
             variant="outline"
             className="mb-4"
-            error={errors.source?.message?.toString()}
+            error={error}
           />
         </Card>
       </div>
 
       <div className="mb-4 text-end sm:mb-8">
-        <Button>Crear</Button>
+        {defaultValues && (
+          <Button
+            variant="outline"
+            onClick={router.back}
+            className="me-4"
+            type="button"
+          >
+            Atrás
+          </Button>
+        )}
+        <Button>{defaultValues ? 'Actualizar' : 'Crear'}</Button>
       </div>
     </form>
   )

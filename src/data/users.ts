@@ -9,6 +9,8 @@ import { QueryOptionsType } from '../types'
 import { API_ENDPOINTS } from './client/api-endpoints'
 import { userClient } from './client/user'
 
+import { useRouter } from 'next/router'
+
 export const useUsersQuery = (params: Partial<QueryOptionsType>) => {
   const { data, isLoading, error } = useQuery<UserPagination, Error>(
     [API_ENDPOINTS.USERS, params],
@@ -55,11 +57,14 @@ export const useUpdatePasswordMutation = () => {
 }
 
 export const useRegisterMutation = () => {
+  const router = useRouter()
+
   const queryClient = useQueryClient()
 
   return useMutation(userClient.register, {
     onSuccess() {
-      toast.success('User created successfully')
+      router.back()
+      // toast.success('User created successfully')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.REGISTER)
@@ -68,11 +73,14 @@ export const useRegisterMutation = () => {
 }
 
 export const useUnblockUserMutation = () => {
+  const router = useRouter()
+
   const queryClient = useQueryClient()
 
   return useMutation(userClient.unblock, {
     onSuccess() {
-      toast.success('User unblocked successfully')
+      router.push('/users')
+      // toast.success('User unblocked successfully')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.USERS)

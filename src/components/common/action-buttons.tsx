@@ -90,13 +90,17 @@ const ActionButtons = ({
         </button>
       )}
       {showMakeAdminButton && (
-        <button
-          onClick={handleMakeAdmin}
-          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
-          title={'Cambiar a operador'}
-        >
-          <AdminIcon width={18} />
-        </button>
+        <>
+          {isUserActive ? (
+            <button
+              onClick={handleMakeAdmin}
+              className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
+              title={'Cambiar a operador'}
+            >
+              <AdminIcon width={18} />
+            </button>
+          ) : null}
+        </>
       )}
       {deleteModalView && (
         <button
@@ -156,23 +160,31 @@ const ActionButtons = ({
         </>
       )}
       {editUrl && (
-        <Link
-          href={editUrl}
-          className="text-base transition duration-200 hover:text-heading"
-          title={'Editar'}
-        >
-          <EditIcon width={16} />
-        </Link>
+        <>
+          {isUserActive ? (
+            <Link
+              href={editUrl}
+              className={`disabled text-base transition duration-200 hover:text-heading`}
+              title={'Editar'}
+            >
+              <EditIcon width={16} />
+            </Link>
+          ) : null}
+        </>
       )}
       {detailsUrl && (
-        <Link
-          href={detailsUrl}
-          className="ml-2 text-base transition duration-200 hover:text-heading"
-          title={'Detalles'}
-          locale={customLocale}
-        >
-          <EditIcon width={24} />
-        </Link>
+        <>
+          {isUserActive ? (
+            <Link
+              href={detailsUrl}
+              className={`ml-2 text-base transition duration-200 hover:text-heading`}
+              title={'Detalles'}
+              locale={customLocale}
+            >
+              <EditIcon width={24} />
+            </Link>
+          ) : null}
+        </>
       )}
       {
         // showContact - show icon to contact with user (only for admin)

@@ -1,16 +1,16 @@
-import { usePresentadorDeleteMutation } from '@/data/presentador'
+import { useVideotecaDeleteMutation } from '@/data/videoteca'
 import ConfirmationCard from '../common/confirmation-card'
 import { useModalAction, useModalState } from '../ui/modal/modal.context'
 
-const CastDeleteView = () => {
+const DeleteBannnerView = () => {
   const { data } = useModalState()
   const { closeModal } = useModalAction()
-  const { mutate: deleteCast, isLoading: loading } =
-    usePresentadorDeleteMutation()
+  const { mutate: deleteBanner, isLoading: loading } =
+    useVideotecaDeleteMutation()
 
   async function handleDelete() {
     if (data) {
-      deleteCast({ id: data })
+      deleteBanner({ id: data })
       closeModal()
     }
   }
@@ -18,12 +18,12 @@ const CastDeleteView = () => {
     <ConfirmationCard
       onCancel={closeModal}
       onDelete={handleDelete}
-      title="Eliminar Presentador"
-      description="¿Estás seguro de que quieres eliminar al presentador?"
+      title="Eliminar banner"
+      description="¿Estás seguro de que quieres eliminar este banner?"
       deleteBtnText="Eliminar"
       deleteBtnLoading={loading}
     />
   )
 }
 
-export default CastDeleteView
+export default DeleteBannnerView
