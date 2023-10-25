@@ -110,6 +110,7 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       dataIndex: 'id',
       key: 'actions',
       align: 'center',
+
       render: function Render(id: string, note: Note) {
         const { data } = useMeQuery()
         return (

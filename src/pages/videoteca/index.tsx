@@ -15,7 +15,7 @@ function Videoteca() {
   const [page, setPage] = useState(1)
 
   const { videoteca, error, loading, paginatorInfo } = useVideotecaQuery({
-    limit: 1,
+    limit: 10,
     page,
     search: searchTerm,
   })

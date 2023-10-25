@@ -51,6 +51,7 @@ export const useUpdateNoteMutation = () => {
   return useMutation(blogClient.update, {
     onSuccess: () => {
       toast.success('Note updated successfully')
+      router.back()
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.BLOG)

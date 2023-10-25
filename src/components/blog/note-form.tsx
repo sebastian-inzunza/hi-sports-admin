@@ -94,6 +94,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             slug: slugglify(title),
             image: image?.toString() ?? initialValues?.image ?? '',
             updatedAt: new Date().toISOString(),
+            categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
           }
 
           updateNote({
