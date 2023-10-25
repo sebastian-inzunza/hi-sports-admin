@@ -9,6 +9,7 @@ import SuggestionDeleteView from '@/components/suggestions/suggestion-delete-vie
 import NoticeDeleteView from '@/components/notice/notice-delete-view'
 import MenuDeleteView from '@/components/Menu/menu-delete-view'
 import CastDeleteView from '@/components/presentadores/presentadores-delete-view'
+import DeleteBannnerView from '@/components/viodeteca/videoteca-delete_modal'
 const BanCustomerView = dynamic(() => import('@/components/user/user-ban-view'))
 const CategoryDeleteView = dynamic(
   () => import('@/components/category/category-delete-view')
