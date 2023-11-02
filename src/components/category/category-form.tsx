@@ -14,6 +14,7 @@ import { slugglify } from '@/utils/slugglify'
 import SwitchInput from '../ui/switch-input copy'
 import { CreateCategoryInput } from '@/types/category'
 import Image from 'next/image'
+import { useState } from 'react'
 
 const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== CategoryForm =====')
@@ -23,6 +24,8 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
     useCreateCategoryMutation()
   const { mutate: updateCategory, isLoading: updating } =
     useUpdateCategoryMutation()
+
+  const [error, setError] = useState<string>('')
 
   const {
     register,
@@ -40,20 +43,24 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
   })
 
   async function onSubmit(values: CreateCategoryInput) {
-    const body: any = {
-      name: values.name,
-      slug: slugglify(values.name),
-      thumbnail: values.image,
-      image: values.image,
-      is_approved: values.is_approved,
-    }
-    if (!defaultValues) {
-      createCategory(body)
+    if (values.name && values.image) {
+      const body: any = {
+        name: values.name,
+        slug: slugglify(values.name),
+        thumbnail: values.image,
+        image: values.image,
+        is_approved: values.is_approved,
+      }
+      if (!defaultValues) {
+        createCategory(body)
+      } else {
+        updateCategory({
+          id: defaultValues?.id.toString(),
+          ...body,
+        })
+      }
     } else {
-      updateCategory({
-        id: defaultValues?.id.toString(),
-        ...body,
-      })
+      setError('Son obligatorios los campos')
     }
   }
 
@@ -91,7 +98,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.name?.message?.toString()}
+            error={error}
           />
 
           <div className="flex items-center gap-x-4">

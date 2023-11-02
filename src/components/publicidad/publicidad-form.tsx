@@ -4,59 +4,51 @@ import Button from '../ui/button'
 import Description from '../ui/description'
 import Input from '../ui/input'
 import {
-  useCreatePresentadorMutation,
-  useUpdatePresentadorMutation,
-} from '@/data/presentador'
+  useCreatePublicidadMutation,
+  useUpdatePublicidadMutation,
+} from '@/data/publicidad'
 import { useRouter } from 'next/router'
-
-import TextArea from '../ui/text-area'
-import Label from '../ui/label'
 import FileInput from '../ui/file-input'
-import { slugglify } from '@/utils/slugglify'
-import SwitchInput from '../ui/switch-input copy'
-import { CreatePresentadorInput } from '@/types/presentador'
 import Image from 'next/image'
+import { CreatePublicidadInput } from '@/types/publicidad'
 import { useState } from 'react'
 
-const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
-  console.log('===== PresentadorForm =====')
+const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
+  console.log('===== VideotecaForm =====')
   console.log('defaultValues', defaultValues)
-  console.log('===== PresentadorForm =====')
+  console.log('===== VideotecaForm =====')
 
   const router = useRouter()
-
-  const { mutate: createPresentador, isLoading: creating } =
-    useCreatePresentadorMutation()
-  const { mutate: updatePresentador, isLoading: updating } =
-    useUpdatePresentadorMutation()
-
   const [error, setError] = useState<string>('')
+
+  const { mutate: createPublicidad, isLoading: creating } =
+    useCreatePublicidadMutation()
+  const { mutate: updatePublicidad, isLoading: updating } =
+    useUpdatePublicidadMutation()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<CreatePresentadorInput>({
+  } = useForm<CreatePublicidadInput>({
     defaultValues: defaultValues ?? {
       url: '',
-      name: '',
       image: '',
     },
   })
 
-  async function onSubmit(values: CreatePresentadorInput) {
-    const body: any = {
-      url: values.url,
-      name: values.name,
-      image: values.image,
-    }
-    // createPresentador(body)
-    if (values.name && values.url && values.image) {
+  async function onSubmit(values: CreatePublicidadInput) {
+    if (values.url && values.image) {
+      const body: any = {
+        url: values.url,
+        image: values.image,
+      }
+
       if (!defaultValues) {
-        createPresentador(body)
+        createPublicidad(body)
       } else {
-        updatePresentador({
+        updatePublicidad({
           id: defaultValues?.id.toString() ?? '0',
           ...body,
         })
@@ -71,7 +63,7 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
           title="Imágen"
-          details={'Sube una imágen para los videos en vivo.'}
+          details={'Sube una imágen de publicidad.'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
@@ -79,7 +71,7 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
           {defaultValues?.image && (
             <Image
               src={defaultValues?.image}
-              alt="Videoteca Image"
+              alt="Publicidad Image"
               width={100}
               height={100}
             />
@@ -88,23 +80,14 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title="Informacion"
-          details="Esta sección es para colocar el nombre del presentador y su redireccionamiento, ya que podra ser presionado el presentador."
+          title="Publicidad"
+          details="Esta sección es para subir la publicidad que aparece a los dalos y  abajo"
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <Input
-            label="Nombre del presentador"
-            {...register('name')}
-            type="text"
-            variant="outline"
-            className="mb-4"
-            error={error}
-          />
-
-          <Input
-            label="Ruta del presentador"
+            label="Ruta del patrocinador"
             {...register('url')}
             type="text"
             variant="outline"
@@ -125,11 +108,11 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
           </Button>
         )}
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar' : 'Crear'}
+          {defaultValues ? 'Actualizar publicidad' : 'Crear publicidad'}
         </Button>
       </div>
     </form>
   )
 }
 
-export default PresentadorForm
+export default VideotecaForm

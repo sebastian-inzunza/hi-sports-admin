@@ -61,6 +61,16 @@ export const siteSettings = {
         label: 'Presentadores',
         icon: 'CouponsIcon',
       },
+      {
+        href: Routes.videoBlog.list,
+        label: 'VideoBlog',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.publicidad.list,
+        label: 'Publicidad',
+        icon: 'ReviewIcon',
+      },
     ],
     users: [
       {
@@ -87,6 +97,16 @@ export const siteSettings = {
         href: Routes.presentadores.list,
         label: 'Presentadores',
         icon: 'CouponsIcon',
+      },
+      {
+        href: Routes.videoBlog.list,
+        label: 'VideoBlog',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.publicidad.list,
+        label: 'Publicidad',
+        icon: 'ReviewIcon',
       },
     ],
   },

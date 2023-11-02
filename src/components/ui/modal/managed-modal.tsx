@@ -9,7 +9,9 @@ import SuggestionDeleteView from '@/components/suggestions/suggestion-delete-vie
 import NoticeDeleteView from '@/components/notice/notice-delete-view'
 import MenuDeleteView from '@/components/Menu/menu-delete-view'
 import CastDeleteView from '@/components/presentadores/presentadores-delete-view'
+import DeleteVideoBlogView from '@/components/videoBlog/videoblog-delete_modal'
 import DeleteBannnerView from '@/components/viodeteca/videoteca-delete_modal'
+
 const BanCustomerView = dynamic(() => import('@/components/user/user-ban-view'))
 const CategoryDeleteView = dynamic(
   () => import('@/components/category/category-delete-view')
@@ -22,6 +24,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'MODAL_VIDEOTECA_BANNER':
       return <DeleteBannnerView /> //Cambiar a mi vista
+    case 'MODAL_VIDEOBLOG_BANNER':
+      return <DeleteVideoBlogView /> //Cambiar a mi vista
     case 'MODAL_CAST_BANNER':
       return <CastDeleteView /> //Cambiar a mi vista
     case 'MODAL_LATERAL_MENU':

@@ -12,6 +12,9 @@ export function crudFactory<Type, QueryParams, InputType>(endpoint: string) {
     get({ id }: { id?: string }) {
       return HttpClient.get<Type>(`${endpoint}/${id}`)
     },
+    getById({ id }: { id?: string }) {
+      return HttpClient.get<Type>(`${endpoint}/byId/${id}`)
+    },
     bySlug({ slug }: { slug?: string }) {
       return HttpClient.get<Type>(`${endpoint}/${slug}`)
     },

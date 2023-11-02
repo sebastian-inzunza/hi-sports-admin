@@ -41,7 +41,7 @@ const MenuForm = ({ defaultValues }: { defaultValues?: any }) => {
       title: values.title,
     }
 
-    if (values.title || values.url) {
+    if (values.title && values.url) {
       if (!defaultValues) {
         createMenu(body)
       } else {

@@ -51,6 +51,12 @@ export const Routes = {
   presentadores: {
     ...routesFactory('/presentadores'),
   },
+  videoBlog: {
+    ...routesFactory('/videoBlog'),
+  },
+  publicidad: {
+    ...routesFactory('/publicidad'),
+  },
 }
 
 function routesFactory(endpoint: string) {

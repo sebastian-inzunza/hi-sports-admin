@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import FileInput from '../ui/file-input'
 import Image from 'next/image'
 import { CreateViodetaInput } from '@/types/videoteca'
+import { useState } from 'react'
 
 const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== VideotecaForm =====')
@@ -18,6 +19,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== VideotecaForm =====')
 
   const router = useRouter()
+  const [error, setError] = useState<string>('')
 
   const { mutate: createVideoteca, isLoading: creating } =
     useCreateViodeotecaMutation()
@@ -37,18 +39,22 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   })
 
   async function onSubmit(values: CreateViodetaInput) {
-    const body: any = {
-      url: values.url,
-      image: values.image,
-    }
+    if (values.url && values.image) {
+      const body: any = {
+        url: values.url,
+        image: values.image,
+      }
 
-    if (!defaultValues) {
-      createVideoteca(body)
+      if (!defaultValues) {
+        createVideoteca(body)
+      } else {
+        updateVideoteca({
+          id: defaultValues?.id.toString() ?? '0',
+          ...body,
+        })
+      }
     } else {
-      updateVideoteca({
-        id: defaultValues?.id.toString() ?? '0',
-        ...body,
-      })
+      setError('Son obligatorios los campos')
     }
   }
 
@@ -86,7 +92,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
             type="text"
             variant="outline"
             className="mb-4"
-            error={errors.url?.message?.toString()}
+            error={error}
           />
         </Card>
       </div>
