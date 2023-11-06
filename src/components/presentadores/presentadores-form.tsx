@@ -125,7 +125,7 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
           </Button>
         )}
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar' : 'Crear'}
+          {defaultValues ? 'Actualizar Presentador' : 'Crear Presentador'}
         </Button>
       </div>
     </form>

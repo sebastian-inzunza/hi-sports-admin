@@ -109,7 +109,7 @@ const CategoryForm = ({ defaultValues }: { defaultValues?: any }) => {
       </div>
       <div className="mb-4 text-end sm:mb-8">
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar Nota' : 'Crear Nota'}
+          {defaultValues ? 'Actualizar Categoría' : 'Crear Categoría'}
         </Button>
       </div>
     </form>

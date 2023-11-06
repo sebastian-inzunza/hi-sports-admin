@@ -95,7 +95,7 @@ const MenuForm = ({ defaultValues }: { defaultValues?: any }) => {
             Atrás
           </Button>
         )}
-        <Button>{defaultValues ? 'Actualizar' : 'Crear'}</Button>
+        <Button>{defaultValues ? 'Actualizar Menu' : 'Crear Menu'}</Button>
       </div>
     </form>
   )

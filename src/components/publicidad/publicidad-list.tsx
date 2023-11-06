@@ -60,7 +60,7 @@ const PublicidadList = ({
           <ActionButtons
             id={id}
             editUrl={Routes.publicidad.edit({ id })}
-            deleteModalView={'MODAL_VIDEOTECA_BANNER'}
+            deleteModalView={'MODAL_PUBLICIDAD'}
           />
         )
       },

@@ -1,16 +1,16 @@
-import { useVideotecaDeleteMutation } from '@/data/videoteca'
+import { usePublicidadDeleteMutation } from '@/data/publicidad'
 import ConfirmationCard from '../common/confirmation-card'
 import { useModalAction, useModalState } from '../ui/modal/modal.context'
 
 const DeleteBannnerView = () => {
   const { data } = useModalState()
   const { closeModal } = useModalAction()
-  const { mutate: deleteBanner, isLoading: loading } =
-    useVideotecaDeleteMutation()
+  const { mutate: deletePublicity, isLoading: loading } =
+    usePublicidadDeleteMutation()
 
   async function handleDelete() {
     if (data) {
-      deleteBanner({ id: data })
+      deletePublicity({ id: data })
       closeModal()
     }
   }
@@ -18,8 +18,8 @@ const DeleteBannnerView = () => {
     <ConfirmationCard
       onCancel={closeModal}
       onDelete={handleDelete}
-      title="Eliminar banner"
-      description="¿Estás seguro de que quieres eliminar este banner?"
+      title="Eliminar publicidad"
+      description="¿Estás seguro de que quieres eliminar esta publicidad?"
       deleteBtnText="Eliminar"
       deleteBtnLoading={loading}
     />

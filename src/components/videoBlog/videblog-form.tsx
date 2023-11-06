@@ -122,7 +122,7 @@ const VideoBlogForm = ({ defaultValues }: { defaultValues?: any }) => {
           </Button>
         )}
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar Banner' : 'Crear VideoBLog'}
+          {defaultValues ? 'Actualizar Videoblog' : 'Crear VideoBLog'}
         </Button>
       </div>
     </form>
