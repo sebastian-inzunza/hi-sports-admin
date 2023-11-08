@@ -12,7 +12,7 @@ import { Routes } from '@/config/routes'
 type MenuListProps = {
   menus: Menu[]
   paginatorInfo: MappedPaginatorInfo | null
-  onPagination: (current: number) => void
+  onPagination: (current: string | number) => void
 }
 const CategoryList = ({
   menus,
@@ -75,7 +75,7 @@ const CategoryList = ({
         <div className="flex items-center justify-end">
           <Pagination
             total={paginatorInfo.total}
-            current={paginatorInfo.currentPage}
+            current={parseInt(paginatorInfo.currentPage)}
             pageSize={paginatorInfo.perPage}
             onChange={onPagination}
           />

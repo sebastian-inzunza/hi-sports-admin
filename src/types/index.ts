@@ -159,7 +159,7 @@ export interface PaginatorInfo<T> {
   data: T[]
   totalPages: number
   total: number
-  currentPage: number
+  currentPage: number | string
   latestPage: number
   perPage: number
   hasMorePages: boolean

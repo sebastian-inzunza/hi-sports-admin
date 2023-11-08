@@ -3,15 +3,18 @@ import {
   useModalAction,
   useModalState,
 } from '@/components/ui/modal/modal.context'
+import { useModifyRoleMutation } from '@/data/users'
 
 const CustomerBanView = () => {
   const { data } = useModalState()
 
   const { closeModal } = useModalAction()
+  const { mutate: makeOrRevokeAdmin, isLoading: loading } =
+    useModifyRoleMutation()
 
   // TODO: Create a mutation to make or revoke admin
   async function handleMakeAdmin() {
-    // makeOrRevokeAdmin({ user_id: data });
+    makeOrRevokeAdmin(data)
     closeModal()
   }
 

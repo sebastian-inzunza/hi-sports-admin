@@ -17,7 +17,7 @@ function Menu({}: Props) {
   const [page, setPage] = useState(1)
 
   const { menu, error, loading, paginatorInfo } = useMenuQuery({
-    limit: 10,
+    limit: 5,
     page,
     search: searchTerm,
   })
