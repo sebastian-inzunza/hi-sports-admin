@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BanUser } from '@/components/icons/ban-user'
 import { EditIcon } from '@/components/icons/edit'
+import 'react-tippy/dist/tippy.css'
+
 import { TrashIcon } from '@/components/icons/trash'
-import { Eye } from '@/components/icons/eye-icon'
+import { BsEye } from 'react-icons/bs'
 import { CheckMarkCircle } from '@/components/icons/checkmark-circle'
 import { useModalAction } from '@/components/ui/modal/modal.context'
 import { CloseFillIcon } from '@/components/icons/close-fill'
@@ -10,6 +12,7 @@ import { AdminIcon } from '@/components/icons/admin-icon'
 import Link from 'next/link'
 import { Role } from '@/types/users'
 import { ChatIcon } from '../icons/sidebar'
+import { Tooltip } from 'react-tippy'
 
 type Props = {
   id: string
@@ -17,6 +20,7 @@ type Props = {
   deleteModalView?: string | any
   editUrl?: string
   detailsUrl?: string
+  profileUrl?: string
   isUserActive?: boolean
   userStatus?: boolean
   isShopActive?: boolean
@@ -35,6 +39,7 @@ const ActionButtons = ({
   deleteModalView,
   editUrl,
   detailsUrl,
+  profileUrl,
   userStatus = false,
   isUserActive = false,
   isShopActive,
@@ -95,7 +100,9 @@ const ActionButtons = ({
           className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
           title={'Cambiar a operador'}
         >
-          <AdminIcon width={18} />
+          <Tooltip title="Cambiar a administrador" position="top">
+            <AdminIcon width={18} />
+          </Tooltip>
         </button>
       )}
       {deleteModalView && (
@@ -104,7 +111,9 @@ const ActionButtons = ({
           className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
           title={'Eliminar'}
         >
-          <TrashIcon width={16} />
+          <Tooltip title="Eliminar" position="top">
+            <TrashIcon width={16} />
+          </Tooltip>
         </button>
       )}
       {editModalView && (
@@ -113,7 +122,9 @@ const ActionButtons = ({
           className="text-body transition duration-200 hover:text-heading focus:outline-none"
           title={'Editar'}
         >
-          <EditIcon width={16} />
+          <Tooltip title="Editar" position="top">
+            <EditIcon width={16} />
+          </Tooltip>
         </button>
       )}
       {approveButton &&
@@ -142,7 +153,9 @@ const ActionButtons = ({
               className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
               title={'Bloquear'}
             >
-              <BanUser width={20} />
+              <Tooltip title="Bloquear" position="top">
+                <BanUser width={20} />
+              </Tooltip>
             </button>
           ) : (
             <button
@@ -150,7 +163,9 @@ const ActionButtons = ({
               className="text-accent transition duration-200 hover:text-accent focus:outline-none"
               title={'Activar'}
             >
-              <CheckMarkCircle width={20} />
+              <Tooltip title="Activar" position="top">
+                <CheckMarkCircle width={20} />
+              </Tooltip>
             </button>
           )}
         </>
@@ -161,7 +176,9 @@ const ActionButtons = ({
           className="text-base transition duration-200 hover:text-heading"
           title={'Editar'}
         >
-          <EditIcon width={16} />
+          <Tooltip title="Editar" position="top">
+            <EditIcon width={16} />
+          </Tooltip>
         </Link>
       )}
       {detailsUrl && (
@@ -171,9 +188,25 @@ const ActionButtons = ({
           title={'Detalles'}
           locale={customLocale}
         >
-          <EditIcon width={24} />
+          <Tooltip title="Editar" position="top">
+            <EditIcon width={24} />
+          </Tooltip>
         </Link>
       )}
+
+      {profileUrl && (
+        <Link
+          href={profileUrl}
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={'Detalles'}
+          locale={customLocale}
+        >
+          <Tooltip title="Ver Detalles" position="top">
+            <BsEye size={25} />
+          </Tooltip>
+        </Link>
+      )}
+
       {
         // showContact - show icon to contact with user (only for admin)
         showContact && (

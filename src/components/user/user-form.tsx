@@ -162,7 +162,7 @@ const UserCreateForm = () => {
         </Button>
 
         <Button disabled={loading} loading={loading}>
-          Crear
+          Agregar cliente
         </Button>
       </div>
     </form>

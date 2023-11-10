@@ -44,7 +44,7 @@ const PublicidadList = ({
       ),
     },
     {
-      title: 'Direccion',
+      title: 'Ruta del patrocinador',
       dataIndex: 'url',
       key: 'url',
       align: 'center',

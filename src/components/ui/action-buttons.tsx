@@ -10,6 +10,8 @@ import { AdminIcon } from '@/components/icons/admin-icon'
 import Link from 'next/link'
 import { Role } from '@/types/users'
 import { ChatIcon } from '../icons/chat-icon'
+import { Tooltip } from 'react-tippy'
+import 'react-tippy/dist/tippy.css'
 
 type Props = {
   id: string
@@ -82,7 +84,7 @@ const ActionButtons = ({
   }
 
   return (
-    <div className="gap-8 inline-flex w-auto items-center">
+    <div className="inline-flex w-auto items-center gap-8">
       {showReplyQuestion && (
         <button
           onClick={handleReplyQuestion}
@@ -106,7 +108,9 @@ const ActionButtons = ({
           className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
           title={'Eliminar'}
         >
-          <TrashIcon width={16} />
+          <Tooltip title="Eliminar" position="top">
+            <TrashIcon width={16} />
+          </Tooltip>
         </button>
       )}
       {editModalView && (
@@ -144,7 +148,9 @@ const ActionButtons = ({
               className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
               title={'Bloquear'}
             >
-              <BanUser width={20} />
+              <Tooltip title="Bloquear usuario" position="top">
+                <BanUser width={20} />
+              </Tooltip>
             </button>
           ) : (
             <button
@@ -163,7 +169,9 @@ const ActionButtons = ({
           className="text-base transition duration-200 hover:text-heading"
           title={'Editar'}
         >
-          <EditIcon width={16} />
+          <Tooltip title="Editar" position="top">
+            <EditIcon width={16} />
+          </Tooltip>
         </Link>
       )}
       {detailsUrl && (
@@ -173,7 +181,9 @@ const ActionButtons = ({
           title={'Detalles'}
           locale={customLocale}
         >
-          <Eye width={24} />
+          <Tooltip title="Ver detalles" position="top">
+            <Eye width={24} />
+          </Tooltip>
         </Link>
       )}
       {

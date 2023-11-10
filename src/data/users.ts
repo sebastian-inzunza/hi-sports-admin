@@ -93,7 +93,7 @@ export const useBlockUserMutation = () => {
 
   return useMutation(userClient.block, {
     onSuccess() {
-      toast.success('User blocked successfully')
+      toast.success('Usuario bloqueado con exito')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.USERS)

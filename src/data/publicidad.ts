@@ -47,7 +47,7 @@ export const usePublicidadDeleteMutation = () => {
 
   return useMutation(publicidadClient.delete, {
     onSuccess: () => {
-      toast.success('Se ha eliminado le video correctamente')
+      toast.success('Se ha eliminado la publicidad correctamente')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.PUBLICIDAD)
@@ -60,9 +60,11 @@ export const useCreatePublicidadMutation = () => {
   const router = useRouter()
 
   return useMutation(publicidadClient.create, {
-    onSuccess: () => {
-      // toast.success('Se ha creado la imagen con la ruta correctamente')
-      router.back()
+    onSuccess: async () => {
+      await router.back() // Espera a que la navegación se complete
+      setTimeout(() => {
+        toast.success('Se ha creado la publicidad Correctamente')
+      }, 400) // Espera 400 milisegundos antes de mostrar el Toast
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -81,7 +83,7 @@ export const useUpdatePublicidadMutation = () => {
   return useMutation(publicidadClient.update, {
     onSuccess: () => {
       router.back()
-      toast.success('Se ha actualizado la imagen con video correctamente')
+      toast.success('Se actualizo publicidad correctamente')
     },
     // Always refetch after error or success:
     onSettled: () => {

@@ -19,7 +19,8 @@ export default function Dashboard({
 }: {
   userPermissions: string
 }) {
-  return <AdminDashboard />
+  return
+  // <AdminDashboard />
   // if (userPermissions === SUPER_ADMIN) {
   //   // return <AdminDashboard />
   // }

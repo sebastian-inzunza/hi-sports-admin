@@ -12,6 +12,7 @@ import { allowedRoles, hasAccess, setAuthCredentials } from '@/utils/auth-utils'
 import PasswordInput from '../ui/password-input'
 import Button from '../ui/button'
 import { LoginInput } from '@/types'
+import { toast } from 'react-toastify'
 
 const loginFormSchema = yup.object().shape({
   identifier: yup
@@ -39,9 +40,9 @@ const LoginForm = () => {
             if (hasAccess(allowedRoles, role)) {
               setAuthCredentials(data.jwt, data.role)
               Router.push(Routes.blog.list)
-              return
+            } else {
+              setErrorMessage('form:error-enough-permission')
             }
-            setErrorMessage('form:error-enough-permission')
           } else {
             setErrorMessage('form:error-credential-wrong')
           }

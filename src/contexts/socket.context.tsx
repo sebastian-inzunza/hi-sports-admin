@@ -30,7 +30,7 @@ const SocketContext = createContext<SocketContextType>({
 const URL = process.env.NEXT_PUBLIC_REST_API_ENDPOINT || 'http://localhost:1337'
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const audio = new Audio('./sounds/notification.mp3')
+  // const audio = new Audio('./sounds/notification.mp3')
   const socketContext = useContext(SocketContext)
   const socket = useSocket(URL) // Replace with your Socket.io server URL
 

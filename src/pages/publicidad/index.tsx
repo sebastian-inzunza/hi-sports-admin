@@ -44,7 +44,7 @@ function Publicidad() {
               href={`${Routes.publicidad.create}`}
               className="ms-4 h-12 bg-purple-900  hover:bg-purple-300 md:ms-6 "
             >
-              <span>+ Crear</span>
+              <span>+ Crear publicidad</span>
             </LinkButton>
           ) : (
             <span className=" mx-3 rounded-md bg-red-500 p-2 text-white">

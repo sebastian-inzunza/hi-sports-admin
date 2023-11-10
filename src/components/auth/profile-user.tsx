@@ -11,7 +11,7 @@ import Input from '../ui/input'
 import Button from '../ui/button'
 import { useRouter } from 'next/router'
 
-export default function ProfileUpdateForm({ me }: UsersResponse | any) {
+export default function ProfileUser({ me }: UsersResponse | any) {
   const { mutate: updateUser, isLoading: loading } = useUpdateUserMutation()
   const { register, control, handleSubmit } = useForm({
     defaultValues: {
@@ -44,8 +44,8 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
-          title="Nombre"
-          details="Actualiza tu nombre"
+          title="Vista del usuario"
+          details="Estos datos son los que tiene este perfil"
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="mb-5 w-full sm:w-8/12 md:w-2/3">
@@ -64,6 +64,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
                 {...register('firstName')}
                 variant="outline"
                 className="mb-5 mr-5"
+                disabled={true}
               />
             </div>
             <div className="w-full sm:w-1/2">
@@ -72,6 +73,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
                 {...register('lastName')}
                 variant="outline"
                 className="mb-5 ml-5"
+                disabled={true}
               />
             </div>
           </div>
@@ -81,6 +83,7 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             {...register('birthDate')}
             variant="outline"
             className="mb-5"
+            disabled={true}
           />
 
           <Input
@@ -115,10 +118,6 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             type="button"
           >
             Atrás
-          </Button>
-
-          <Button loading={loading} disabled={loading}>
-            Actualizar
           </Button>
         </div>
       </div>
