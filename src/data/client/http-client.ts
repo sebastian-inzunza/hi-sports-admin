@@ -42,7 +42,8 @@ Axios.interceptors.response.use(
     ) {
       console.log('erorr', error.response.data.message)
       Cookies.remove(AUTH_TOKEN_KEY)
-      Router.reload()
+      // Router.reload()
+      // Viernes 10 de noviembre 2023, se comento por que recargaba el login al no encontrar el usuario
     }
     return Promise.reject(error)
   }
