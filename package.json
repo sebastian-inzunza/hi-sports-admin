@@ -46,6 +46,7 @@
     "react-icons": "^4.11.0",
     "react-leaflet": "^4.2.1",
     "react-query": "3.39.3",
+    "react-quill": "^2.0.0",
     "react-scroll": "1.8.9",
     "react-select": "5.7.0",
     "react-tailwindcss-datepicker": "^1.6.3",

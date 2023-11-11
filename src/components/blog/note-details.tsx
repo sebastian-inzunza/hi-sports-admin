@@ -94,7 +94,11 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
               Sinopsis
             </h2>
             <p className="text-justify text-lg text-stone-800">
-              {initialValues?.content}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: initialValues?.content as string,
+                }}
+              />
             </p>
           </div>
         </Card>

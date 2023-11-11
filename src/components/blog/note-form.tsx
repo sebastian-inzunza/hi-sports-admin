@@ -4,6 +4,10 @@ import { Note } from '@/types/blog'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import dynamic from 'next/dynamic'
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+import 'react-quill/dist/quill.snow.css'
 
 import Card from '../common/card'
 import Button from '../ui/button'
@@ -18,6 +22,7 @@ import Label from '../ui/label'
 import SelectInput from '../ui/select-input'
 import { getErrorMessage } from '@/utils/form-error'
 import { useState } from 'react'
+import Image from 'next/image'
 
 type FormValues = {
   id: number
@@ -48,6 +53,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     handleSubmit,
     control,
     setError,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     shouldUnregister: true,
@@ -55,9 +61,18 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     ...(Boolean(initialValues) && {
       defaultValues: {
         ...initialValues,
+        content: initialValues?.content ?? '', // Incluye el contenido del editor
       },
     }),
   })
+
+  const [content, setContent] = useState('')
+
+  const handleChange = (value: any) => {
+    setContent(value)
+    // Actualiza el valor del campo 'content' en el formulario
+    setValue('content', value)
+  }
 
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
@@ -131,6 +146,14 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <FileInput name="image" control={control} multiple={false} />
+          {initialValues?.image && (
+            <Image
+              src={initialValues?.image}
+              alt="Category Image"
+              width={100}
+              height={100}
+            />
+          )}
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -149,13 +172,22 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             error={errors?.title?.message}
           />
 
-          <TextArea
+          {/* <TextArea
             label="Contenido"
             {...register('content')}
             variant="outline"
             className="mb-5"
             error={errors?.content?.message}
-          />
+          /> */}
+
+          <div className="my-5">
+            <h2 className="text-sm font-bold text-gray-600">Sinopsis</h2>
+            <ReactQuill
+              theme="snow"
+              value={initialValues?.content}
+              onChange={handleChange}
+            />
+          </div>
 
           <div className="mb-0">
             <Label>Categoría</Label>
@@ -172,6 +204,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
           </div>
         </Card>
       </div>
+
       <div className="mb-4 text-end">
         {initialValues && (
           <Button
