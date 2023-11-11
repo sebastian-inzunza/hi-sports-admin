@@ -23,6 +23,8 @@ const ComposerMessage = dynamic(
 
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
+    case 'BAN_PUBLICIDAD':
+      return <DeletePublicity /> //Cambiar a mi vista
     case 'MODAL_PUBLICIDAD':
       return <DeletePublicity /> //Cambiar a mi vista
     case 'MODAL_VIDEOTECA_BANNER':

@@ -20,6 +20,9 @@ type Props = {
   deleteModalView?: string | any
   editUrl?: string
   detailsUrl?: string
+
+  detailsUrlBlog?: string
+
   profileUrl?: string
   isUserActive?: boolean
   userStatus?: boolean
@@ -39,6 +42,7 @@ const ActionButtons = ({
   deleteModalView,
   editUrl,
   detailsUrl,
+  detailsUrlBlog,
   profileUrl,
   userStatus = false,
   isUserActive = false,
@@ -189,7 +193,20 @@ const ActionButtons = ({
           locale={customLocale}
         >
           <Tooltip title="Editar" position="top">
-            <EditIcon width={24} />
+            <EditIcon width={20} />
+          </Tooltip>
+        </Link>
+      )}
+
+      {detailsUrlBlog && (
+        <Link
+          href={detailsUrlBlog}
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={'Detalles'}
+          locale={customLocale}
+        >
+          <Tooltip title="Detalles" position="top">
+            <BsEye size={25} />
           </Tooltip>
         </Link>
       )}

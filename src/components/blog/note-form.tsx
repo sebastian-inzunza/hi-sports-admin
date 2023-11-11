@@ -62,7 +62,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
   const [erorSelect, setErrorSelect] = useState<string>('')
-  console.log()
 
   const onSubmit = async (values: FormValues) => {
     const { title, content, image, categoryId } = values
@@ -78,7 +77,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
         categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
       }
-
       try {
         if (!initialValues) {
           createNote({

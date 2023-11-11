@@ -55,12 +55,14 @@ const PublicidadList = ({
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      render: (id: string) => {
+      render: (id: string, { activo }: Publicidad) => {
         return (
           <ActionButtons
             id={id}
             editUrl={Routes.publicidad.edit({ id })}
             deleteModalView={'MODAL_PUBLICIDAD'}
+            publicidadStatus={true}
+            isPublicidadActive={!activo}
           />
         )
       },

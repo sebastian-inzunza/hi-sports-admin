@@ -4,23 +4,23 @@ import type {
   UseFormReturn,
   UseFormProps,
   Path,
-} from "react-hook-form";
-import type { SchemaOf } from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
+} from 'react-hook-form'
+import type { SchemaOf } from 'yup'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect } from 'react'
 
 type ServerErrors<T> = {
-  [Property in keyof T]: string;
-};
+  [Property in keyof T]: string
+}
 type FormProps<TFormValues extends FieldValues> = {
-  onSubmit: SubmitHandler<TFormValues>;
-  children: (methods: UseFormReturn<TFormValues>) => React.ReactNode;
-  useFormProps?: UseFormProps<TFormValues>;
-  validationSchema?: SchemaOf<TFormValues>;
-  fieldErrors?: ServerErrors<Partial<TFormValues>> | null;
-  formError?: string | string[] | null;
-};
+  onSubmit: SubmitHandler<TFormValues>
+  children: (methods: UseFormReturn<TFormValues>) => React.ReactNode
+  useFormProps?: UseFormProps<TFormValues>
+  validationSchema?: SchemaOf<TFormValues>
+  fieldErrors?: ServerErrors<Partial<TFormValues>> | null
+  formError?: string | string[] | null
+}
 
 const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
   onSubmit,
@@ -34,17 +34,17 @@ const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
   const methods = useForm<TFormValues>({
     ...useFormProps,
     ...(validationSchema && { resolver: yupResolver(validationSchema) }),
-  });
+  })
   useEffect(() => {
     if (fieldErrors) {
       Object.entries(fieldErrors).forEach(([key, value]) => {
         methods.setError(key as Path<TFormValues>, {
-          type: "manual",
+          type: 'manual',
           message: value,
-        });
-      });
+        })
+      })
     }
-  }, [fieldErrors, methods]);
+  }, [fieldErrors, methods])
   return (
     <div>
       {formError ? (
@@ -57,7 +57,7 @@ const Form = <TFormValues extends Record<string, any> = Record<string, any>>({
         {children(methods)}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

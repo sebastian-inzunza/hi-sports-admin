@@ -3,6 +3,7 @@ import {
   PublicidadQueryOptions,
   CreatePublicidadInput,
   PublicidadPaginator,
+  BlockPublicidadInput,
 } from '@/types/publicidad'
 import { HttpClient } from './http-client'
 import { API_ENDPOINTS } from './api-endpoints'
@@ -13,6 +14,19 @@ export const publicidadClient = {
   ...crudFactory<Publicidad, QueryOptions, CreatePublicidadInput>(
     API_ENDPOINTS.PUBLICIDAD
   ),
+
+  unblock: (variables: BlockPublicidadInput) => {
+    return HttpClient.put(
+      `${API_ENDPOINTS.PUBLICIDAD}/${variables.id}/unblock`,
+      variables
+    )
+  },
+  block: (variables: BlockPublicidadInput) => {
+    return HttpClient.put(
+      `${API_ENDPOINTS.PUBLICIDAD}/${variables.id}/block`,
+      variables
+    )
+  },
   pagination: ({ search, ...params }: Partial<PublicidadQueryOptions>) => {
     return HttpClient.get<PublicidadPaginator>(API_ENDPOINTS.PUBLICIDAD, {
       ...params,

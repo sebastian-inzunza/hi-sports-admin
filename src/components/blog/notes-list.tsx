@@ -32,13 +32,6 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
 
   const columns: any = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-      align: 'center' as AlignType,
-      width: 64,
-    },
-    {
       title: 'Imágen',
       dataIndex: 'image',
       key: 'image',
@@ -55,17 +48,11 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
       ),
     },
     {
-      title: <TitleWithSort title="Título" ascending={true} isActive={false} />,
+      title: 'Título',
       dataIndex: 'title',
       key: 'title',
       align: 'center' as AlignType,
       width: 170,
-    },
-    {
-      title: 'Contenido',
-      dataIndex: 'content',
-      key: 'content',
-      align: 'center' as AlignType,
     },
 
     {
@@ -120,6 +107,9 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
               id={id}
               deleteModalView={'DELETE_NOTE'}
               detailsUrl={Routes.blog.details({ id: note.slug })}
+              detailsUrlBlog={
+                Routes.blog.details({ id: note.slug }) + '/' + 'details'
+              }
             />
             {/* )} */}
           </>

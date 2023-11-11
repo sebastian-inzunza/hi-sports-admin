@@ -55,6 +55,35 @@ export const usePublicidadDeleteMutation = () => {
   })
 }
 
+export const publicidadUnblockUserMutation = () => {
+  const router = useRouter()
+
+  const queryClient = useQueryClient()
+
+  return useMutation(publicidadClient.unblock, {
+    onSuccess() {
+      router.push('/publicidad')
+      // toast.success('User unblocked successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.PUBLICIDAD)
+    },
+  })
+}
+
+export const publicidadBlockUserMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation(publicidadClient.block, {
+    onSuccess() {
+      toast.success('Publicidad bloqueada con exito')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS)
+    },
+  })
+}
+
 export const useCreatePublicidadMutation = () => {
   const queryClient = useQueryClient()
   const router = useRouter()

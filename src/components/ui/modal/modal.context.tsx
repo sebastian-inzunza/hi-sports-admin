@@ -2,6 +2,7 @@
 import React from 'react'
 
 export type MODAL_VIEWS =
+  | 'BAN_PUBLICIDAD'
   | 'BAN_CUSTOMER'
   | 'MAKE_ADMIN'
   | 'SELECT_USER'

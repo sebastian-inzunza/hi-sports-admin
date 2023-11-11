@@ -44,7 +44,7 @@ const LoginForm = () => {
               setErrorMessage('form:error-enough-permission')
             }
           } else {
-            setErrorMessage('form:error-credential-wrong')
+            setErrorMessage('Cuando el correo no esta registrado')
           }
         },
         onError: () => {
@@ -52,7 +52,7 @@ const LoginForm = () => {
           if (messages?.response?.data?.message) {
             setErrorMessage(messages?.response?.data?.message[0])
           } else {
-            setErrorMessage('form:error-credential-wrong')
+            setErrorMessage('Cuando el correo no esta registrado')
           }
         },
       }
@@ -93,7 +93,7 @@ const LoginForm = () => {
       </Form>
       {errorMessage ? (
         <Alert
-          message={t(errorMessage)}
+          message="Cuando el correo no esta registrado"
           variant="error"
           closeable={true}
           className="mt-5"

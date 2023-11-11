@@ -22,6 +22,10 @@ type Props = {
   isUserActive?: boolean
   userStatus?: boolean
   isShopActive?: boolean
+
+  isPublicidadActive?: boolean
+  publicidadStatus?: boolean
+  isShopActivePublicidad?: boolean
   approveButton?: boolean
   //show contact with user
   showContact?: boolean
@@ -42,6 +46,11 @@ const ActionButtons = ({
   userStatus = false,
   isUserActive = false,
   isShopActive,
+
+  isPublicidadActive = false,
+  publicidadStatus = false,
+  isShopActivePublicidad,
+
   approveButton = false,
   showMakeAdminButton = false,
   showReplyQuestion = false,
@@ -61,6 +70,10 @@ const ActionButtons = ({
 
   function handleUserStatus(banned: boolean) {
     openModal('BAN_CUSTOMER', { id, banned })
+  }
+
+  function handlePublicidadStatus(banned: boolean) {
+    openModal('BAN_PUBLICIDAD', { id, banned })
   }
 
   function handleMakeAdmin() {
@@ -144,7 +157,7 @@ const ActionButtons = ({
         <>
           {isUserActive ? (
             <button
-              onClick={() => handleUserStatus(false)}
+              onClick={() => handleStatus(false)}
               className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
               title={'Bloquear'}
             >
@@ -163,6 +176,33 @@ const ActionButtons = ({
           )}
         </>
       )}
+
+      {publicidadStatus && (
+        <>
+          {isPublicidadActive ? (
+            <button
+              onClick={() => handlePublicidadStatus(false)}
+              className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
+              title={'Bloquear'}
+            >
+              <Tooltip title="Bloquear publicidad" position="top">
+                <BanUser width={20} />
+              </Tooltip>
+            </button>
+          ) : (
+            <button
+              onClick={() => handlePublicidadStatus(true)}
+              className="text-accent transition duration-200 hover:text-accent focus:outline-none"
+              title={'Activar'}
+            >
+              <Tooltip title="Activar publicidad" position="top">
+                <CheckMarkCircle width={20} />
+              </Tooltip>
+            </button>
+          )}
+        </>
+      )}
+
       {editUrl && (
         <Link
           href={editUrl}
