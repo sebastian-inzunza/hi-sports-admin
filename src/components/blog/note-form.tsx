@@ -22,7 +22,6 @@ import Label from '../ui/label'
 import SelectInput from '../ui/select-input'
 import { getErrorMessage } from '@/utils/form-error'
 import { useState } from 'react'
-import Image from 'next/image'
 
 type FormValues = {
   id: number
@@ -66,7 +65,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     }),
   })
 
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(initialValues?.content || '')
 
   const handleChange = (value: any) => {
     setContent(value)
@@ -146,14 +145,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <FileInput name="image" control={control} multiple={false} />
-          {initialValues?.image && (
-            <Image
-              src={initialValues?.image}
-              alt="Category Image"
-              width={100}
-              height={100}
-            />
-          )}
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
@@ -182,11 +173,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
 
           <div className="my-5">
             <h2 className="text-sm font-bold text-gray-600">Sinopsis</h2>
-            <ReactQuill
-              theme="snow"
-              value={initialValues?.content}
-              onChange={handleChange}
-            />
+            <ReactQuill theme="snow" value={content} onChange={handleChange} />
           </div>
 
           <div className="mb-0">
