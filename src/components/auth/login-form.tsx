@@ -91,12 +91,13 @@ const LoginForm = () => {
           </>
         )}
       </Form>
+      <div></div>
       {errorMessage ? (
         <Alert
           message="Correo no registrado"
           variant="error"
           closeable={true}
-          className="mt-5"
+          className="mt-5 text-center"
           onClose={() => setErrorMessage(null)}
         />
       ) : null}
