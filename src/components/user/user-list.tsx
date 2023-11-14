@@ -18,6 +18,8 @@ type UserListProps = {
 const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
   const router = useRouter()
 
+  console.log(users)
+
   const columns = [
     {
       title: 'Avatar',

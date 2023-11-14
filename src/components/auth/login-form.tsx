@@ -44,7 +44,7 @@ const LoginForm = () => {
               setErrorMessage('form:error-enough-permission')
             }
           } else {
-            setErrorMessage('Correo no registrado')
+            setErrorMessage('Credenciales invalidas')
           }
         },
         onError: () => {
@@ -52,7 +52,7 @@ const LoginForm = () => {
           if (messages?.response?.data?.message) {
             setErrorMessage(messages?.response?.data?.message[0])
           } else {
-            setErrorMessage('Correo no registrado')
+            setErrorMessage('Credenciales invalidas')
           }
         },
       }
@@ -94,7 +94,7 @@ const LoginForm = () => {
       <div></div>
       {errorMessage ? (
         <Alert
-          message="Correo no registrado"
+          message="Credenciales invalidas"
           variant="error"
           closeable={true}
           className="mt-5 text-center"

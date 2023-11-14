@@ -80,7 +80,7 @@ const VideoBlogForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title="Video Blog"
-          details="Esta sección es para subir la ruta del video, el cual se mostrará al abrir la imagén"
+          details="Esta sección es para subir la ruta del video, el cual se mostrará al abrir la imagen"
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 

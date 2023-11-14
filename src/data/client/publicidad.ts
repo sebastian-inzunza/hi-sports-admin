@@ -15,18 +15,15 @@ export const publicidadClient = {
     API_ENDPOINTS.PUBLICIDAD
   ),
 
-  unblock: (variables: BlockPublicidadInput) => {
+  blockUnblock: (variables: BlockPublicidadInput) => {
     return HttpClient.put(
-      `${API_ENDPOINTS.PUBLICIDAD}/${variables.id}/unblock`,
-      variables
+      `${API_ENDPOINTS.PUBLICIDAD}/${variables.id}/block-unblock`,
+      {
+        banned: variables.banned,
+      }
     )
   },
-  block: (variables: BlockPublicidadInput) => {
-    return HttpClient.put(
-      `${API_ENDPOINTS.PUBLICIDAD}/${variables.id}/block`,
-      variables
-    )
-  },
+
   pagination: ({ search, ...params }: Partial<PublicidadQueryOptions>) => {
     return HttpClient.get<PublicidadPaginator>(API_ENDPOINTS.PUBLICIDAD, {
       ...params,

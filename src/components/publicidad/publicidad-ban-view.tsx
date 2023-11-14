@@ -1,11 +1,11 @@
-import { useBlockUserMutation, useUnblockUserMutation } from '@/data/users'
+import { publicidadUnblockUserMutation } from '@/data/publicidad'
 import ConfirmationCard from '../common/confirmation-card'
 import { useModalAction, useModalState } from '../ui/modal/modal.context'
 
 const UserBanView = () => {
   const { data } = useModalState()
-  const { mutate: unblockUser, isLoading: loading } = useUnblockUserMutation()
-  const { mutate: blockUser, isLoading: activeLoading } = useBlockUserMutation()
+  const { mutate: unblockUser, isLoading: loading } =
+    publicidadUnblockUserMutation()
 
   const { closeModal } = useModalAction()
 
@@ -16,7 +16,7 @@ const UserBanView = () => {
         banned: !data.banned,
       })
     } else {
-      blockUser({
+      unblockUser({
         id: data.id,
         banned: !data.banned,
       })
@@ -29,12 +29,12 @@ const UserBanView = () => {
       onCancel={closeModal}
       onDelete={handleDelete}
       deleteBtnText={data?.banned ? 'Desbloquear' : 'Bloquear'}
-      title={data?.banned ? 'Desbloquear usuario' : 'Bloquear Usuario'}
-      deleteBtnLoading={loading || activeLoading}
+      title={data?.banned ? 'Desbloquear publicidad' : 'Bloquear publicidad'}
+      deleteBtnLoading={loading}
       description={
         data?.banned
-          ? '¿Estás seguro de que quieres desbloquear este usuario?'
-          : '¿Estás seguro de que quieres bloquear este usuario?'
+          ? '¿Estás seguro de que quieres desbloquear este publicidad?'
+          : '¿Estás seguro de que quieres bloquear este publicidad?'
       }
     />
   )

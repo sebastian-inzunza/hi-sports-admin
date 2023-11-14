@@ -6,13 +6,13 @@ import ErrorMessage from '@/components/ui/error-message'
 import Layout from '@/components/layout/admin'
 import Loader from '@/components/ui/loader/loader'
 
-import { usePresentadorByIdQuery } from '@/data/presentador'
-import CastForm from '@/components/presentadores/presentadores-form'
+import { usePublicidadByIdQuery } from '@/data/publicidad'
+import PublicidadView from '@/components/publicidad/publicidad-view'
 
-export default function UpdateCastsPage() {
+export default function UpdateVideotecaPage() {
   const { query } = useRouter()
   const { t } = useTranslation()
-  const { presentador, loading, error } = usePresentadorByIdQuery({
+  const { publicidad, loading, error } = usePublicidadByIdQuery({
     id: query.id as string,
   })
 
@@ -23,15 +23,15 @@ export default function UpdateCastsPage() {
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
         <h1 className="text-lg font-semibold text-heading">
-          Actualizar presentador
+          Editar Publicidad
         </h1>
       </div>
-      <CastForm defaultValues={presentador} />
+      <PublicidadView defaultValues={publicidad} />
     </>
   )
 }
 
-UpdateCastsPage.Layout = Layout
+UpdateVideotecaPage.Layout = Layout
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {

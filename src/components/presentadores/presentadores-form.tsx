@@ -88,8 +88,8 @@ const PresentadorForm = ({ defaultValues }: { defaultValues?: any }) => {
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
-          title="Informacion"
-          details="Esta sección es para colocar el nombre del presentador y su redireccionamiento, ya que podra ser presionado el presentador."
+          title="Información"
+          details="Esta sección es para colocar el nombre del presentador y su redireccionamiento, ya que podrá ser presionado el presentador."
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 

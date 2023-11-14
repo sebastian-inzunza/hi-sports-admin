@@ -4,12 +4,15 @@ export type Publicidad = {
   id?: number
   image: string | null
   url: string | null
-  activo: boolean
+  banned: boolean
+  company: string
+  createdAt: string
 }
 
 export type CreatePublicidadInput = {
-  image: string | null
-  url: String | null
+  image: string
+  url: String
+  company: string
 }
 
 export interface BlockPublicidadInput {

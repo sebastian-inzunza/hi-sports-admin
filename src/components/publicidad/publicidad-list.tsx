@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Pagination from '../ui/pagination'
-import { Table } from '../ui/table'
+import StatusColor from './publicidad-banned-color'
 
 import { siteSettings } from '@/settings/site.settings'
 import { MappedPaginatorInfo } from '@/types'
@@ -8,6 +8,8 @@ import { Publicidad } from '@/types/publicidad'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
+import { AlignType, Table } from '../ui/table'
+import Badge from '../ui/badge/badge'
 
 type PublicidadListProps = {
   publicidades: Publicidad[] | null | undefined
@@ -51,18 +53,40 @@ const PublicidadList = ({
     },
 
     {
+      title: 'Compañía',
+      dataIndex: 'company',
+      key: 'company',
+      align: 'center',
+    },
+    {
+      title: 'Estatus',
+      dataIndex: 'banned',
+      key: 'banned',
+      align: 'center' as AlignType,
+      render: (banned: true) => (
+        <Badge
+          text={banned ? 'Inactivo' : 'Activo'}
+          color={StatusColor(banned)}
+        />
+      ),
+    },
+
+    {
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      render: (id: string, { activo }: Publicidad) => {
+      render: (id: string, { banned }: Publicidad) => {
         return (
           <ActionButtons
             id={id}
-            editUrl={Routes.publicidad.edit({ id })}
-            deleteModalView={'MODAL_PUBLICIDAD'}
+            editUrl={!banned ? Routes.publicidad.edit({ id }) : ''}
+            deleteModalView={!banned ? 'MODAL_PUBLICIDAD' : ''}
             publicidadStatus={true}
-            isPublicidadActive={!activo}
+            isPublicidadActive={!banned}
+            detailsUrl={
+              !banned ? Routes.publicidad.details({ id }) + '/' + 'details' : ''
+            }
           />
         )
       },
