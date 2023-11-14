@@ -10,17 +10,11 @@ const UserBanView = () => {
   const { closeModal } = useModalAction()
 
   async function handleDelete() {
-    if (data?.banned) {
-      unblockUser({
-        id: data.id,
-        banned: !data.banned,
-      })
-    } else {
-      unblockUser({
-        id: data.id,
-        banned: !data.banned,
-      })
-    }
+    unblockUser({
+      id: data.id,
+      banned: data.banned,
+    })
+
     // await deleteUser(data.id);
     closeModal()
   }

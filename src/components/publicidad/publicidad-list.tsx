@@ -65,8 +65,8 @@ const PublicidadList = ({
       align: 'center' as AlignType,
       render: (banned: true) => (
         <Badge
-          text={banned ? 'Inactivo' : 'Activo'}
-          color={StatusColor(banned)}
+          text={!banned ? 'Inactivo' : 'Activo'}
+          color={StatusColor(!banned)}
         />
       ),
     },
@@ -80,12 +80,12 @@ const PublicidadList = ({
         return (
           <ActionButtons
             id={id}
-            editUrl={!banned ? Routes.publicidad.edit({ id }) : ''}
-            deleteModalView={!banned ? 'MODAL_PUBLICIDAD' : ''}
+            editUrl={banned ? Routes.publicidad.edit({ id }) : ''}
+            deleteModalView={banned ? 'MODAL_PUBLICIDAD' : ''}
             publicidadStatus={true}
-            isPublicidadActive={!banned}
+            isPublicidadActive={banned}
             detailsUrl={
-              !banned ? Routes.publicidad.details({ id }) + '/' + 'details' : ''
+              banned ? Routes.publicidad.details({ id }) + '/' + 'details' : ''
             }
           />
         )
