@@ -55,7 +55,7 @@ export const Routes = {
     ...routesFactory('/videoBlog'),
   },
   publicidad: {
-    ...routesFactory('/prueba'),
+    ...routesFactory('/publicy'),
   },
 }
 

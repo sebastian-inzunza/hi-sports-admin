@@ -62,7 +62,7 @@ export const publicidadUnblockUserMutation = () => {
 
   return useMutation(publicidadClient.blockUnblock, {
     onSuccess() {
-      router.push('/prueba')
+      router.push('/publicy')
       // toast.success('User unblocked successfully')
     },
     onSettled: () => {
