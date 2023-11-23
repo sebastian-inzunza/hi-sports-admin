@@ -87,7 +87,7 @@ const PresentadorList = ({
         <div className="flex items-center justify-end">
           <Pagination
             total={paginatorInfo.total}
-            current={paginatorInfo.currentPage}
+            current={parseInt(paginatorInfo.currentPage)}
             pageSize={paginatorInfo.perPage}
             onChange={onPagination}
           />

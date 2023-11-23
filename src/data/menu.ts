@@ -41,7 +41,7 @@ export const useMenuDeleteMutation = () => {
 
   return useMutation(menuClient.delete, {
     onSuccess: () => {
-      toast.success('Se ha eliminado el menu correctamente')
+      toast.success('Se ha eliminado el menú correctamente')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.MENU)
@@ -54,8 +54,11 @@ export const useCreateMenuMutation = () => {
   const router = useRouter()
 
   return useMutation(menuClient.create, {
-    onSuccess: () => {
-      router.back()
+    onSuccess: async () => {
+      await router.back() // Espera a que la navegación se complete
+      setTimeout(() => {
+        toast.success('Se ha creado el menú')
+      }, 400) // Espera 400 milisegundos antes de mostrar el Toast
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -74,7 +77,7 @@ export const useUpdateMenuMutation = () => {
   return useMutation(menuClient.update, {
     onSuccess: () => {
       router.back()
-      toast.success('Se ha actualizado la imagen con video correctamente')
+      toast.success('Se ha actualizado el menú con exito')
     },
     // Always refetch after error or success:
     onSettled: () => {

@@ -1,13 +1,13 @@
-import Uploader from "@/components/common/uploader";
-import { Controller } from "react-hook-form";
+import Uploader from '@/components/common/uploader'
+import { Controller } from 'react-hook-form'
 
 interface FileInputProps {
-  control: any;
-  name: string;
-  multiple?: boolean;
-  acceptFile?: boolean;
-  helperText?: string;
-  defaultValue?: any;
+  control: any
+  name: string
+  multiple?: boolean
+  acceptFile?: boolean
+  helperText?: string
+  defaultValue?: any
 }
 
 const FileInput = ({
@@ -32,7 +32,7 @@ const FileInput = ({
         />
       )}
     />
-  );
-};
+  )
+}
 
-export default FileInput;
+export default FileInput

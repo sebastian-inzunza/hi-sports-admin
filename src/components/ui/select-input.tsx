@@ -52,9 +52,7 @@ const SelectInput = ({
             options={options}
             isDisabled={disabled as boolean}
           />
-          {error && (
-            <p className="my-2 text-end text-xs text-red-500">{error}</p>
-          )}
+          {error && <p className="my-2 text-xs text-red-500">{error}</p>}
         </div>
       )}
     />

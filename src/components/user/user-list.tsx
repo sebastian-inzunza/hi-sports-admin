@@ -75,11 +75,15 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
         return (
           <ActionButtons
             id={id}
-            userStatus={true}
+            userStatus={role !== 'SUPER_ADMIN' && true}
             isUserActive={!banned}
-            showMakeAdminButton={!banned ? true : false}
+            showMakeAdminButton={
+              role !== 'SUPER_ADMIN' && !banned ? true : false
+            }
             profileUrl={!banned ? router.asPath + '/' + id + '/profile' : ''}
-            detailsUrl={!banned ? router.asPath + '/' + id : ''}
+            detailsUrl={
+              role !== 'SUPER_ADMIN' && !banned ? router.asPath + '/' + id : ''
+            }
             role={role as Role}
           />
         )

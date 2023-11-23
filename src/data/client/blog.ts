@@ -3,7 +3,12 @@ import { API_ENDPOINTS } from '@/data/client/api-endpoints'
 import { HttpClient } from '@/data/client/http-client'
 import { QueryOptions } from '@/types'
 import { crudFactory } from './crud-factory'
-import { BlogResponse, CreateInputNote, Note } from '@/types/blog'
+import {
+  BlogResponse,
+  CreateInputNote,
+  Note,
+  BlockBlogInput,
+} from '@/types/blog'
 
 export const blogClient = {
   ...crudFactory<Note, QueryOptions, CreateInputNote>(API_ENDPOINTS.BLOG),
@@ -12,5 +17,13 @@ export const blogClient = {
       ...params,
       search,
     })
+  },
+  blockUnblock: (variables: BlockBlogInput) => {
+    return HttpClient.put(
+      `${API_ENDPOINTS.BLOG}/${variables.id}/block-unblock`,
+      {
+        banned: variables.banned,
+      }
+    )
   },
 }

@@ -22,7 +22,7 @@ export const usePresentadorQuery = (
     }
   )
   return {
-    presentador: data?.data,
+    presentador: data?.cast,
     loading: isLoading,
     paginatorInfo: mapPaginatorData(data as any),
     error,
@@ -60,8 +60,11 @@ export const useCreatePresentadorMutation = () => {
   const router = useRouter()
 
   return useMutation(presentadorClient.create, {
-    onSuccess: () => {
-      router.back()
+    onSuccess: async () => {
+      await router.back() // Espera a que la navegación se complete
+      setTimeout(() => {
+        toast.success('Se ha creado el presentador con exito')
+      }, 400) // Espera 400 milisegundos antes de mostrar el Toast
     },
     // Always refetch after error or success:
     onSettled: () => {

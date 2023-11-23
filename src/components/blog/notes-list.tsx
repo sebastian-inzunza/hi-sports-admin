@@ -13,6 +13,8 @@ import ActionButtons from '../common/action-buttons'
 import { useMeQuery } from '@/data/user'
 import { useTranslation } from 'react-i18next'
 import { format } from 'date-fns'
+import Badge from '../ui/badge/badge'
+import StatusColor from './note-banned-color'
 
 type NotesListProps = {
   notes: Note[] | null | undefined
@@ -66,6 +68,18 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
         return <>{formateDate}</>
       },
     },
+    {
+      title: 'Estatus',
+      dataIndex: 'banned',
+      key: 'banned',
+      align: 'center' as AlignType,
+      render: (banned: true) => (
+        <Badge
+          text={!banned ? 'Inactivo' : 'Activo'}
+          color={StatusColor(!banned)}
+        />
+      ),
+    },
 
     // {
     //   title: 'Aprobado',
@@ -105,11 +119,17 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
             {/* {data?.id.toString() != id && ( */}
             <ActionButtons
               id={id}
-              deleteModalView={'DELETE_NOTE'}
-              detailsUrl={Routes.blog.details({ id: note.slug })}
-              detailsUrlBlog={
-                Routes.blog.details({ id: note.slug }) + '/' + 'details'
+              deleteModalView={note.banned ? 'DELETE_NOTE' : ''}
+              detailsUrl={
+                note.banned ? Routes.blog.details({ id: note.slug }) : ''
               }
+              detailsUrlBlog={
+                note.banned
+                  ? Routes.blog.details({ id: note.slug }) + '/' + 'details'
+                  : ''
+              }
+              blogStatus={true}
+              isBlogActive={note.banned}
             />
             {/* )} */}
           </>

@@ -7,6 +7,8 @@ export type VideoBlog = {
   title: string
   content: string
   slug: string
+  autor: string
+  plataform: string
 }
 
 export type CreateViodeoBlogInput = {
@@ -14,6 +16,8 @@ export type CreateViodeoBlogInput = {
   url: string
   title: string
   content: string
+  plataform: string
+  autor: string
 }
 
 export interface VideoBlogQueryOptions extends QueryOptions {

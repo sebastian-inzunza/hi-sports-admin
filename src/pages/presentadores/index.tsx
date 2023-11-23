@@ -17,7 +17,7 @@ function Presentadores({}: Props) {
   const [page, setPage] = useState(1)
 
   const { presentador, error, loading, paginatorInfo } = usePresentadorQuery({
-    limit: 10,
+    limit: 5,
     page,
     search: searchTerm,
   })

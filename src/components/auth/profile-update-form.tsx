@@ -10,10 +10,12 @@ import FileInput from '../ui/file-input'
 import Input from '../ui/input'
 import Button from '../ui/button'
 import { useRouter } from 'next/router'
+import { Role } from '@/types/users'
+import Select from '../ui/select/select'
 
 export default function ProfileUpdateForm({ me }: UsersResponse | any) {
   const { mutate: updateUser, isLoading: loading } = useUpdateUserMutation()
-  const { register, control, handleSubmit } = useForm({
+  const { register, control, handleSubmit, setValue } = useForm({
     defaultValues: {
       ...(me &&
         pick(me, [
@@ -39,6 +41,17 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
   }
 
   const router = useRouter()
+
+  const roleOptions = [
+    {
+      label: 'Usuario',
+      value: Role.User,
+    },
+    {
+      label: 'Operador',
+      value: Role.Operator,
+    },
+  ]
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,10 +108,25 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             label="Rol"
             {...register('role')}
             variant="outline"
-            className="mb-5"
             disabled={true}
+            className="mb-5"
           />
-
+          <span style={{ color: '#4b5563' }} className="text-sm font-bold">
+            Cambiar Rol
+          </span>
+          <Select
+            name="role"
+            isLoading={loading}
+            options={roleOptions}
+            getOptionLabel={(option: any) => option?.label}
+            getOptionValue={(option: any) => option?.value}
+            placeholder="Rol del usuario"
+            isClearable={true}
+            onChange={(selectedOption) =>
+              setValue('role', selectedOption?.value)
+            }
+          />
+          <div className="mb-4"></div>
           <Input
             label="Nombre de usuario"
             {...register('username')}

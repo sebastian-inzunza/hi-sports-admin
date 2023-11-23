@@ -28,6 +28,7 @@ type FormValues = {
   slug?: string
   image?: string
   categoryId?: any
+  user?: any
 }
 
 type IProps = {
@@ -76,19 +77,46 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
       <div className="my-5 flex flex-wrap justify-center border-b border-dashed border-border-base pb-8 sm:my-8">
         <Card className=" w-full  sm:w-8/12 md:w-2/3">
           <div className="flex-col">
-            <h2 className="mb-2 text-left text-2xl font-bold text-purple-900">
-              Titulo del blog
-            </h2>
-            <p className="text-justify text-lg text-stone-800">
-              {initialValues?.title}
-            </p>
+            <div className="grid grid-cols-2">
+              <div>
+                <h2 className="mb-2 text-left text-2xl font-bold text-purple-900">
+                  Titulo del blog
+                </h2>
+                <p className="text-justify text-lg text-stone-800">
+                  {initialValues?.title}
+                </p>
+              </div>
 
-            <h2 className="mb-2 text-left text-2xl font-bold text-purple-900">
-              Categoría del blog
-            </h2>
-            <p className="text-justify text-lg text-stone-800">
-              {initialValues?.category?.name}
-            </p>
+              <div>
+                <h2 className="mb-2 text-left text-2xl font-bold text-purple-900">
+                  Autor
+                </h2>
+                <p className="text-justify text-lg text-stone-800">
+                  {initialValues?.autor}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2">
+              <div>
+                <h3 className="mb-2 text-left text-2xl font-bold text-purple-900">
+                  Categoría del blog
+                </h3>
+                <p className="text-justify text-lg text-stone-800">
+                  {initialValues?.category?.name}
+                </p>
+              </div>
+              <div>
+                <h3 className="mb-2 text-left text-2xl font-bold text-purple-900">
+                  Usuario que cargo la nota
+                </h3>
+                <p className="text-justify text-lg text-stone-800">
+                  {initialValues?.user?.firstName +
+                    ' ' +
+                    initialValues?.user?.lastName}
+                </p>
+              </div>
+            </div>
 
             <h2 className="mb-2 text-2xl font-bold text-purple-900">
               Sinopsis

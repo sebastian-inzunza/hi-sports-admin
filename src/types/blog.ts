@@ -17,6 +17,14 @@ export interface Note {
   slug: string
   createdAt: string
   updatedAt: string
+  autor: string
+  user: string
+  banned: boolean
+}
+
+export interface BlockBlogInput {
+  id: number
+  banned: boolean
 }
 
 export interface CreateInputNote extends Note {

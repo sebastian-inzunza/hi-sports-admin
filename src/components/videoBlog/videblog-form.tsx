@@ -34,15 +34,25 @@ const VideoBlogForm = ({ defaultValues }: { defaultValues?: any }) => {
   })
 
   async function onSubmit(values: CreateViodeoBlogInput) {
-    if (values.content && values.title && values.url && values.image) {
+    if (
+      values.content &&
+      values.title &&
+      values.url &&
+      values.image &&
+      values.autor &&
+      values.plataform
+    ) {
       const body: any = {
         url: values.url,
         image: values.image,
         content: values.content,
         title: values.title,
+        autor: values.autor,
+        plataform: values.plataform,
+
         slug: slugglify(values.title),
       }
-
+      console.log(body)
       if (!defaultValues) {
         createVideoBlog(body)
       } else {
@@ -96,6 +106,22 @@ const VideoBlogForm = ({ defaultValues }: { defaultValues?: any }) => {
           <Input
             label="Ruta Video"
             {...register('url')}
+            type="text"
+            variant="outline"
+            className="mb-4"
+            error={error}
+          />
+          <Input
+            label="Plataforma del video"
+            {...register('plataform')}
+            type="text"
+            variant="outline"
+            className="mb-4"
+            error={error}
+          />
+          <Input
+            label="Autor"
+            {...register('autor')}
             type="text"
             variant="outline"
             className="mb-4"

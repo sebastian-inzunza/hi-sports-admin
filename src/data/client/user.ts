@@ -25,7 +25,7 @@ export const userClient = {
     )
   },
   register: (variables: UserRegistration) => {
-    return HttpClient.post(API_ENDPOINTS.REGISTER, variables)
+    return HttpClient.post(API_ENDPOINTS.USERS, variables)
   },
   login: (variables: LoginInput) => {
     return HttpClient.post(API_ENDPOINTS.LOGIN, variables)

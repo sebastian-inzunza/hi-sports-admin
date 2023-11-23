@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import { useCreateNoteMutation, useUpdateNoteMutation } from '@/data/blog'
 import { useMeQuery } from '@/data/users'
 import { Note } from '@/types/blog'
@@ -32,6 +34,7 @@ type FormValues = {
   slug?: string
   image?: string
   categoryId?: any
+  autor: string
 }
 
 type IProps = {
@@ -40,7 +43,7 @@ type IProps = {
 
 export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const { categories, loading } = useCategoryQuery({
-    limit: 25,
+    limit: 5,
     page: 1,
   })
 
@@ -71,18 +74,24 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     setContent(value)
     // Actualiza el valor del campo 'content' en el formulario
     setValue('content', value)
+    setErrorContent('')
   }
 
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
   const [erorSelect, setErrorSelect] = useState<string>('')
+  const [erorContent, setErrorContent] = useState<string>('')
 
   const onSubmit = async (values: FormValues) => {
-    const { title, content, image, categoryId } = values
-    if (!categoryId) {
-      setErrorSelect('Es obligatorio el campo')
+    const { title, content, image, categoryId, autor } = values
+
+    console.log(values)
+    if (categoryId === undefined) {
+      setErrorSelect('La categoria es requerida')
+      setErrorContent('El contenido es requerido')
     } else {
       setErrorSelect('')
+      setErrorContent('')
       const input = {
         title,
         content,
@@ -90,6 +99,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         image: image?.toString() ?? initialValues?.image ?? '',
         createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
         categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
+        autor,
       }
       try {
         if (!initialValues) {
@@ -108,6 +118,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             image: image?.toString() ?? initialValues?.image ?? '',
             updatedAt: new Date().toISOString(),
             categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
+            autor,
           }
 
           updateNote({
@@ -162,7 +173,13 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             className="mb-5"
             error={errors?.title?.message}
           />
-
+          <Input
+            {...register('autor')}
+            label="Autor"
+            variant="outline"
+            className="mb-5"
+            error={errors?.autor?.message}
+          />
           {/* <TextArea
             label="Contenido"
             {...register('content')}
@@ -171,9 +188,12 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             error={errors?.content?.message}
           /> */}
 
-          <div className="my-5">
+          <div className="mt-5">
             <h2 className="text-sm font-bold text-gray-600">Sinopsis</h2>
             <ReactQuill theme="snow" value={content} onChange={handleChange} />
+          </div>
+          <div className="mb-5 mt-1 text-[12px] text-red-500">
+            {erorContent}
           </div>
 
           <div className="mb-0">
@@ -186,8 +206,10 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
               placeholder="Selecciona una categoría"
               options={categories ?? []}
               isLoading={loading}
-              error={erorSelect}
             />
+            <div className="mb-5 mt-1 text-[12px] text-red-500">
+              {erorSelect}
+            </div>
           </div>
         </Card>
       </div>

@@ -26,6 +26,10 @@ type Props = {
   profileUrl?: string
   isUserActive?: boolean
   userStatus?: boolean
+
+  isBlogActive?: boolean
+  blogStatus?: boolean
+
   isShopActive?: boolean
   approveButton?: boolean
   showContact?: boolean
@@ -44,8 +48,13 @@ const ActionButtons = ({
   detailsUrl,
   detailsUrlBlog,
   profileUrl,
+
   userStatus = false,
   isUserActive = false,
+
+  blogStatus = false,
+  isBlogActive = false,
+
   isShopActive,
   approveButton = false,
   showMakeAdminButton = false,
@@ -66,6 +75,10 @@ const ActionButtons = ({
 
   function handleUserStatus(banned: boolean) {
     openModal('BAN_CUSTOMER', { id, banned })
+  }
+
+  function handleBlogStatus(banned: boolean) {
+    openModal('BAN_BLOG', { id, banned })
   }
 
   function handleMakeAdmin() {
@@ -168,6 +181,32 @@ const ActionButtons = ({
               title={'Activar'}
             >
               <Tooltip title="Activar" position="top">
+                <CheckMarkCircle width={20} />
+              </Tooltip>
+            </button>
+          )}
+        </>
+      )}
+
+      {blogStatus && (
+        <>
+          {isBlogActive ? (
+            <button
+              onClick={() => handleBlogStatus(false)}
+              className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
+              title={'Bloquear'}
+            >
+              <Tooltip title="Bloquear Blog" position="top">
+                <BanUser width={20} />
+              </Tooltip>
+            </button>
+          ) : (
+            <button
+              onClick={() => handleBlogStatus(true)}
+              className="text-accent transition duration-200 hover:text-accent focus:outline-none"
+              title={'Activar'}
+            >
+              <Tooltip title="Activar publicidad" position="top">
                 <CheckMarkCircle width={20} />
               </Tooltip>
             </button>

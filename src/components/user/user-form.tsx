@@ -14,6 +14,9 @@ import { useEnviromentQuery } from '@/data/enviroment'
 import Select from '../select/select'
 import Loader from '../ui/loader/loader'
 import Label from '../ui/label'
+import { Role } from '@/types/users'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 type FormValues = {
   firstName: string
@@ -23,6 +26,7 @@ type FormValues = {
   middleName?: string
   username: string
   enviroment?: any
+  role: string
 }
 
 const defaultValues: FormValues = {
@@ -32,6 +36,7 @@ const defaultValues: FormValues = {
   password: '',
   middleName: '',
   username: '',
+  role: '',
   enviroment: null,
 }
 
@@ -46,12 +51,24 @@ const UserCreateForm = () => {
   const {
     register,
     handleSubmit,
+    setValue, // Asegúrate de incluir setValue
     formState: { errors },
     setError,
   } = useForm<FormValues>({
     defaultValues,
     resolver: yupResolver(userValidationSchema),
   })
+
+  const roleOptions = [
+    {
+      label: 'Usuario',
+      value: Role.User,
+    },
+    {
+      label: 'Operador',
+      value: Role.Operator,
+    },
+  ]
 
   async function onSubmit({
     firstName,
@@ -60,7 +77,18 @@ const UserCreateForm = () => {
     password,
     middleName,
     username,
+    role,
   }: FormValues) {
+    const body = {
+      firstName,
+      lastName,
+      email,
+      password,
+      middleName: middleName || null,
+      username,
+      role,
+    }
+
     registerUser(
       {
         firstName,
@@ -69,6 +97,7 @@ const UserCreateForm = () => {
         password,
         middleName: middleName || null,
         username,
+        role,
       },
       {
         onError: (error: any) => {
@@ -104,6 +133,7 @@ const UserCreateForm = () => {
             label="Nombre"
             {...register('firstName')}
             type="text"
+            placeholder="Nombre"
             variant="outline"
             className="mb-4"
             error={errors.firstName?.message?.toString()}
@@ -112,12 +142,14 @@ const UserCreateForm = () => {
             label="Apellido"
             className="mb-4"
             variant="outline"
+            placeholder="Apellido"
             {...register('lastName')}
             error={errors.lastName?.message?.toString()}
           />
           <Input
             label="Email"
             className="mb-4"
+            placeholder="Email"
             type="email"
             variant="outline"
             {...register('email')}
@@ -126,16 +158,30 @@ const UserCreateForm = () => {
           <PasswordInput
             {...register('password')}
             label="Contraseña"
+            placeholder="Contraseña"
             className="mb-4"
             variant="outline"
             error={errors.password?.message?.toString()}
           />
           <Input
             label="Usuario"
+            placeholder="Usuario"
             className="mb-4"
             variant="outline"
             {...register('username')}
             error={errors.username?.message?.toString()}
+          />
+          <Select
+            name="role"
+            isLoading={loading}
+            options={roleOptions}
+            getOptionLabel={(option: any) => option?.label}
+            getOptionValue={(option: any) => option?.value}
+            placeholder="Rol del usuario"
+            isClearable={true}
+            onChange={(selectedOption) =>
+              setValue('role', selectedOption?.value)
+            }
           />
 
           {/* <Label className="mb-4">Selecciona el Ambiente</Label>

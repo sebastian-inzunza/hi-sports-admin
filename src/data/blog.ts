@@ -12,9 +12,11 @@ export const useCreateNoteMutation = () => {
   const queryClient = useQueryClient()
   const router = useRouter()
   return useMutation(blogClient.create, {
-    onSuccess: () => {
-      toast.success('Note created successfully')
-      router.back()
+    onSuccess: async () => {
+      await router.back() // Espera a que la navegación se complete
+      setTimeout(() => {
+        toast.success('Se ha creado la nota Correctamente')
+      }, 400) // Espera 400 milisegundos antes de mostrar el Toast
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.BLOG)
@@ -39,6 +41,22 @@ export const useNotesQuery = (options: Partial<QueryOptionsType>) => {
   }
 }
 
+export const blogUnblockUserMutation = () => {
+  const router = useRouter()
+
+  const queryClient = useQueryClient()
+
+  return useMutation(blogClient.blockUnblock, {
+    onSuccess() {
+      router.push('/blog')
+      // toast.success('User unblocked successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.BLOG)
+    },
+  })
+}
+
 export const useNoteQuery = ({ slug }: { slug: string }) => {
   return useQuery<Note, Error>([API_ENDPOINTS.BLOG, slug], () =>
     blogClient.bySlug({ slug })
@@ -50,7 +68,7 @@ export const useUpdateNoteMutation = () => {
   const router = useRouter()
   return useMutation(blogClient.update, {
     onSuccess: () => {
-      toast.success('Note updated successfully')
+      toast.success('Nota actualizada con exito')
       router.back()
     },
     onSettled: () => {
@@ -63,7 +81,7 @@ export const useDeleteNoteMutation = () => {
   const queryClient = useQueryClient()
   return useMutation(blogClient.delete, {
     onSuccess: () => {
-      toast.success('Note deleted successfully')
+      toast.success('Nota eliminada con exito')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.BLOG)
