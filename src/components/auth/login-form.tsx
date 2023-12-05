@@ -39,7 +39,16 @@ const LoginForm = () => {
             const role = data?.role
             if (hasAccess(allowedRoles, role)) {
               setAuthCredentials(data.jwt, data.role)
-              Router.push(Routes.blog.list)
+              if (data.role === 'ADMIN_PUBLICITY') {
+                Router.push(Routes.publicidad.list)
+              } else if (data.role === 'ADMIN_MEDIA') {
+                Router.push(Routes.blog.list)
+              } else if (data.role === 'ADMIN_NOTES') {
+                Router.push(Routes.blog.list)
+              } else {
+                Router.push(Routes.blog.list)
+              }
+              console.log(data.role)
             } else {
               setErrorMessage('form:error-enough-permission')
             }

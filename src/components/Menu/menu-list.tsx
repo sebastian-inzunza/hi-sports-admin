@@ -8,6 +8,7 @@ import { Menu } from '@/types/menu'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
+import { useMeQuery } from '@/data/user'
 
 type MenuListProps = {
   menus: Menu[]
@@ -20,6 +21,7 @@ const CategoryList = ({
   onPagination,
 }: MenuListProps) => {
   console.log('Menus', menus)
+  const { data } = useMeQuery()
 
   const columns: any = [
     {
@@ -53,7 +55,9 @@ const CategoryList = ({
           <ActionButtons
             id={id}
             editUrl={Routes.menu.edit({ id })}
-            deleteModalView={'MODAL_LATERAL_MENU'}
+            deleteModalView={
+              data?.role === 'ADMIN_MEDIA' ? '' : 'MODAL_LATERAL_MENU'
+            }
             // detailsUrl={Routes.categories.details({ id })}
           />
         )

@@ -39,6 +39,11 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   })
 
   async function onSubmit(values: CreateViodetaInput) {
+    //Por si elimina la imagen
+    if (values.image === '') {
+      values.image = defaultValues.image
+    }
+
     if (values.url && values.image) {
       const body: any = {
         url: values.url,
@@ -62,12 +67,29 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
-          title="Imágen"
-          details={'Sube una imágen para los videos en vivo.'}
+          title="Imagen"
+          details={'Sube una Imagen para los videos en vivo.'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="image" control={control} multiple={false} />
+          <div className="flex items-center">
+            {defaultValues?.image && (
+              <div className="flex w-1/4 flex-col justify-center">
+                <span className="text-stone-600">Imagen Actual </span>
+                <Image
+                  src={defaultValues?.image}
+                  alt="Videoteca Image"
+                  width={100}
+                  height={40}
+                />
+              </div>
+            )}
+
+            <div className="w-full">
+              <FileInput name="image" control={control} multiple={false} />
+            </div>
+          </div>
+          {/* <FileInput name="image" control={control} multiple={false} />
           {defaultValues?.image && (
             <Image
               src={defaultValues?.image}
@@ -75,7 +97,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
               width={100}
               height={100}
             />
-          )}
+          )} */}
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">

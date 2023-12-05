@@ -1,7 +1,7 @@
 export const API_ENDPOINTS = {
   VIDEOTECA: 'Banner',
   PUBLICIDAD: 'publicity',
-  VIDEOBLOG: 'videoBlog',
+  VIDEOBLOG: 'videoBlogs',
   MENU: 'Lateral-Menu',
   PRESENTADOR: 'Cast',
   REGISTER: '/auth/signup',

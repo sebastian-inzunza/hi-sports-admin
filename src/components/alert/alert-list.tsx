@@ -27,7 +27,7 @@ const AlertList = ({ alerts, paginatorInfo, onPagination }: AlertListProps) => {
       width: 50,
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       align: 'center' as AlignType,

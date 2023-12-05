@@ -2,6 +2,8 @@
 import pick from 'lodash/pick'
 
 import { useUpdateUserMutation } from '@/data/users'
+import { useMeQuery } from '@/data/users'
+
 import { UsersResponse } from '@/types/users'
 import { useForm } from 'react-hook-form'
 import Card from '../common/card'
@@ -12,9 +14,13 @@ import Button from '../ui/button'
 import { useRouter } from 'next/router'
 import { Role } from '@/types/users'
 import Select from '../ui/select/select'
+import { useState } from 'react'
 
 export default function ProfileUpdateForm({ me }: UsersResponse | any) {
   const { mutate: updateUser, isLoading: loading } = useUpdateUserMutation()
+  const { data } = useMeQuery()
+  const [role, setRole] = useState('')
+
   const { register, control, handleSubmit, setValue } = useForm({
     defaultValues: {
       ...(me &&
@@ -44,12 +50,16 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
 
   const roleOptions = [
     {
-      label: 'Usuario',
-      value: Role.User,
+      label: 'Redactores',
+      value: Role.ADMIN_MEDIA,
     },
     {
-      label: 'Operador',
-      value: Role.Operator,
+      label: 'Ventas',
+      value: Role.ADMIN_PUBLICITY,
+    },
+    {
+      label: 'Coordinador',
+      value: Role.ADMIN_NOTES,
     },
   ]
 
@@ -104,28 +114,57 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
             disabled={true}
           />
 
-          <Input
+          {/* <Input
             label="Rol"
             {...register('role')}
             variant="outline"
             disabled={true}
             className="mb-5"
-          />
-          <span style={{ color: '#4b5563' }} className="text-sm font-bold">
-            Cambiar Rol
-          </span>
-          <Select
-            name="role"
-            isLoading={loading}
-            options={roleOptions}
-            getOptionLabel={(option: any) => option?.label}
-            getOptionValue={(option: any) => option?.value}
-            placeholder="Rol del usuario"
-            isClearable={true}
-            onChange={(selectedOption) =>
-              setValue('role', selectedOption?.value)
-            }
-          />
+          /> */}
+
+          <div className="mb-3 flex flex-col">
+            <span style={{ color: '#4b5563' }} className="text-sm font-bold">
+              Rol
+            </span>
+            <input
+              className="rounded-md py-3"
+              disabled={true}
+              style={{ backgroundColor: '#eff1f4', borderColor: '#d1d5db' }}
+              type="text"
+              value={
+                me.role === 'SUPER_ADMIN'
+                  ? 'Administrador'
+                  : me.role === 'ADMIN_MEDIA'
+                  ? 'Redactor'
+                  : me.role === 'ADMIN_PUBLICITY'
+                  ? 'Ventas'
+                  : me.role === 'ADMIN_NOTES'
+                  ? 'Coordinador'
+                  : ''
+              }
+            />
+          </div>
+
+          {data?.role === 'SUPER_ADMIN' ? (
+            <>
+              <span style={{ color: '#4b5563' }} className="text-sm font-bold">
+                Cambiar Rol
+              </span>
+              <Select
+                name="role"
+                isLoading={loading}
+                options={roleOptions}
+                getOptionLabel={(option: any) => option?.label}
+                getOptionValue={(option: any) => option?.value}
+                placeholder="Rol del usuario"
+                isClearable={true}
+                onChange={(selectedOption) =>
+                  setValue('role', selectedOption?.value)
+                }
+              />
+            </>
+          ) : null}
+
           <div className="mb-4"></div>
           <Input
             label="Nombre de usuario"

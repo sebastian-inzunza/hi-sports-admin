@@ -28,7 +28,7 @@ const CategoryList = ({
       key: 'id',
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (

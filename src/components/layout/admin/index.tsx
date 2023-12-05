@@ -6,7 +6,12 @@ import SidebarItem from '@/components/layout/navigation/sidebar-item'
 import logo from '../../../assets/placeholders/logo-His.png'
 import Image from 'next/image'
 import { useMeQuery } from '@/data/user'
-import { SUPER_ADMIN } from '@/utils/constants'
+import {
+  SUPER_ADMIN,
+  ADMIN_NOTES,
+  ADMIN_PUBLICITY,
+  ADMIN_MEDIA,
+} from '@/utils/constants'
 
 const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({
   children,
@@ -16,19 +21,38 @@ const AdminLayout: React.FC<{ children?: React.ReactNode }> = ({
 
   const SidebarItemMap = () => (
     <>
-      {data?.role !== SUPER_ADMIN ? (
+      {data?.role === ADMIN_NOTES ? (
         <>
-          {siteSettings.sidebarLinks.users.map(({ href, label, icon }) => (
-            <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
-          ))}
+          {siteSettings.sidebarLinks.coordinador.map(
+            ({ href, label, icon }) => (
+              <SidebarItem
+                href={href}
+                label={t(label)}
+                icon={icon}
+                key={href}
+              />
+            )
+          )}
         </>
-      ) : (
+      ) : data?.role === SUPER_ADMIN ? (
         <>
           {siteSettings.sidebarLinks.admin.map(({ href, label, icon }) => (
             <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
           ))}
         </>
-      )}
+      ) : data?.role === ADMIN_PUBLICITY ? (
+        <>
+          {siteSettings.sidebarLinks.ventas.map(({ href, label, icon }) => (
+            <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
+          ))}
+        </>
+      ) : data?.role === ADMIN_MEDIA ? (
+        <>
+          {siteSettings.sidebarLinks.redactor.map(({ href, label, icon }) => (
+            <SidebarItem href={href} label={t(label)} icon={icon} key={href} />
+          ))}
+        </>
+      ) : null}
     </>
   )
 

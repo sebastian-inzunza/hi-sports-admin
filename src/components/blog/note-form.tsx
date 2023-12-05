@@ -63,7 +63,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     ...(Boolean(initialValues) && {
       defaultValues: {
         ...initialValues,
-        content: initialValues?.content ?? '', // Incluye el contenido del editor
       },
     }),
   })
@@ -85,8 +84,13 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const onSubmit = async (values: FormValues) => {
     const { title, content, image, categoryId, autor } = values
 
-    console.log(values)
-    if (categoryId === undefined) {
+    //Por si elimina la imagen
+
+    if (values.image === '') {
+      values.image = initialValues?.image
+    }
+
+    if (categoryId === undefined || content === '') {
       setErrorSelect('La categoria es requerida')
       setErrorContent('El contenido es requerido')
     } else {
@@ -113,14 +117,15 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         } else {
           const input2 = {
             title,
-            content,
+            content:
+              values.content === undefined
+                ? initialValues.content
+                : values.content,
             slug: slugglify(title),
-            image: image?.toString() ?? initialValues?.image ?? '',
-            updatedAt: new Date().toISOString(),
+            image: values.image,
             categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
             autor,
           }
-
           updateNote({
             id: initialValues?.id.toString() ?? '0',
             ...input2,
@@ -150,12 +155,31 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
-          title="Imágen"
+          title="Imagen"
           details={imageInformation}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
-          <FileInput name="image" control={control} multiple={false} />
+          {/* <FileInput name="image" control={control} multiple={false} /> */}
+
+          <div className="flex items-center">
+            {initialValues?.image && (
+              <div className="flex w-1/4 flex-col justify-center">
+                <span className="text-stone-600">Imagen Actual </span>
+
+                <img
+                  src={initialValues?.image}
+                  alt="Imagen blog"
+                  width={100}
+                  height={40}
+                />
+              </div>
+            )}
+
+            <div className="w-full">
+              <FileInput name="image" control={control} multiple={false} />
+            </div>
+          </div>
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">

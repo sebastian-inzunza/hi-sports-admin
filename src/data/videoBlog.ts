@@ -96,3 +96,19 @@ export const useUpdateVideoBlogMutation = () => {
     },
   })
 }
+
+export const videoBlogUnblockUserMutation = () => {
+  const router = useRouter()
+
+  const queryClient = useQueryClient()
+
+  return useMutation(videoBlogClient.blockUnblock, {
+    onSuccess() {
+      router.push('/videoBlog')
+      // toast.success('User unblocked successfully')
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.VIDEOBLOG)
+    },
+  })
+}

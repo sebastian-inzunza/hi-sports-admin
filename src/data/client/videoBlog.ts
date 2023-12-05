@@ -3,6 +3,7 @@ import {
   VideoBlogQueryOptions,
   CreateViodeoBlogInput,
   VideoBlogPaginator,
+  VideoBlogInput,
 } from '@/types/videoBlog'
 import { HttpClient } from './http-client'
 import { API_ENDPOINTS } from './api-endpoints'
@@ -18,5 +19,14 @@ export const videoBlogClient = {
       ...params,
       search,
     })
+  },
+
+  blockUnblock: (variables: VideoBlogInput) => {
+    return HttpClient.put(
+      `${API_ENDPOINTS.VIDEOBLOG}/${variables.id}/block-unblock`,
+      {
+        banned: variables.banned,
+      }
+    )
   },
 }

@@ -8,6 +8,7 @@ import { Videoteca } from '@/types/videoteca'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
+import { useMeQuery } from '@/data/user'
 
 type VideotecaListProps = {
   videotecas: Videoteca[] | null | undefined
@@ -20,6 +21,7 @@ const VideotecaList = ({
   onPagination,
 }: VideotecaListProps) => {
   console.log('videotecas', videotecas)
+  const { data } = useMeQuery()
 
   const columns: any = [
     {
@@ -29,7 +31,7 @@ const VideotecaList = ({
       align: 'center',
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (
@@ -60,7 +62,9 @@ const VideotecaList = ({
           <ActionButtons
             id={id}
             editUrl={Routes.videoteca.edit({ id })}
-            deleteModalView={'MODAL_VIDEOTECA_BANNER'}
+            deleteModalView={
+              data?.role === 'ADMIN_MEDIA' ? '' : 'MODAL_VIDEOTECA_BANNER'
+            }
           />
         )
       },

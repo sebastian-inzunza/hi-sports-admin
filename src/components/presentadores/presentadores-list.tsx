@@ -8,6 +8,7 @@ import { Presentador } from '@/types/presentador'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
+import { useMeQuery } from '@/data/user'
 
 type PresentadorListProps = {
   casts: Presentador[]
@@ -20,6 +21,7 @@ const PresentadorList = ({
   onPagination,
 }: PresentadorListProps) => {
   console.log('presentadores', casts)
+  const { data } = useMeQuery()
 
   const columns: any = [
     {
@@ -29,7 +31,7 @@ const PresentadorList = ({
       align: 'center',
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (
@@ -65,7 +67,9 @@ const PresentadorList = ({
           <ActionButtons
             id={id}
             editUrl={Routes.presentadores.edit({ id })}
-            deleteModalView={'MODAL_CAST_BANNER'}
+            deleteModalView={
+              data?.role === 'ADMIN_MEDIA' ? '' : 'MODAL_CAST_BANNER'
+            }
             // detailsUrl={Routes.categories.details({ id })}
           />
         )

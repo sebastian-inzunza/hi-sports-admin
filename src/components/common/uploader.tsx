@@ -98,6 +98,15 @@ export default function Uploader({
                   className="object-contain"
                 />
               </figure>
+              <button
+                className="mt-1 rounded bg-red-500 px-2 py-1 text-sm text-white"
+                onClick={() => {
+                  setImage('')
+                  onChange('') // Asegúrate de limpiar también el valor en el componente padre
+                }}
+              >
+                Eliminar
+              </button>
             </div>
           )}
           {loading && (
