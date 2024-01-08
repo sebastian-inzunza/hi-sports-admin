@@ -99,10 +99,10 @@ export default function Uploader({
                 />
               </figure>
               <button
-                className=" bg-red-500 p-1 text-white"
+                className="mt-1 rounded bg-red-500 px-2 py-1 text-sm text-white"
                 onClick={() => {
-                  setImage('') // Limpiar la URL de la imagen
-                  onChange('') // Limpiar el valor del componente padre (si es necesario)
+                  setImage('')
+                  onChange('') // Asegúrate de limpiar también el valor en el componente padre
                 }}
               >
                 Eliminar

@@ -12,6 +12,8 @@ export type Category = {
   is_approved?: boolean
 }
 
+//hola
+
 export type CreateCategoryInput = {
   slug: string
   image?: string | null

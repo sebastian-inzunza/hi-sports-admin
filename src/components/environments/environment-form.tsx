@@ -47,7 +47,7 @@ export default function CreateOrUpdateEnvironment({ initialValues }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
-          title="Imágen"
+          title="Imagen"
           details={
             'Te recomendamos utilizar una imagen con las siguientes medidas: 1024x1024 px'
           }

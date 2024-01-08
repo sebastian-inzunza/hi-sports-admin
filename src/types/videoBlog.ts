@@ -9,6 +9,7 @@ export type VideoBlog = {
   slug: string
   autor: string
   plataform: string
+  banned: boolean
 }
 
 export type CreateViodeoBlogInput = {
@@ -18,6 +19,11 @@ export type CreateViodeoBlogInput = {
   content: string
   plataform: string
   autor: string
+}
+
+export interface VideoBlogInput {
+  id: number
+  banned: boolean
 }
 
 export interface VideoBlogQueryOptions extends QueryOptions {

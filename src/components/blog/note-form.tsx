@@ -64,7 +64,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     ...(Boolean(initialValues) && {
       defaultValues: {
         ...initialValues,
-        content: initialValues?.content ?? '', // Incluye el contenido del editor
       },
     }),
   })
@@ -126,7 +125,6 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
             autor,
           }
-
           updateNote({
             id: initialValues?.id.toString() ?? '0',
             ...input2,
@@ -156,7 +154,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap border-b border-dashed border-border-base pb-8 sm:my-8">
         <Description
-          title="Imágen"
+          title="Imagen"
           details={imageInformation}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />

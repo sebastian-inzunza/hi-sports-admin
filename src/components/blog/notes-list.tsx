@@ -25,6 +25,8 @@ type NotesListProps = {
 const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
   const { t } = useTranslation()
   const { mutate: update, isLoading } = useUpdateNoteMutation()
+  const { data } = useMeQuery()
+
   function changeStatus(note: Note, status: boolean) {
     update({
       id: note.id.toString(),
@@ -34,7 +36,7 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
 
   const columns: any = [
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       align: 'center' as AlignType,
@@ -119,7 +121,13 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
             {/* {data?.id.toString() != id && ( */}
             <ActionButtons
               id={id}
-              deleteModalView={note.banned ? 'DELETE_NOTE' : ''}
+              deleteModalView={
+                data?.role === 'ADMIN_MEDIA'
+                  ? ''
+                  : note.banned
+                  ? 'DELETE_NOTE'
+                  : ''
+              }
               detailsUrl={
                 note.banned ? Routes.blog.details({ id: note.slug }) : ''
               }
@@ -128,7 +136,7 @@ const NotesList = ({ notes, paginatorInfo, onPagination }: NotesListProps) => {
                   ? Routes.blog.details({ id: note.slug }) + '/' + 'details'
                   : ''
               }
-              blogStatus={true}
+              blogStatus={data?.role === 'ADMIN_MEDIA' ? false : true}
               isBlogActive={note.banned}
             />
             {/* )} */}

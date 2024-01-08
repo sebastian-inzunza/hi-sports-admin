@@ -206,7 +206,7 @@ const ActionButtons = ({
               className="text-accent transition duration-200 hover:text-accent focus:outline-none"
               title={'Activar'}
             >
-              <Tooltip title="Activar publicidad" position="top">
+              <Tooltip title="Activar Blog" position="top">
                 <CheckMarkCircle width={20} />
               </Tooltip>
             </button>

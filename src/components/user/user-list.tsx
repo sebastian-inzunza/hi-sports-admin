@@ -81,9 +81,7 @@ const UserList = ({ users, paginatorInfo, onPagination }: UserListProps) => {
               role !== 'SUPER_ADMIN' && !banned ? true : false
             }
             profileUrl={!banned ? router.asPath + '/' + id + '/profile' : ''}
-            detailsUrl={
-              role !== 'SUPER_ADMIN' && !banned ? router.asPath + '/' + id : ''
-            }
+            detailsUrl={router.asPath + '/' + id}
             role={role as Role}
           />
         )

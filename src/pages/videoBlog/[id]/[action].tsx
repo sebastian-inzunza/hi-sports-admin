@@ -22,9 +22,7 @@ export default function UpdateVideoBlogPage() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">
-          {t('form:form-title-edit-category')}
-        </h1>
+        <h1 className="text-lg font-semibold text-heading">Editar videoBlog</h1>
       </div>
       <VideotecaForm defaultValues={videoBlog} />
     </>

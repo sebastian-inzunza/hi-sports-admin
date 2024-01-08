@@ -23,6 +23,9 @@ type Props = {
   userStatus?: boolean
   isShopActive?: boolean
 
+  videoBlogStatus: boolean
+  isVideoBlogrActive: boolean
+
   isPublicidadActive?: boolean
   publicidadStatus?: boolean
   isShopActivePublicidad?: boolean
@@ -50,6 +53,9 @@ const ActionButtons = ({
   isPublicidadActive = false,
   publicidadStatus = false,
   isShopActivePublicidad,
+
+  videoBlogStatus = false,
+  isVideoBlogrActive = false,
 
   approveButton = false,
   showMakeAdminButton = false,
@@ -90,6 +96,10 @@ const ActionButtons = ({
 
   function handleShowContact() {
     openModal('SHOW_CONTACT', id)
+  }
+
+  function handleBlogStatus(banned: boolean) {
+    openModal('BAN_VIDEOBLOG', { id, banned })
   }
 
   function handleReplyQuestion() {
@@ -172,6 +182,32 @@ const ActionButtons = ({
               title={'Activar'}
             >
               <CheckMarkCircle width={20} />
+            </button>
+          )}
+        </>
+      )}
+
+      {videoBlogStatus && (
+        <>
+          {isVideoBlogrActive ? (
+            <button
+              onClick={() => handleBlogStatus(false)}
+              className="text-red-500 transition duration-200 hover:text-red-600 focus:outline-none"
+              title={'Bloquear'}
+            >
+              <Tooltip title="Bloquear VideoBlog" position="top">
+                <BanUser width={20} />
+              </Tooltip>
+            </button>
+          ) : (
+            <button
+              onClick={() => handleBlogStatus(true)}
+              className="text-accent transition duration-200 hover:text-accent focus:outline-none"
+              title={'Activar'}
+            >
+              <Tooltip title="Activar VideoBlog" position="top">
+                <CheckMarkCircle width={20} />
+              </Tooltip>
             </button>
           )}
         </>

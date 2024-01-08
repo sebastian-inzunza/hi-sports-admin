@@ -30,10 +30,12 @@ export const useUsersQuery = (params: Partial<QueryOptionsType>) => {
 
 export const useUpdateUserMutation = () => {
   const queryClient = useQueryClient()
+  const router = useRouter()
 
   return useMutation(userClient.update, {
     onSuccess() {
-      toast.success('User updated successfully')
+      toast.success('Usuario actualizado con exito')
+      // router.back()
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.ME)
@@ -106,7 +108,7 @@ export const useModifyRoleMutation = () => {
 
   return useMutation(userClient.modifyRole, {
     onSuccess() {
-      toast.success('Role modified successfully')
+      toast.success('usuario hecho administrador')
     },
     onSettled: () => {
       queryClient.invalidateQueries(API_ENDPOINTS.USERS)

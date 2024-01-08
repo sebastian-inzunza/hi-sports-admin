@@ -32,9 +32,12 @@ export interface Tracking {
 }
 
 export enum Role {
-  User = 'USER',
-  Admin = 'ADMIN',
-  Operator = 'OPERATOR',
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  OPERATOR = 'operator',
+  ADMIN_NOTES = 'ADMIN_NOTES',
+  ADMIN_PUBLICITY = 'ADMIN_PUBLICITY',
+  ADMIN_MEDIA = 'ADMIN_MEDIA',
 }
 
 export type UserPagination = {

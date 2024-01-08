@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Pagination from '../ui/pagination'
 import { Table } from '../ui/table'
+import Badge from '../ui/badge/badge'
+import StatusColor from './videoBlog-banned-color'
 
 import { siteSettings } from '@/settings/site.settings'
 import { MappedPaginatorInfo } from '@/types'
@@ -8,6 +10,7 @@ import { VideoBlog } from '@/types/videoBlog'
 import { formatDate } from '@/utils/format-date'
 import ActionButtons from '../ui/action-buttons'
 import { Routes } from '@/config/routes'
+import { useMeQuery } from '@/data/user'
 
 type VideoBlogListProps = {
   videoBlogs: VideoBlog[] | null | undefined
@@ -21,6 +24,8 @@ const VideoBLogList = ({
 }: VideoBlogListProps) => {
   console.log('videoblog', videoBlogs)
 
+  const { data } = useMeQuery()
+
   const columns: any = [
     {
       title: 'ID',
@@ -29,7 +34,7 @@ const VideoBLogList = ({
       align: 'center',
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (
@@ -55,18 +60,35 @@ const VideoBLogList = ({
       key: 'content',
       align: 'center',
     },
+    {
+      title: 'Estatus',
+      dataIndex: 'banned',
+      key: 'banned',
+      align: 'center' as AlignType,
+      render: (banned: true) => (
+        <Badge
+          text={!banned ? 'Inactivo' : 'Activo'}
+          color={StatusColor(!banned)}
+        />
+      ),
+    },
 
     {
       title: 'Acciones',
       dataIndex: 'id',
       key: 'id',
       align: 'center',
-      render: (id: string) => {
+      render: (id: string, videoBlog: VideoBlog) => {
         return (
           <ActionButtons
             id={id}
             editUrl={Routes.videoBlog.edit({ id })}
-            deleteModalView={'MODAL_VIDEOBLOG_BANNER'}
+            deleteModalView={
+              data?.role === 'ADMIN_MEDIA' ? '' : 'MODAL_VIDEOBLOG_BANNER'
+            }
+            videoBlogStatus={data?.role === 'ADMIN_MEDIA' ? false : true}
+            isVideoBlogrActive={videoBlog.banned}
+            // detailsUrl={Routes.blog.details({ id: note.slug }) + '/' + 'details'}
           />
         )
       },

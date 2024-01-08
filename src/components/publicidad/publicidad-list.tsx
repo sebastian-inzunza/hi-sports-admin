@@ -31,7 +31,7 @@ const PublicidadList = ({
       align: 'center',
     },
     {
-      title: 'Imágen',
+      title: 'Imagen',
       dataIndex: 'image',
       key: 'image',
       render: (image: string) => (
