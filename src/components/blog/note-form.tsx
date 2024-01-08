@@ -24,6 +24,7 @@ import Label from '../ui/label'
 import SelectInput from '../ui/select-input'
 import { getErrorMessage } from '@/utils/form-error'
 import { useState } from 'react'
+import Image from 'next/image'
 
 type FormValues = {
   id: number
@@ -68,7 +69,9 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
     }),
   })
 
-  const [content, setContent] = useState(initialValues?.content || '')
+  const [content, setContent] = useState(
+    initialValues?.content ? initialValues?.content : ''
+  )
 
   const handleChange = (value: any) => {
     setContent(value)
@@ -80,27 +83,30 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const { mutate: updateNote, isLoading: updating } = useUpdateNoteMutation()
   const { mutate: createNote, isLoading: creating } = useCreateNoteMutation()
   const [erorSelect, setErrorSelect] = useState<string>('')
-  const [erorContent, setErrorContent] = useState<string>('')
+  const [erorContent, setErrorContent] = useState<string>()
 
   const onSubmit = async (values: FormValues) => {
     const { title, content, image, categoryId, autor } = values
 
-    console.log(values)
     if (categoryId === undefined) {
       setErrorSelect('La categoria es requerida')
-      setErrorContent('El contenido es requerido')
+      if (!content) {
+        setErrorContent('El contenido es requerido')
+      } else {
+        setErrorContent('')
+      }
     } else {
       setErrorSelect('')
-      setErrorContent('')
       const input = {
         title,
-        content,
+        content: initialValues?.content ? initialValues.content : content,
         slug: slugglify(title),
         image: image?.toString() ?? initialValues?.image ?? '',
         createdBy: initialValues?.createdBy ?? data!.id, // Add userID admin here
         categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
         autor,
       }
+
       try {
         if (!initialValues) {
           createNote({
@@ -113,10 +119,10 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         } else {
           const input2 = {
             title,
-            content,
+            content: initialValues?.content ? initialValues.content : content,
             slug: slugglify(title),
             image: image?.toString() ?? initialValues?.image ?? '',
-            updatedAt: new Date().toISOString(),
+            //updatedAt: new Date().toISOString(),
             categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
             autor,
           }
@@ -156,6 +162,14 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         />
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <FileInput name="image" control={control} multiple={false} />
+          {initialValues?.image && (
+            <Image
+              src={initialValues?.image}
+              alt="Videoteca Image"
+              width={100}
+              height={100}
+            />
+          )}
         </Card>
       </div>
       <div className="my-5 flex flex-wrap sm:my-8">
