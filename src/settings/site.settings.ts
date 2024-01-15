@@ -71,6 +71,11 @@ export const siteSettings = {
         label: 'Publicidad',
         icon: 'ReviewIcon',
       },
+      {
+        href: Routes.programing.list,
+        label: 'Programación',
+        icon: 'Bell',
+      },
     ],
     coordinador: [
       {

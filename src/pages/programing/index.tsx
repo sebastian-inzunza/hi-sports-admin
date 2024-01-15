@@ -3,25 +3,26 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Layout from '@/components/layout/admin'
 import Card from '@/components/common/card'
 import Search from '@/components/common/search'
+import ErrorMessage from '@/components/ui/error-message'
 import LinkButton from '@/components/ui/link-button'
-import PublicidadList from '@/components/publicidad/publicidad-list'
-
 import Loader from '@/components/ui/loader/loader'
 import { Routes } from '@/config/routes'
-import { usePublicidadQuery } from '@/data/publicidad'
+import { usePresentadorQuery } from '@/data/presentador'
+import CastList from '@/components/presentadores/presentadores-list'
 
-function Publicidad() {
+type Props = {}
+
+function Presentadores({}: Props) {
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(1)
 
-  const { publicidad, error, loading, paginatorInfo } = usePublicidadQuery({
-    limit: 10,
+  const { presentador, error, loading, paginatorInfo } = usePresentadorQuery({
+    limit: 5,
     page,
     search: searchTerm,
   })
 
   function handleSearch({ searchText }: { searchText: string }) {
-    console.log(searchText)
     setSearchTerm(searchText)
     setPage(1)
   }
@@ -34,37 +35,26 @@ function Publicidad() {
     <>
       <Card className="mb-8 flex flex-col items-center md:flex-row">
         <div className="mb-4 md:mb-0 md:w-1/4">
-          <h1 className="text-lg font-semibold text-heading">Publicidad</h1>
+          <h1 className="text-lg font-semibold text-heading">Programación</h1>
         </div>
 
         <div className="ms-auto flex w-full items-center md:w-3/4">
           <Search onSearch={handleSearch} />
-          {publicidad?.length <= 3 ? (
-            <LinkButton
-              href={`${Routes.publicidad.create}`}
-              className="ms-4 h-12 bg-purple-900  hover:bg-purple-300 md:ms-6 "
-            >
-              <span>+ Crear publicidad</span>
-            </LinkButton>
-          ) : (
-            <span className=" mx-3 rounded-md bg-red-500 p-2 text-white">
-              El maximo son 4, edita uno o eliminalo
-            </span>
-          )}
+          <LinkButton
+            href={`${Routes.programing.create}`}
+            className="ms-4 h-12 bg-purple-900  hover:bg-purple-300 md:ms-6 "
+          >
+            <span>+ Crear</span>
+          </LinkButton>
         </div>
       </Card>
-      <PublicidadList
-        publicidades={publicidad}
-        paginatorInfo={paginatorInfo}
-        onPagination={handlePagination}
-      />
     </>
   )
 }
 
-export default Publicidad
+export default Presentadores
 
-Publicidad.Layout = Layout
+Presentadores.Layout = Layout
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {

@@ -69,7 +69,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   })
 
   const [content, setContent] = useState(
-    initialValues?.content ? initialValues?.content : ''
+    initialValues ? initialValues?.content : ''
   )
 
   const handleChange = (value: any) => {
@@ -85,15 +85,18 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
   const [erorContent, setErrorContent] = useState<string>()
 
   const onSubmit = async (values: FormValues) => {
-    const { title, content, image, categoryId, autor } = values
+    const { title, image, categoryId, autor } = values
+
+    console.log(content)
+
+    if (content === '' || content === undefined || content === '<p><br></p>') {
+      setErrorContent('El contenido es requerido')
+    } else {
+      setErrorContent('')
+    }
 
     if (categoryId === undefined) {
       setErrorSelect('La categoria es requerida')
-      if (!content) {
-        setErrorContent('El contenido es requerido')
-      } else {
-        setErrorContent('')
-      }
     } else {
       setErrorSelect('')
       const input = {
@@ -121,7 +124,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
             content: initialValues?.content ? initialValues.content : content,
             slug: slugglify(title),
             image: image?.toString() ?? initialValues?.image ?? '',
-            //updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
             categoryId: categoryId.id ?? initialValues?.categoryId ?? 1,
             autor,
           }
