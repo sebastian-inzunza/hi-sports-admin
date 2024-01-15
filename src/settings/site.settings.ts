@@ -71,8 +71,13 @@ export const siteSettings = {
         label: 'Publicidad',
         icon: 'ReviewIcon',
       },
+      {
+        href: Routes.programing.list,
+        label: 'Programación',
+        icon: 'Bell',
+      },
     ],
-    users: [
+    coordinador: [
       {
         href: Routes.blog.list,
         label: 'Blogs',
@@ -83,10 +88,48 @@ export const siteSettings = {
         label: 'Categorías',
         icon: 'CategoriesIcon',
       },
+
+      {
+        href: Routes.videoBlog.list,
+        label: 'VideoBlog',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.menu.list,
+        label: 'Menu',
+        icon: 'ReviewIcon',
+      },
       {
         href: Routes.videoteca.list,
         label: 'Videoteca',
         icon: 'DashboardIcon',
+      },
+    ],
+
+    ventas: [
+      {
+        href: Routes.publicidad.list,
+        label: 'Publicidad',
+        icon: 'ReviewIcon',
+      },
+    ],
+
+    redactor: [
+      {
+        href: Routes.blog.list,
+        label: 'Blogs',
+        icon: 'ProductsIcon',
+      },
+      {
+        href: Routes.categories.list,
+        label: 'Categorías',
+        icon: 'CategoriesIcon',
+      },
+
+      {
+        href: Routes.videoBlog.list,
+        label: 'VideoBlog',
+        icon: 'ProductsIcon',
       },
       {
         href: Routes.menu.list,
@@ -99,14 +142,9 @@ export const siteSettings = {
         icon: 'CouponsIcon',
       },
       {
-        href: Routes.videoBlog.list,
-        label: 'VideoBlog',
-        icon: 'ProductsIcon',
-      },
-      {
-        href: Routes.publicidad.list,
-        label: 'Publicidad',
-        icon: 'ReviewIcon',
+        href: Routes.videoteca.list,
+        label: 'Videoteca',
+        icon: 'DashboardIcon',
       },
     ],
   },

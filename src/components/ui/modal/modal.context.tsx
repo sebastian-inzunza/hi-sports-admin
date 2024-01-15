@@ -25,6 +25,7 @@ export type MODAL_VIEWS =
   | 'ALERT_DELETE'
   | 'DELETE_NOTICE'
   | 'DELETE_VIDEO'
+  | 'BAN_VIDEOBLOG'
 
 interface State {
   view?: MODAL_VIEWS

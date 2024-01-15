@@ -62,11 +62,23 @@ const UserCreateForm = () => {
   const roleOptions = [
     {
       label: 'Usuario',
-      value: Role.User,
+      value: Role.USER,
     },
     {
       label: 'Operador',
-      value: Role.Operator,
+      value: Role.OPERATOR,
+    },
+    {
+      label: 'Administrador de Media',
+      value: Role.ADMIN_MEDIA,
+    },
+    {
+      label: 'Administrador de publicidad',
+      value: Role.ADMIN_PUBLICITY,
+    },
+    {
+      label: 'Administrador de notas',
+      value: Role.ADMIN_NOTES,
     },
   ]
 

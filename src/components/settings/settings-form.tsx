@@ -68,7 +68,7 @@ export default function CreateOrUpdateSettingsForm({
         <Description
           title={'Logo del ambiente principal'}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5 "
-          details={'Esta imágen se mostrará en la app y en el sitio web.'}
+          details={'Esta Imagen se mostrará en la app y en el sitio web.'}
         />
         <Card className="mb-5 w-full sm:w-8/12 md:w-2/3">
           <FileInput name="logo" control={control} multiple={false} />

@@ -57,6 +57,9 @@ export const Routes = {
   publicidad: {
     ...routesFactory('/publicy'),
   },
+  programing: {
+    ...routesFactory('/programing'),
+  },
 }
 
 function routesFactory(endpoint: string) {

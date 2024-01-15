@@ -6,13 +6,13 @@ import ErrorMessage from '@/components/ui/error-message'
 import Layout from '@/components/layout/admin'
 import Loader from '@/components/ui/loader/loader'
 
-import { useVideoBlogByIdQuery } from '@/data/videoBlog'
-import VideotecaForm from '@/components/videoBlog/videblog-form'
+import { usePresentadorByIdQuery } from '@/data/presentador'
+import CastForm from '@/components/presentadores/presentadores-form'
 
-export default function UpdateVideoBlogPage() {
+export default function UpdateCastsPage() {
   const { query } = useRouter()
   const { t } = useTranslation()
-  const { videoBlog, loading, error } = useVideoBlogByIdQuery({
+  const { presentador, loading, error } = usePresentadorByIdQuery({
     id: query.id as string,
   })
 
@@ -22,14 +22,16 @@ export default function UpdateVideoBlogPage() {
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
-        <h1 className="text-lg font-semibold text-heading">Editar videoBlog</h1>
+        <h1 className="text-lg font-semibold text-heading">
+          Actualizar presentador
+        </h1>
       </div>
-      <VideotecaForm defaultValues={videoBlog} />
+      <CastForm defaultValues={presentador} />
     </>
   )
 }
 
-UpdateVideoBlogPage.Layout = Layout
+UpdateCastsPage.Layout = Layout
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {

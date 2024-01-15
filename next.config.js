@@ -19,6 +19,7 @@ module.exports = withPWA({
       '18.141.64.26',
       '127.0.0.1',
       'localhost',
+      'example.com',
     ],
   },
   webpack(config, _options) {

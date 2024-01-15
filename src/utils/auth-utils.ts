@@ -8,9 +8,21 @@ import {
   SUPER_ADMIN,
   TOKEN,
   USER,
+  OPERATOR,
+  ADMIN_MEDIA,
+  ADMIN_NOTES,
+  ADMIN_PUBLICITY,
 } from './constants'
 
-export const allowedRoles = [SUPER_ADMIN, STAFF, USER, ADMIN]
+export const allowedRoles = [
+  SUPER_ADMIN,
+  USER,
+  ADMIN,
+  OPERATOR,
+  ADMIN_MEDIA,
+  ADMIN_NOTES,
+  ADMIN_PUBLICITY,
+]
 export const adminAndOwnerOnly = [SUPER_ADMIN]
 export const adminOwnerAndStaffOnly = [SUPER_ADMIN, STAFF]
 export const adminOnly = [SUPER_ADMIN]
