@@ -1,4 +1,5 @@
 export const API_ENDPOINTS = {
+  PROGRAMMING: 'programming',
   VIDEOTECA: 'Banner',
   PUBLICIDAD: 'publicity',
   VIDEOBLOG: 'videoBlogs',

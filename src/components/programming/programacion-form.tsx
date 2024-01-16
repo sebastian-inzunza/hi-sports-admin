@@ -1,448 +1,7 @@
-// // //@ts-nocheck
-// // import {
-// //   Table,
-// //   TimePicker,
-// //   Space,
-// //   Upload,
-// //   Image,
-// //   Select,
-// //   Form,
-// //   Input,
-// // } from 'antd'
-// // import FileInput from '../ui/file-input'
-// // import { useForm } from 'react-hook-form'
-// // import Button from '../ui/button'
-// // import { useState } from 'react'
-
-// // const ProgramacionTV = () => {
-// //   const { TextArea } = Input
-// //   const [programacion, setProgramacion] = useState([])
-
-// //   const horas = [
-// //     { hora: '00:00' },
-// //     { hora: '01:00' },
-// //     { hora: '02:00' },
-// //     { hora: '03:00' },
-// //     { hora: '04:00' },
-// //     { hora: '05:00' },
-// //     { hora: '06:00' },
-// //     { hora: '07:00' },
-// //     { hora: '08:00' },
-// //     { hora: '09:00' },
-// //     { hora: '10:00' },
-// //     { hora: '11:00' },
-// //     { hora: '12:00' },
-// //     { hora: '13:00' },
-// //     { hora: '14:00' },
-// //     { hora: '15:00' },
-// //     { hora: '16:00' },
-// //     { hora: '17:00' },
-// //     { hora: '18:00' },
-// //     { hora: '19:00' },
-// //     { hora: '20:00' },
-// //     { hora: '21:00' },
-// //     { hora: '22:00' },
-// //     { hora: '23:00' },
-// //     { hora: '24:00' },
-// //   ]
-
-// //   const handleEliminarFila = (index) => {
-// //     const newProgramacion = [...programacion]
-// //     newProgramacion.splice(index, 1)
-// //     setProgramacion(newProgramacion)
-// //   }
-
-// //   const handleImageChange = (info, index) => {
-// //     if (info.file.status === 'done') {
-// //       const newProgramacion = [...programacion]
-// //       newProgramacion[index].imagen = info.file.originFileObj
-// //       newProgramacion[index].nombreImagen = info.file.name // Almacena el nombre de la imagen
-// //       setProgramacion(newProgramacion)
-// //     }
-// //   }
-
-// //   const { Option } = Select
-// //   const { control } = useForm()
-
-// //   const columns = [
-// //     {
-// //       title: 'Hora',
-// //       dataIndex: 'hora',
-// //       key: 'hora',
-// //       render: (text, record, index) => (
-// //         <Form.Item
-// //           label="Hora"
-// //           name={`hour_${index}`} // Usa el índice para hacerlo único
-// //           rules={[
-// //             {
-// //               required: true,
-// //               message: 'Por favor, seleccione una opción',
-// //             },
-// //           ]}
-// //         >
-// //           <Select
-// //             showSearch={false}
-// //             mode="multiple"
-// //             style={{ width: 200 }}
-// //             placeholder="Selecciona un elemento"
-// //           >
-// //             {horas.map((element) => (
-// //               <Option value={element.hora} key={element.hora}>
-// //                 {element.hora}
-// //               </Option>
-// //             ))}
-// //           </Select>
-// //         </Form.Item>
-// //       ),
-// //     },
-// //     {
-// //       title: 'Programa',
-// //       dataIndex: 'programa',
-// //       key: 'programa',
-// //       render: (text, record, index) => (
-// //         <Form.Item
-// //           label="Título"
-// //           name={`title_${index}`} // Usa el índice para hacerlo único
-// //           rules={[
-// //             {
-// //               required: true,
-// //               message: 'Por favor, escribe el título',
-// //             },
-// //           ]}
-// //         >
-// //           <TextArea placeholder="Título" autoSize />
-// //         </Form.Item>
-// //       ),
-// //     },
-// //     {
-// //       title: 'Imagen',
-// //       dataIndex: 'imagen',
-// //       key: 'imagen',
-// //       height: 250, // Ajusta el ancho de la columna 'Imagen'
-// //       render: (text, record, index) => (
-// //         <Form.Item
-// //           name={`image_${index}`}
-// //           label="Logo"
-// //           name={`image_${index}`} // Usa el índice para hacerlo único
-// //           rules={[
-// //             {
-// //               required: true,
-// //               message: 'Por favor, ingresa la imagen',
-// //             },
-// //           ]}
-// //         >
-// //           <FileInput
-// //             name={`image_${index}`}
-// //             control={control}
-// //             multiple={false}
-// //           />
-// //         </Form.Item>
-// //       ),
-// //     },
-// //     {
-// //       title: 'Acciones',
-// //       dataIndex: 'acciones',
-// //       key: 'acciones',
-// //       render: (text, record, index) => (
-// //         <Space>
-// //           <Button type="link" onClick={() => handleEliminarFila(index)}>
-// //             Eliminar
-// //           </Button>
-// //         </Space>
-// //       ),
-// //     },
-// //   ]
-
-// //   const handleTimeChange = (value, index) => {
-// //     const newProgramacion = [...programacion]
-// //     newProgramacion[index].hora = value.format('HH:mm')
-// //     setProgramacion(newProgramacion)
-// //   }
-
-// //   const handleAgregarFila = () => {
-// //     setProgramacion((prevProgramacion) => [
-// //       ...prevProgramacion,
-// //       { hora: '00:00', programa: '', imagen: null },
-// //     ])
-// //   }
-
-// //   const onFinish = (values) => {
-// //     // Aquí puedes manejar la lógica cuando el formulario se envía
-// //     console.log('Formulario enviado:', values)
-// //   }
-
-// //   return (
-// //     <Form onFinish={onFinish} layout="vertical">
-// //       <Table
-// //         dataSource={programacion}
-// //         columns={columns}
-// //         pagination={false}
-// //         rowKey={(record, index) => index}
-// //       />
-
-// //       <Form.Item className='mt-3'>
-// //         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-// //           <div>
-// //             <Button type="primary" onClick={handleAgregarFila}>
-// //               Agregar Fila
-// //             </Button>
-// //             <Button
-// //               className="ml-3"
-// //               type="danger"
-// //               onClick={() => setProgramacion([])}
-// //             >
-// //               Eliminar Todas las Filas
-// //             </Button>
-// //           </div>
-// //           <Button type="secondary" htmlType="submit">
-// //             Enviar Formulario
-// //           </Button>
-// //         </div>
-// //       </Form.Item>
-// //     </Form>
-// //   )
-// // }
-
-// // export default ProgramacionTV
-
-// import React from 'react'
-// import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-// import { Button, Card, Form, Input, Select, Space } from 'antd'
-// import { useForm } from 'react-hook-form'
-// import FileInput from '../ui/file-input'
-// import Uploader from '../common/uploaderAntd'
-// import ButtonMy from '../ui/button'
-
-// const onFinish = (values: any) => {
-//   console.log('Received values of form:', values)
-// }
-
-// const horas = [
-//   { hora: '00:00' },
-//   { hora: '01:00' },
-//   { hora: '02:00' },
-//   { hora: '03:00' },
-//   { hora: '04:00' },
-//   { hora: '05:00' },
-//   { hora: '06:00' },
-//   { hora: '07:00' },
-//   { hora: '08:00' },
-//   { hora: '09:00' },
-//   { hora: '10:00' },
-//   { hora: '11:00' },
-//   { hora: '12:00' },
-//   { hora: '13:00' },
-//   { hora: '14:00' },
-//   { hora: '15:00' },
-//   { hora: '16:00' },
-//   { hora: '17:00' },
-//   { hora: '18:00' },
-//   { hora: '19:00' },
-//   { hora: '20:00' },
-//   { hora: '21:00' },
-//   { hora: '22:00' },
-//   { hora: '23:00' },
-//   { hora: '24:00' },
-// ]
-
-// const dias = [
-//   { dia: 'Lunes' },
-//   { dia: 'Martes' },
-//   { dia: 'Miercoles' },
-//   { dia: 'Jueves' },
-//   { dia: 'Viernes' },
-//   { dia: 'Sabado' },
-//   { dia: 'Domingo' },
-// ]
-
-// const ProgramaTv = () => {
-//   const { control } = useForm()
-//   const [form] = Form.useForm()
-
-//   return (
-//     <Card>
-//       <Form
-//         onFinish={onFinish}
-//         labelCol={{ span: 24 }}
-//         wrapperCol={{ span: 24 }}
-//       >
-//         <Form.Item
-//           name="day"
-//           rules={[{ required: true, message: 'Selecciona una opción' }]}
-//         >
-//           <Select
-//             showSearch={false}
-//             style={{ width: 200 }}
-//             placeholder="Selecciona un elemento"
-//           >
-//             {dias.map((element) => (
-//               <Option value={element.dia} key={element.dia}>
-//                 {element.dia}
-//               </Option>
-//             ))}
-//           </Select>
-//         </Form.Item>
-//         <Form.List name="hours">
-//           {(fields, { add, remove }) => (
-//             <>
-//               {fields.map(({ key, name, ...restField }) => (
-//                 <div>
-//                   <div className="flex items-center justify-center">
-//                     <Form.Item
-//                       label="Hora"
-//                       className="w-1/3"
-//                       {...restField}
-//                       name={[name, 'hour']}
-//                       rules={[
-//                         { required: true, message: 'Selecciona una opción' },
-//                       ]}
-//                     >
-//                       <Select
-//                         showSearch={false}
-//                         mode="multiple"
-//                         style={{ width: 250 }}
-//                         placeholder="Selecciona un elemento"
-//                       >
-//                         {horas.map((element) => (
-//                           <Option value={element.hora} key={element.hora}>
-//                             {element.hora}
-//                           </Option>
-//                         ))}
-//                       </Select>
-//                     </Form.Item>
-//                     <Form.Item
-//                       className="mx-3 w-1/3"
-//                       label="Titulo"
-//                       {...restField}
-//                       name={[name, 'title']}
-//                       rules={[
-//                         {
-//                           required: true,
-//                           message: 'Por favor escriba el titulo',
-//                         },
-//                       ]}
-//                     >
-//                       <Input.TextArea
-//                         autoSize
-//                         placeholder="Escriba el titulo"
-//                       />
-//                     </Form.Item>
-//                     <Form.Item
-//                       label="Logo"
-//                       className="mx-3 w-1/2"
-//                       {...restField}
-//                       name={[name, 'thumbnailUrl']}
-//                       rules={[
-//                         {
-//                           required: true,
-//                           message: 'Por favor ingrese la imagen',
-//                         },
-//                       ]}
-//                     >
-//                       <Uploader form={form} />
-//                     </Form.Item>
-
-//                     <div className="w-1/12">
-//                       <MinusCircleOutlined onClick={() => remove(name)} />
-//                     </div>
-//                   </div>
-//                 </div>
-//               ))}
-//               <Form.Item>
-//                 <Button
-//                   type="dashed"
-//                   onClick={() => add()}
-//                   block
-//                   icon={<PlusOutlined />}
-//                 >
-//                   Add field
-//                 </Button>
-//               </Form.Item>
-//             </>
-//           )}
-//         </Form.List>
-//         <Form.Item>
-//           <ButtonMy type="primary" htmlType="submit">
-//             Guardar
-//           </ButtonMy>
-//         </Form.Item>
-//       </Form>
-//     </Card>
-//   )
-// }
-// export default ProgramaTv
-
-// import React, { useState } from 'react'
-// import { Calendar, momentLocalizer } from 'react-big-calendar'
-// import moment from 'moment'
-// import 'react-big-calendar/lib/css/react-big-calendar.css'
-// import 'moment/locale/es' // Importa la localización en español
-
-// const localizer = momentLocalizer(moment)
-
-// const EventCalendar = () => {
-//   const [events, setEvents] = useState([
-//     {
-//       title: 'Evento 1',
-//       start: new Date(2024, 0, 10, 10, 0),
-//       end: new Date(2024, 0, 10, 12, 0),
-//     },
-//     {
-//       title: 'Evento 2',
-//       start: new Date(2024, 0, 15, 14, 0),
-//       end: new Date(2024, 0, 15, 16, 0),
-//     },
-//   ])
-
-//   const handleSelect = ({ start, end }) => {
-//     const title = window.prompt('Nombre del evento:')
-//     if (title) {
-//       const newEvent = {
-//         title,
-//         start,
-//         end,
-//       }
-//       setEvents([...events, newEvent])
-//     }
-//   }
-
-//   return (
-//     <div>
-//       <h2>Calendario de Eventos</h2>
-//       <Calendar
-//         localizer={localizer}
-//         events={events}
-//         startAccessor="start"
-//         endAccessor="end"
-//         style={{ height: 500 }}
-//         selectable
-//         onSelectSlot={handleSelect}
-//         messages={{
-//           today: 'Hoy',
-//           previous: 'Anterior',
-//           next: 'Siguiente',
-//           month: 'Mes',
-//           week: 'Semana',
-//           day: 'Día',
-//           showMore: (total) => `+ Ver más (${total})`,
-//         }}
-//       />
-//     </div>
-//   )
-// }
-
-// export default EventCalendar
-
-// import React, { useState } from 'react'
-// import { Calendar, momentLocalizer } from 'react-big-calendar'
-// import moment from 'moment'
-// import { Modal, Button } from 'antd'
-// import 'antd/dist/antd.css'
-// import 'moment/locale/es' // Importa el idioma español para Moment.js
-
-import React, { useState } from 'react'
+//@ts-nocheck
+import React, { useEffect, useState } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
-import moment from 'moment'
+import moment from 'moment-timezone'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import 'moment/locale/es' // Importa la localización en español
 import Button from '../ui/button'
@@ -451,7 +10,12 @@ import { useForm } from 'react-hook-form'
 import { Toast } from 'react-toastify/dist/components'
 import { toast } from 'react-toastify'
 import Uploader from '../common/uploaderAntd'
-
+import {
+  useCreateProgrammingMutation,
+  useUpdateProgrammingMutation,
+  useProgrammingdQuery,
+  useProgrammingDeleteMutation,
+} from '@/data/programming'
 moment.locale('es') // Configura Moment.js para usar el idioma español
 
 const localizer = momentLocalizer(moment)
@@ -459,70 +23,131 @@ const localizer = momentLocalizer(moment)
 const MyCalendar = () => {
   const [events, setEvents] = useState([])
 
+  const { mutate: createPrograming, isLoading: creating } =
+    useCreateProgrammingMutation()
+  const { mutate: updatePrograming, isLoading: updating } =
+    useUpdateProgrammingMutation()
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const { mutate: deleteProgramming, isLoading: deleteLoading } =
+    useProgrammingDeleteMutation()
+
+  const [page, setPage] = useState(1)
+  const { programing, error, loading, paginatorInfo } = useProgrammingdQuery({
+    limit: 1000,
+    page,
+    search: searchTerm,
+  })
+
+  const [imag, setImg] = useState('')
+  const [idEventdele, setIdEventdele] = useState(0)
+
+  useEffect(() => {
+    if (programing) {
+      const newEvents = programing.map((element) => {
+        const startDate = moment(element.date[0])
+        const endDate = moment(element.date[1])
+
+        const duration = moment.duration(endDate.diff(startDate))
+        //debido a la libreria de moment, cambia la zona horaria aunque le indiques la zona, la cambia y retraza por 6 horas.
+        return {
+          id: element.id,
+          title: element.title,
+          start: new Date(
+            startDate._a[0],
+            startDate._a[1],
+            startDate._a[2],
+            startDate._a[3]
+          ),
+          end: new Date(
+            endDate._a[0],
+            endDate._a[1],
+            endDate._a[2],
+            endDate._a[3]
+          ),
+          duration: String(duration.hours()),
+          image: element.image,
+        }
+      })
+
+      setEvents(newEvents)
+    }
+  }, [programing])
+
   const [selectedDate, setSelectedDate] = useState(null)
 
   const { control } = useForm()
   const [form] = Form.useForm()
 
   const [showModal, setShowModal] = useState(false)
-  const openModal = (index) => {
-    const eventToEdit = events[index]
+  const openModal = (eventId) => {
+    const eventToEdit = events.find((event) => event.id === eventId)
+
     if (eventToEdit) {
       form.setFieldsValue({
         title: eventToEdit.title,
         duration: eventToEdit.duration,
         dateRange: moment(eventToEdit.start),
       })
+      setImg(eventToEdit.image)
+      setIdEventdele(eventToEdit.id)
+
       setShowModal(true)
     }
     setShowModal(true)
   }
   const closeModal = () => {
+    setImg('')
+    setIdEventdele(0)
     setShowModal(false)
     form.resetFields() // Resetea los campos del formulario al cerrar el modal
   }
 
   const handleAddEvent = (values: any) => {
-    const { dateRange, duration, title } = values
+    const { dateRange, duration, title, image } = values
 
-    // Parsea la fecha utilizando Moment.js
-    const startDate = new Date(
-      dateRange.$y,
-      dateRange.$M,
-      dateRange.$D,
-      dateRange.$H,
-      0
-    )
+    const formatoDeseado = 'YYYY-MM-DDTHH:00:00'
+    const startDate = dateRange.format(formatoDeseado)
 
     // Calcula la fecha de finalización agregando la duración en horas
     const endDate = moment(startDate)
       .add(Number(duration), 'hours')
-      .format('YYYY-MM-DD HH:mm')
+      .format('YYYY-MM-DDTHH:00:00')
 
-    // Verifica si hay eventos en el mismo rango de fechas y horas
+    // Verifica si hay eventos en el mismo rango de fechas y horas, fue necesario formatearlo a la fecha que recibe con moment
     const isOverlapping = events.some((event) => {
       return (
-        (startDate >= event.start && startDate <= event.end) ||
-        (endDate >= event.start && endDate <= event.end) ||
-        (startDate <= event.start && endDate >= event.end)
+        (startDate >= moment(event.start).format('YYYY-MM-DDTHH:mm:ss') &&
+          startDate < moment(event.end).format('YYYY-MM-DDTHH:mm:ss')) ||
+        (endDate > moment(event.start).format('YYYY-MM-DDTHH:mm:ss') &&
+          endDate <= moment(event.end).format('YYYY-MM-DDTHH:mm:ss')) ||
+        (startDate <= moment(event.start).format('YYYY-MM-DDTHH:mm:ss') &&
+          endDate >= moment(event.end).format('YYYY-MM-DDTHH:mm:ss'))
       )
     })
 
     if (isOverlapping) {
       // Muestra un mensaje de error o toma la acción correspondiente
-      toast.warning('Ese día ya tiene un evento con esas horas.')
+      toast.warning(
+        'Ese día ya tiene un evento con esas horas, eliminelo y  vuelvalo a agregar.'
+      )
     } else {
-      // Agrega el nuevo evento solo si no hay superposiciones
       const newEvent = {
-        start: startDate,
-        end: endDate,
-        duration: duration,
+        date: [startDate, endDate],
+        image: image,
         title: title,
       }
+      createPrograming(newEvent)
 
-      setEvents([...events, newEvent])
+      // setEvents([...events, newEvent])
       closeModal()
     }
+  }
+
+  const handleDelete = () => {
+    const id = String(idEventdele)
+    deleteProgramming({ id: id })
+    closeModal()
   }
 
   return (
@@ -540,7 +165,7 @@ const MyCalendar = () => {
         endAccessor="end"
         style={{ height: 500 }}
         selectable
-        onSelectEvent={(event, e) => openModal(events.indexOf(event), e)}
+        onSelectEvent={(event, e) => openModal(event.id, e)}
         messages={{
           today: 'Hoy',
           previous: 'Anterior',
@@ -554,10 +179,26 @@ const MyCalendar = () => {
 
       <Modal
         width={'45%'}
-        title="Agregar Evento"
+        title={imag ? 'Detalles de programación' : 'Agregar Evento'}
         visible={showModal}
         onOk={() => form.submit()}
         onCancel={closeModal}
+        footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <CancelBtn />
+
+            {imag ? (
+              <button
+                onClick={() => handleDelete()}
+                className="mx-3 rounded-md bg-red-500 px-4 py-1 text-white"
+              >
+                Eliminar
+              </button>
+            ) : (
+              <OkBtn />
+            )}
+          </>
+        )}
       >
         <Form form={form} onFinish={handleAddEvent}>
           <Form.Item
@@ -621,15 +262,26 @@ const MyCalendar = () => {
             />
           </Form.Item>
 
-          <Form.Item
-            name="image"
-            label="Título"
-            rules={[
-              { required: false, message: 'Por favor, ingresa una imagén' },
-            ]}
-          >
-            <Uploader form={form} />
-          </Form.Item>
+          {imag ? (
+            <div className="flex items-center justify-center">
+              <img
+                src={imag}
+                alt="Imagen programación"
+                width={300}
+                height={100}
+              />
+            </div>
+          ) : (
+            <Form.Item
+              name="image"
+              label="Imagen"
+              rules={[
+                { required: true, message: 'Por favor, ingresa una imagén' },
+              ]}
+            >
+              <Uploader form={form} />
+            </Form.Item>
+          )}
         </Form>
       </Modal>
     </div>
