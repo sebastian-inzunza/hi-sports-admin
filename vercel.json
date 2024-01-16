@@ -1,6 +1,6 @@
 {
   "env": {
-    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-fecdbeff6cd3.herokuapp.com",
+    "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-v1-5056641427c0.herokuapp.com",
     "NEXT_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyDbQ0EYliA5mpyqIwU9RfohMU5cVUHs6Hc",
     "NEXT_PUBLIC_AUTH_TOKEN_KEY": "AUTH_CRED",
     "APPLICATION_MODE": "production",
@@ -10,7 +10,7 @@
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-fecdbeff6cd3.herokuapp.com",
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://hi-sports-v1-5056641427c0.herokuapp.com",
       "NEXT_PUBLIC_GOOGLE_MAP_API_KEY": "AIzaSyDbQ0EYliA5mpyqIwU9RfohMU5cVUHs6Hc",
       "NEXT_PUBLIC_AUTH_TOKEN_KEY": "AUTH_CRED",
       "APPLICATION_MODE": "production",
