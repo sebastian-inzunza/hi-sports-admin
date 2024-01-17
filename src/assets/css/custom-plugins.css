@@ -321,3 +321,14 @@ input[type='number'].number-disable::-webkit-inner-spin-button {
   display: inline-block;
   padding: 0 1px;
 }
+
+.ant-btn.css-dev-only-do-not-override-dkbvqv.ant-btn-primary {
+  background-color: #650a7a !important;
+}
+/*preuab */
+.ant-btn:disabled,
+.ant-btn-disabled {
+  color: #fafafa;
+  opacity: 0.6; /* Por ejemplo, reduce la opacidad */
+  cursor: not-allowed; /* Cambia el cursor */
+}
