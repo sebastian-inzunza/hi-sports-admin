@@ -24,7 +24,7 @@ import ManagedModal from '@/components/ui/modal/managed-modal'
 import PrivateRoute from '@/utils/private-route'
 import { Config } from '@/config'
 import type { NextPageWithLayout } from '@/types'
-import '../styles/global.css'
+import 'src/styles/global.css'
 const Noop: React.FC<{ children?: React.ReactNode }> = ({ children }) => (
   <>{children}</>
 )
