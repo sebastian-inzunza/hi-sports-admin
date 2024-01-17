@@ -251,6 +251,7 @@ const MyCalendar = () => {
             ]}
           >
             <DatePicker
+              showNow={false}
               showTime={{
                 format: 'HH:mm',
                 use12Hours: false,
