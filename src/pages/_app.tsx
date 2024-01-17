@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@/assets/css/main.css'
+import '@/styles/global.css'
 
 import { SettingsProvider } from '@/contexts/settings.context'
 import { UIProvider } from '@/contexts/ui.context'
