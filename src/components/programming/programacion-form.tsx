@@ -22,6 +22,7 @@ const localizer = momentLocalizer(moment)
 
 const MyCalendar = () => {
   const [events, setEvents] = useState([])
+  const [selectedHour, setSelectedHour] = useState('00:00')
 
   const { mutate: createPrograming, isLoading: creating } =
     useCreateProgrammingMutation()
@@ -74,8 +75,6 @@ const MyCalendar = () => {
     }
   }, [programing])
 
-  const [selectedDate, setSelectedDate] = useState(null)
-
   const { control } = useForm()
   const [form] = Form.useForm()
 
@@ -84,13 +83,17 @@ const MyCalendar = () => {
     const eventToEdit = events.find((event) => event.id === eventId)
 
     if (eventToEdit) {
+      const hourString = String(eventToEdit.start)
+
       form.setFieldsValue({
         title: eventToEdit.title,
         duration: eventToEdit.duration,
         dateRange: moment(eventToEdit.start),
+        hour: hourString.split(' ')[4].split(':')[0] + ':00',
       })
       setImg(eventToEdit.image)
       setIdEventdele(eventToEdit.id)
+      setSelectedHour(hourString.split(' ')[4].split(':')[0] + ':00')
 
       setShowModal(true)
     }
@@ -101,10 +104,13 @@ const MyCalendar = () => {
     setIdEventdele(0)
     setShowModal(false)
     form.resetFields() // Resetea los campos del formulario al cerrar el modal
+    setSelectedHour('00:00')
   }
 
   const handleAddEvent = (values: any) => {
-    const { dateRange, duration, title, image } = values
+    const { dateRange, duration, title, image, hour } = values
+
+    dateRange.$H = parseInt(hour.split(':')[0])
 
     const formatoDeseado = 'YYYY-MM-DDTHH:00:00'
     const startDate = dateRange.format(formatoDeseado)
@@ -149,6 +155,21 @@ const MyCalendar = () => {
     deleteProgramming({ id: id })
     closeModal()
   }
+  const handleHourChange = (hour) => {
+    setSelectedHour(hour)
+  }
+  const generateHoursOptions = () => {
+    const hoursOptions = []
+    for (let i = 0; i < 24; i++) {
+      const formattedHour = moment({ hour: i }).format('HH:mm')
+      hoursOptions.push(
+        <Option key={formattedHour} value={formattedHour}>
+          {formattedHour}
+        </Option>
+      )
+    }
+    return hoursOptions
+  }
 
   return (
     <div>
@@ -183,7 +204,7 @@ const MyCalendar = () => {
         visible={showModal}
         onOk={() => form.submit()}
         onCancel={closeModal}
-        footer={(_, { OkBtn, CancelBtn }) => (
+        footer={(_, { CancelBtn }) => (
           <>
             <CancelBtn />
 
@@ -195,7 +216,12 @@ const MyCalendar = () => {
                 Eliminar
               </button>
             ) : (
-              <OkBtn />
+              <button
+                onClick={() => form.submit()}
+                className="hove:bg-purple-700 mx-2 rounded-md bg-purple-800 px-3 py-1 text-white hover:bg-purple-700"
+              >
+                Crear
+              </button>
             )}
           </>
         )}
@@ -240,18 +266,19 @@ const MyCalendar = () => {
               </Option>
             </Select>
           </Form.Item>
-          <Form.Item
-            name="dateRange"
-            label="Fecha y Hora"
-            rules={[
-              {
-                required: true,
-                message: 'Por favor, selecciona una fecha y hora',
-              },
-            ]}
-          >
-            <DatePicker
-              showNow={false}
+          <div className="grid grid-cols-2">
+            <Form.Item
+              className="mr-3"
+              name="dateRange"
+              label="Fecha"
+              rules={[
+                {
+                  required: true,
+                  message: 'Por favor, selecciona una fecha',
+                },
+              ]}
+            >
+              {/* <DatePicker
               showTime={{
                 format: 'HH:mm',
                 use12Hours: false,
@@ -260,8 +287,35 @@ const MyCalendar = () => {
               format="DD/MM/YYYY HH:mm" // Ajustado al formato de Moment.js
               style={{ width: '100%' }}
               placeholder="Seleccione una fecha"
-            />
-          </Form.Item>
+            /> */}
+              <DatePicker
+                showToday={false}
+                placeholder="Seleccione una fecha"
+                style={{ width: '100%' }}
+                format="DD/MM/YYYY" // Ajustado al formato de Moment.js
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="hour"
+              label="Hora"
+              rules={[
+                {
+                  required: true,
+                  message: 'Por favor, selecciona una hora',
+                },
+              ]}
+            >
+              <Select
+                style={{ width: '100%' }}
+                placeholder="Seleccione una hora"
+                onChange={handleHourChange}
+                value={selectedHour}
+              >
+                {generateHoursOptions()}
+              </Select>
+            </Form.Item>
+          </div>
 
           {imag ? (
             <div className="flex items-center justify-center">
