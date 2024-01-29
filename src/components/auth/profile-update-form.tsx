@@ -50,15 +50,23 @@ export default function ProfileUpdateForm({ me }: UsersResponse | any) {
 
   const roleOptions = [
     {
-      label: 'Redactores',
+      label: 'Usuario',
+      value: Role.USER,
+    },
+    {
+      label: 'Operador',
+      value: Role.OPERATOR,
+    },
+    {
+      label: 'Administrador de Media',
       value: Role.ADMIN_MEDIA,
     },
     {
-      label: 'Ventas',
+      label: 'Administrador de publicidad',
       value: Role.ADMIN_PUBLICITY,
     },
     {
-      label: 'Coordinador',
+      label: 'Administrador de notas',
       value: Role.ADMIN_NOTES,
     },
   ]

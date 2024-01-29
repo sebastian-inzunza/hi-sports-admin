@@ -121,7 +121,7 @@ export default function CreateOrUpdateNoteForm({ initialValues }: IProps) {
         } else {
           const input2 = {
             title,
-            content: initialValues?.content ? initialValues.content : content,
+            content: content,
             slug: slugglify(title),
             image: image?.toString() ?? initialValues?.image ?? '',
             updatedAt: new Date().toISOString(),

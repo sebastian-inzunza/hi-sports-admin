@@ -34,7 +34,7 @@ function VideoBlog() {
     <>
       <Card className="mb-8 flex flex-col items-center md:flex-row">
         <div className="mb-4 md:mb-0 md:w-1/4">
-          <h1 className="text-lg font-semibold text-heading">Video blogs</h1>
+          <h1 className="text-lg font-semibold text-heading">VideoBlogs</h1>
         </div>
 
         <div className="ms-auto flex w-full items-center md:w-3/4">
@@ -44,7 +44,7 @@ function VideoBlog() {
               href={`${Routes.videoBlog.create}`}
               className="ms-4 h-12 bg-purple-900  hover:bg-purple-300 md:ms-6 "
             >
-              <span>+ Crear Video blog</span>
+              <span>+ Crear Videoblog</span>
             </LinkButton>
           ) : (
             <span className=" mx-3 rounded-md bg-red-500 p-2 text-white">

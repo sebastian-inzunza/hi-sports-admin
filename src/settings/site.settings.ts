@@ -53,7 +53,7 @@ export const siteSettings = {
       },
       {
         href: Routes.menu.list,
-        label: 'Menu',
+        label: 'Menú',
         icon: 'ReviewIcon',
       },
       {
@@ -96,7 +96,7 @@ export const siteSettings = {
       },
       {
         href: Routes.menu.list,
-        label: 'Menu',
+        label: 'Menú',
         icon: 'ReviewIcon',
       },
       {
@@ -133,7 +133,7 @@ export const siteSettings = {
       },
       {
         href: Routes.menu.list,
-        label: 'Menu',
+        label: 'Menú',
         icon: 'ReviewIcon',
       },
       {

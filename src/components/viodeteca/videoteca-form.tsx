@@ -103,7 +103,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title="Videoteca"
-          details="Esta sección es para subir los video en vivo del carousel"
+          details="Esta sección es para subir los video en vivo del carrusel"
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 
@@ -130,7 +130,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
           </Button>
         )}
         <Button disabled={creating} loading={creating}>
-          {defaultValues ? 'Actualizar Banner' : 'Crear Banner'}
+          {defaultValues ? 'Actualizar Videoteca' : 'Crear Videoteca'}
         </Button>
       </div>
     </form>

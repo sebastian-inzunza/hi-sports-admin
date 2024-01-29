@@ -39,7 +39,7 @@ function Publicidad() {
 
         <div className="ms-auto flex w-full items-center md:w-3/4">
           <Search onSearch={handleSearch} />
-          {publicidad?.length <= 3 ? (
+          {publicidad?.length <= 2 ? (
             <LinkButton
               href={`${Routes.publicidad.create}`}
               className="ms-4 h-12 bg-purple-900  hover:bg-purple-300 md:ms-6 "
@@ -48,7 +48,7 @@ function Publicidad() {
             </LinkButton>
           ) : (
             <span className=" mx-3 rounded-md bg-red-500 p-2 text-white">
-              El maximo son 4, edita uno o eliminalo
+              El maximo son 3, edita uno o eliminalo
             </span>
           )}
         </div>
