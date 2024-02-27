@@ -6,12 +6,14 @@ import Input from '../ui/input'
 import {
   useCreatePublicidadMutation,
   useUpdatePublicidadMutation,
+  usePublicidadQuery,
 } from '@/data/publicidad'
 import { useRouter } from 'next/router'
 import FileInput from '../ui/file-input'
 import Image from 'next/image'
 import { CreatePublicidadInput } from '@/types/publicidad'
 import { useState } from 'react'
+import Select from '../ui/select/select'
 
 const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   console.log('===== VideotecaForm =====')
@@ -21,6 +23,45 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   const router = useRouter()
   const [error, setError] = useState<string>('')
 
+  let selectEnable: { label: string; value: string }[] = []
+
+  const { publicidad, loading, paginatorInfo } = usePublicidadQuery({
+    limit: 10,
+    page: 1,
+    search: '',
+  })
+
+  if (publicidad) {
+    // Inicializa selectEnable como un array vacío
+
+    publicidad.forEach((element) => {
+      // Agrega cada elemento al array selectEnable
+      selectEnable.push({
+        label: element.company,
+        value: element.company,
+      })
+    })
+  }
+
+  const publicityOptions = [
+    {
+      label: 'Lateral',
+      value: 'Lateral',
+    },
+    {
+      label: 'Bottom',
+      value: 'Bottom',
+    },
+    {
+      label: 'Modal',
+      value: 'Modal',
+    },
+  ].filter(
+    (option) =>
+      !selectEnable.some((selected) => selected.value === option.value)
+  )
+  const [selectedOption, setSelectedOption] = useState<any>(null)
+
   const { mutate: createPublicidad, isLoading: creating } =
     useCreatePublicidadMutation()
   const { mutate: updatePublicidad, isLoading: updating } =
@@ -29,6 +70,7 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     control,
   } = useForm<CreatePublicidadInput>({
@@ -105,7 +147,8 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
       <div className="my-5 flex flex-wrap sm:my-8">
         <Description
           title="Publicidad"
-          details="Esta sección es para subir la publicidad que aparece."
+          details="Esta sección es para subir la publicidad que aparece.
+          Recuerda que solo debe existir una de cada una."
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
         />
 
@@ -120,13 +163,35 @@ const VideotecaForm = ({ defaultValues }: { defaultValues?: any }) => {
           />
 
           <Input
-            label="Marca / Empresa"
+            label="Orientación de publicidad"
+            {...register('company')}
+            type="text"
+            variant="outline"
+            className="mb-4"
+            disabled
+          />
+
+          <Select
+            isDisabled={publicityOptions.length === 0 ? true : false}
+            options={publicityOptions}
+            getOptionLabel={(option: any) => option?.label}
+            getOptionValue={(option: any) => option?.value}
+            placeholder="Orientación de la publicidad"
+            isClearable={true}
+            onChange={(selectedOption) => {
+              setValue('company', selectedOption?.value)
+              setSelectedOption(selectedOption)
+            }}
+            noOptionsMessage={() => 'No hay opciones disponibles'}
+          />
+          {/* <Input
+            label="Orientación de publicidad"
             {...register('company')}
             type="text"
             variant="outline"
             className="mb-4"
             error={error}
-          />
+          /> */}
         </Card>
       </div>
       <div className="mb-4 text-end sm:mb-8">

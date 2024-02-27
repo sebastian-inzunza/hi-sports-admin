@@ -21,8 +21,6 @@ const PublicidadList = ({
   paginatorInfo,
   onPagination,
 }: PublicidadListProps) => {
-  console.log('publicidad', publicidades)
-
   const columns: any = [
     {
       title: 'ID',
@@ -53,7 +51,7 @@ const PublicidadList = ({
     },
 
     {
-      title: 'Compañía',
+      title: 'Orientación',
       dataIndex: 'company',
       key: 'company',
       align: 'center',
